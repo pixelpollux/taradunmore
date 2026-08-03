@@ -1,39 +1,36 @@
 {
-  "name": "taradunmore",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "homepage": "https://pixelpollux.github.io/taradunmore/",
   "scripts": {
-    "dev": "vite --config vite.config.js",
-    "build": "vite build --config vite.config.js",
-    "lint": "eslint .",
-    "preview": "vite preview --config vite.config.js",
-    "start": "vite",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "setup": "node ./lib/setup.js"
   },
   "dependencies": {
-    "@uidotdev/usehooks": "^2.4.1",
-    "bootstrap": "^5.3.3",
-    "prettier": "^3.3.3",
-    "react": "^18.3.1",
-    "react-bootstrap": "^2.10.4",
-    "react-dom": "^18.3.1"
+    "@contentful/rich-text-react-renderer": "^15.22.11",
+    "@contentful/rich-text-types": "^16.8.5",
+    "@contentful/vercel-nextjs-toolkit": "latest",
+    "@tailwindcss/typography": "0.5.9",
+    "@types/node": "^20.5.0",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "autoprefixer": "10.4.15",
+    "class-variance-authority": "^0.7.1",
+    "contentful-import": "^8.2.24",
+    "date-fns": "2.30.0",
+    "fsevents": "^2.3.3",
+    "lucide-react": "^1.28.0",
+    "next": "^16.2.11",
+    "postcss": "8.4.31",
+    "present": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "scripts": "^0.1.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.1.6"
   },
-  "devDependencies": {
-    "@eslint/js": "^9.9.0",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "eslint": "^9.9.0",
-    "eslint-plugin-react": "^7.35.0",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.9",
-    "gh-pages": "^6.1.1",
-    "globals": "^15.9.0",
-    "sass": "^1.77.8",
-    "vite": "^5.4.2"
+  "allowScripts": {
+    "fsevents@2.3.3": true,
+    "sharp@0.34.5": true
   }
 }
