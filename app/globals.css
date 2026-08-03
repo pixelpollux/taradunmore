@@ -1,26 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Cherry+Bomb+One&family=Fredoka:wght@300..700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-	@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Cherry+Bomb+One&family=Fredoka:wght@300..700&display=swap");
-	
 	--white: #f2f2f2;
-	--shade: #E5E5E5;
+	--shade: #e5e5e5;
 	--grey: #858585;
 	--black: #08060d;
 	--eggplant: #330036;
 	--pink: #fe019a;
 	--lime: #c9ff00;
-	
-	--text: #330036; 
+
+	--text: #330036;
 	--text-inverse: var(--white);
 	--text-h: #08060d;
 	--bg: var(--white);
 	--bg-shaded: var(--shade);
 	--border: #e5e4e7;
 	--code-bg: #f4f3ec;
-	--accent: var(--pink); 
+	--accent: var(--pink);
 	--accent-secondary: var(--lime);
 	--accent-bg: rgba(170, 59, 255, 0.1);
 	--accent-border: rgba(170, 59, 255, 0.5);
@@ -42,24 +42,24 @@
 	}
 }
 
-@theme {
+/* @theme {
 	--sans: "Fredoka", sans-serif;
 	--bagel: "Bagel Fat One", serif;
 	--cherry: "Cherry Bomb One", serif;
 
-	--text: #330036; /* eggplant */
+	--text: #330036; 
 	--text-h: #08060d;
 	--bg: #f2f2f2;
 	--border: #e5e4e7;
 	--code-bg: #f4f3ec;
-	--accent: #fe019a; /*neon pink */
-	--accent-secondary: #c9ff00; /* liquid neon */
+	--accent: #fe019a; 
+	--accent-secondary: #c9ff00; 
 	--accent-bg: rgba(170, 59, 255, 0.1);
 	--accent-border: rgba(170, 59, 255, 0.5);
 	--social-bg: rgba(244, 243, 236, 0.5);
 	--shadow:
 		rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-}
+} */
 
 /* header nav */
 .nav__home-link {
