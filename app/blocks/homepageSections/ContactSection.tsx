@@ -33,7 +33,7 @@ export default async function ContactSection() {
 								<Headline
 									text="let's connect!"
 									headlineVariant='highlighter'
-									className='scroll-mt-[var(--nav-height)]'
+									className='scroll-mt-[var(--nav-height)] text-center sm:text-left'
 									id='contact-section-title'
 								/>
 								<p>

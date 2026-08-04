@@ -48,11 +48,11 @@ export default async function SkillsSection() {
 	return (
 		<>
 			<Layout text='skills' id='skills-section'>
-				<div className='grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-x-12 '>
+				<div className='grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-x-12 '>
 					{skillCategories.map((skillCategory, index) => (
 						<div
 							key={skillCategory.label}
-							className={`pb-4 border-b-[1px] border-b-[color-mix(in_oklch,var(--accent)_50%,transparent)] last:border-b-0 ${index >= borderlessStartIndex ? "lg:border-b-0" : ""}`}
+							className={`pb-4 border-b-[1px] border-b-[color-mix(in_oklch,var(--accent)_50%,transparent)] last:border-b-0 ${index >= borderlessStartIndex ? "md:border-b-0" : ""}`}
 						>
 							<h3 className='text-lg font-bold tracking-[1] break-normal wrap-anywhere mb-2 italic'>
 								{skillCategory.label}

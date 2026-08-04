@@ -22,7 +22,7 @@ export default function Layout({
 						id={id}
 						text={text}
 						headlineVariant='highlighter'
-						className='scroll-mt-[var(--nav-height)]'
+						className='scroll-mt-[var(--nav-height)] text-center sm:text-left w-full'
 					/>
 					{headerActions}
 				</div>

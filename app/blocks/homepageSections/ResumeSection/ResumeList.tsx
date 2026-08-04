@@ -75,14 +75,14 @@ export default function ResumeList({ items }: { items: any[] }) {
 			<div className='container--inner container lg:max-w-7xl mx-auto px-8 lg:px-12'>
 				<Card id='resume-section'>
 					<div className='flex flex-col gap-4'>
-						<div className='flex items-center justify-between flex-wrap gap-4'>
+						<div className='flex items-center justify-center sm:justify-between flex-wrap gap-x-12 gap-4'>
 							<Headline
 								text='resume'
 								headlineVariant='highlighter'
-								className='scroll-mt-[var(--nav-height)]'
+								className='scroll-mt-[var(--nav-height)] text-center sm:text-left'
 								id='resume-section-title'
 							/>
-							<div className='flex flex-wrap flex-col lg:flex-row gap-1 md:gap-2'>
+							<div className='flex flex-col sm:flex-row lg:flex-row gap-1 md:gap-2'>
 								<Button
 									text={
 										isOpen ? "Hide Resume" : "View Resume"

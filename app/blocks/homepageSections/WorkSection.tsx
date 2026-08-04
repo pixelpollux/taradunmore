@@ -14,13 +14,13 @@ export default async function WorkSection() {
 			<Layout
 				text='work'
 				id='work-section'
-				headerActions={
-					<Button
-						buttonVariant='secondary'
-						text='See more work →'
-						href='/work'
-					/>
-				}
+				// headerActions={
+				// 	<Button
+				// 		buttonVariant='secondary'
+				// 		text='See more work →'
+				// 		href='/work'
+				// 	/>
+				// }
 			>
 				<div className='flex flex-col gap-6'>
 					{featured && (
