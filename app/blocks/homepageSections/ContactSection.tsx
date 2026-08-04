@@ -62,8 +62,8 @@ export default async function ContactSection() {
 												isClickable={true}
 												cardVariant='slim'
 											>
-												<div className='flex items-center justify-between justify-self-center sm:justify-self-auto gap-4'>
-													<div className='flex flex-col sm:flex-row items-center justify-self-center sm:justify-self-start gap-4'>
+												<div className='flex items-center justify-center sm:justify-between gap-4'>
+													<div className='flex flex-col sm:flex-row items-center gap-4'>
 														<span className='inline-flex size-12 items-center justify-center rounded-3xl  bg-[color-mix(in_oklch,var(--accent)_20%,transparent)] text-[--text]'>
 															<Icon />
 														</span>
