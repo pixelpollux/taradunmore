@@ -49,6 +49,7 @@ export default async function PostPage({
 						<CoverImage
 							title={post.title}
 							url={post.coverImage.url}
+							priority
 						/>
 					</div>
 				)}

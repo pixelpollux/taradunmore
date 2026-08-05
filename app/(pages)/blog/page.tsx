@@ -40,6 +40,7 @@ function HeroPost({
 							title={title}
 							slug={slug}
 							url={coverImage?.url}
+							priority
 						/>
 					</div>
 					<div className='md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8  p-6 md:p-10'>

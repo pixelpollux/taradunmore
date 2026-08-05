@@ -124,6 +124,7 @@ export default async function WorkItemPage({
 						<CoverImage
 							title={workItem.title}
 							url={workItem.coverImage.url}
+							priority
 						/>
 					</div>
 				)}

@@ -9,15 +9,17 @@ export default function CoverImage({
   title,
   url,
   slug,
+  priority = false,
 }: {
   title: string;
   url: string;
   slug?: string;
+  priority?: boolean;
 }) {
   const image = (
     <ContentfulImage
       alt={`Cover Image for ${title}`}
-      priority
+      priority={priority}
       width={2000}
       height={1000}
       className={cn("shadow-small", {
