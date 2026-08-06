@@ -1,10 +1,10 @@
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 
-import MoreStories from "../../../blocks/more-stories";
-import Avatar from "../../../blocks/avatar";
-import Date from "../../../blocks/date";
-import CoverImage from "../../../blocks/cover-image";
+import MoreStories from "../../../blocks/MoreStories";
+import Avatar from "@/app/ui/Avatar";
+import DateDisplay from "@/app/ui/DateDisplay";
+import CoverImage from "@/app/ui/CoverImage";
 
 import { Markdown } from "@/lib/markdown";
 import { getAllPosts, getPostAndMorePosts } from "@/lib/api";
@@ -63,7 +63,7 @@ export default async function PostPage({
 						)}
 					</div>
 					<div className='mb-6 text-lg'>
-						<Date dateString={post.date} />
+						<DateDisplay dateString={post.date} />
 					</div>
 				</div>
 

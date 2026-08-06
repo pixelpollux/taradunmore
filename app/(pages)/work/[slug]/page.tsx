@@ -4,7 +4,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import Button from "../../../ui/Button";
 
-import CoverImage from "../../../blocks/cover-image";
+import CoverImage from "@/app/ui/CoverImage";
 import ContentfulImage from "@/lib/contentful-image";
 
 import { getAllWorkItems, getWorkItemBySlug } from "@/lib/api";
