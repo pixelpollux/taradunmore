@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-05T00:00:00.000Z",
+  "title": "Design System: TaraDunmore.com",
+  "extensions": {
+    "colorMeta": {
+      "electric-pink": {
+        "role": "primary",
+        "displayName": "Electric Pink",
+        "canonical": "oklch(65% 0.25 350)",
+        "tonalRamp": [
+          "oklch(18% 0.12 350)",
+          "oklch(30% 0.18 350)",
+          "oklch(42% 0.22 350)",
+          "oklch(54% 0.25 350)",
+          "oklch(65% 0.25 350)",
+          "oklch(76% 0.20 350)",
+          "oklch(86% 0.13 350)",
+          "oklch(95% 0.05 350)"
+        ]
+      },
+      "acid-lime": {
+        "role": "secondary",
+        "displayName": "Acid Lime",
+        "canonical": "oklch(94% 0.23 125)",
+        "tonalRamp": [
+          "oklch(20% 0.09 125)",
+          "oklch(32% 0.14 125)",
+          "oklch(45% 0.18 125)",
+          "oklch(58% 0.22 125)",
+          "oklch(72% 0.24 125)",
+          "oklch(83% 0.24 125)",
+          "oklch(90% 0.23 125)",
+          "oklch(97% 0.10 125)"
+        ]
+      },
+      "deep-eggplant": {
+        "role": "neutral",
+        "displayName": "Deep Eggplant",
+        "canonical": "oklch(20% 0.12 320)",
+        "tonalRamp": [
+          "oklch(12% 0.08 320)",
+          "oklch(20% 0.12 320)",
+          "oklch(30% 0.13 320)",
+          "oklch(40% 0.13 320)",
+          "oklch(52% 0.12 320)",
+          "oklch(65% 0.10 320)",
+          "oklch(80% 0.06 320)",
+          "oklch(94% 0.02 320)"
+        ]
+      },
+      "paper-white": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "oklch(96% 0.001 90)",
+        "tonalRamp": [
+          "oklch(20% 0.001 90)",
+          "oklch(32% 0.001 90)",
+          "oklch(45% 0.001 90)",
+          "oklch(58% 0.001 90)",
+          "oklch(72% 0.001 90)",
+          "oklch(84% 0.001 90)",
+          "oklch(91% 0.001 90)",
+          "oklch(96% 0.001 90)"
+        ]
+      },
+      "warm-shade": {
+        "role": "neutral",
+        "displayName": "Warm Shade",
+        "canonical": "oklch(91% 0.001 90)",
+        "tonalRamp": [
+          "oklch(18% 0.001 90)",
+          "oklch(30% 0.001 90)",
+          "oklch(43% 0.001 90)",
+          "oklch(56% 0.001 90)",
+          "oklch(70% 0.001 90)",
+          "oklch(82% 0.001 90)",
+          "oklch(91% 0.001 90)",
+          "oklch(95% 0.001 90)"
+        ]
+      },
+      "muted-grey": {
+        "role": "neutral",
+        "displayName": "Muted Grey",
+        "canonical": "oklch(60% 0.003 260)",
+        "tonalRamp": [
+          "oklch(20% 0.003 260)",
+          "oklch(32% 0.003 260)",
+          "oklch(44% 0.003 260)",
+          "oklch(52% 0.003 260)",
+          "oklch(60% 0.003 260)",
+          "oklch(70% 0.003 260)",
+          "oklch(82% 0.003 260)",
+          "oklch(92% 0.003 260)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display (Cherry Bomb One)",
+        "purpose": "One hero word per page, rendered as a stroked-outline transparent-fill glyph with a hard layered drop shadow. Never used for section titles or running text."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles, almost always paired with the highlighter-gradient variant."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default reading copy across About, Resume, and Work descriptions."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, nav links, tech-tag pills — always bold with tracked-out letter-spacing."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pop-sm",
+        "value": ".25rem .25rem 0 0 color-mix(in oklch, var(--accent) 30%, transparent)",
+        "purpose": "Hard, zero-blur hover shadow on Button, paired with a small up-left translate."
+      },
+      {
+        "name": "pop-lg",
+        "value": ".5rem .5rem 0 0 color-mix(in oklch, var(--accent) 40%, transparent)",
+        "purpose": "Hard, zero-blur hover shadow on clickable Card, scaled up from pop-sm."
+      }
+    ],
+    "motion": [
+      {
+        "name": "pop-transition",
+        "value": "transform 300ms ease-in-out, box-shadow 300ms ease-in-out",
+        "purpose": "Shared hover-pop transition for Button and Card."
+      }
+    ],
+    "breakpoints": [
+      { "name": "xs", "value": "30rem" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default call-to-action pill: Deep Eggplant fill, pink-tinted text, hard offset-shadow pop on hover.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">see my work</button>",
+      "css": ".ds-btn { font-family: var(--font-Fredoka), sans-serif; letter-spacing: 1px; font-weight: 700; border-radius: 30px; padding: 0.5rem 0.75rem; cursor: pointer; transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out; } .ds-btn-primary { background-color: #330036; color: color-mix(in oklch, #fe019a 70%, #ffffff); border: solid 2px #330036; } .ds-btn-primary:hover, .ds-btn-primary:focus-visible { transform: translate(-0.25rem, -0.25rem); box-shadow: .25rem .25rem 0 0 color-mix(in oklch, #fe019a 30%, transparent); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Inverted-fill pill for lower-emphasis actions alongside a primary button.",
+      "html": "<button class=\"ds-btn ds-btn-secondary\">get in touch</button>",
+      "css": ".ds-btn { font-family: var(--font-Fredoka), sans-serif; letter-spacing: 1px; font-weight: 700; border-radius: 30px; padding: 0.5rem 0.75rem; cursor: pointer; transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out; } .ds-btn-secondary { background-color: #f2f2f2; color: #330036; border: solid 2px #330036; } .ds-btn-secondary:hover, .ds-btn-secondary:focus-visible { transform: translate(-0.25rem, -0.25rem); box-shadow: .25rem .25rem 0 0 color-mix(in oklch, #fe019a 30%, transparent); }"
+    },
+    {
+      "name": "Disabled Tag Pill",
+      "kind": "chip",
+      "refersTo": "button-disabled",
+      "description": "Non-interactive tech-tag chip, reusing the disabled button variant — no hover physics, rendered as a span.",
+      "html": "<span class=\"ds-tag\" aria-disabled=\"true\">TypeScript</span>",
+      "css": ".ds-tag { font-family: var(--font-Fredoka), sans-serif; letter-spacing: 1px; font-weight: 600; border-radius: 30px; padding: 0.25rem 0.5rem; font-size: 0.75rem; line-height: 1; background-color: #f2f2f2; color: #858585; border: solid 2px #858585; display: inline-block; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card-default",
+      "description": "Base surface: rounded-3xl, thick pink outline, flat at rest, hard offset-shadow pop when clickable.",
+      "html": "<div class=\"ds-card ds-card--clickable\"><h3 class=\"ds-card__title\">Work Item</h3><p class=\"ds-card__body\">A short project blurb goes here.</p></div>",
+      "css": ".ds-card { background-color: #f2f2f2; border: 2px solid #fe019a; border-radius: 1.5rem; padding: 1.5rem; transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out; } .ds-card--clickable { cursor: pointer; } .ds-card--clickable:hover, .ds-card--clickable:focus-visible { transform: translate(-0.5rem, -0.5rem); box-shadow: .5rem .5rem 0 0 color-mix(in oklch, #fe019a 40%, transparent); } .ds-card__title { font-family: var(--font-Fredoka), sans-serif; font-weight: 700; font-size: 1.25rem; color: #330036; margin: 0 0 0.5rem; } .ds-card__body { font-family: var(--font-Fredoka), sans-serif; color: #330036; margin: 0; line-height: 1.5; }"
+    },
+    {
+      "name": "Section Headline (Highlighter)",
+      "kind": "custom",
+      "refersTo": "headline",
+      "description": "Section-title treatment: bold heading text struck through with a two-tone highlighter-marker gradient band.",
+      "html": "<h2 class=\"ds-headline\"><span class=\"ds-headline__highlight\">skills</span></h2>",
+      "css": ".ds-headline { font-family: var(--font-Fredoka), sans-serif; font-weight: 700; font-size: 2.5rem; line-height: 1; margin: 0; color: #330036; } .ds-headline__highlight { background-image: linear-gradient(#edff00, #c9ff00); -webkit-box-decoration-break: clone; box-decoration-break: clone; background-position: 0 88%; background-repeat: no-repeat; background-size: 100% 32%; padding-inline: 0.5rem; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Sticky header with a thick bottom border and a two-tone stroked/filled wordmark.",
+      "html": "<nav class=\"ds-nav\"><a href=\"/\" class=\"ds-nav__wordmark\"><span class=\"ds-nav__wordmark-accent\">TaraDunmore</span><span class=\"ds-nav__wordmark-ink\">.com</span></a><ul class=\"ds-nav__links\"><li><a href=\"#about-section\">about</a></li><li><a href=\"#work-section\">work</a></li><li><a href=\"#contact-section\">contact</a></li></ul></nav>",
+      "css": ".ds-nav { display: flex; justify-content: space-between; align-items: center; gap: 2rem; background-color: #f2f2f2; border-bottom: .15rem solid #330036; padding: 1rem 2rem; position: sticky; top: 0; font-family: var(--font-Fredoka), sans-serif; font-weight: 700; } .ds-nav__wordmark { font-size: 1.5rem; font-weight: 700; text-decoration: none; -webkit-text-stroke: 0.05rem #330036; } .ds-nav__wordmark-accent { -webkit-text-fill-color: #fe019a; text-shadow: 0.2rem 0.2rem 0 color-mix(in oklch, #330036 12%, transparent); } .ds-nav__wordmark-ink { -webkit-text-fill-color: #330036; } .ds-nav__links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; font-size: 1.125rem; } .ds-nav__links a { color: #330036; text-decoration: none; }"
+    },
+    {
+      "name": "Contact Tile",
+      "kind": "custom",
+      "refersTo": "card-default",
+      "description": "Signature composite: a clickable Card holding a circular accent-tinted icon badge, a label, and a handle.",
+      "html": "<a href=\"#\" class=\"ds-contact-tile\"><span class=\"ds-contact-tile__badge\">✉</span><span class=\"ds-contact-tile__text\"><strong class=\"ds-contact-tile__label\">Email</strong><span class=\"ds-contact-tile__handle\">me@taradunmore.com</span></span></a>",
+      "css": ".ds-contact-tile { display: flex; align-items: center; gap: 1rem; background-color: color-mix(in oklch, #fe019a 30%, transparent); border: 2px solid #fe019a; border-radius: 1.5rem; padding: 1rem; text-decoration: none; transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out; } .ds-contact-tile:hover, .ds-contact-tile:focus-visible { transform: translate(-0.5rem, -0.5rem); box-shadow: .5rem .5rem 0 0 color-mix(in oklch, #fe019a 40%, transparent); } .ds-contact-tile__badge { display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; border-radius: 1.5rem; background-color: color-mix(in oklch, #fe019a 20%, transparent); color: #330036; font-size: 1.25rem; flex-shrink: 0; } .ds-contact-tile__text { display: flex; flex-direction: column; } .ds-contact-tile__label { font-family: var(--font-Fredoka), sans-serif; font-weight: 700; font-size: 1.125rem; color: #330036; } .ds-contact-tile__handle { font-family: var(--font-Fredoka), sans-serif; font-size: 0.875rem; color: #858585; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Sticker Sheet",
+    "overview": "TaraDunmore.com looks like a sheet of stickers laid out by hand, not a template filled in: thick cartoon-outline borders, pill-shaped buttons, and section titles struck through with a highlighter-marker gradient. Hero elements sit slightly off-grid — the headshot rotated a few degrees inside two independently-tilted outline rings, the giant stroked \"hi!\" cocked at -4deg — the deliberate imperfection of something placed by hand rather than centered by a grid system. Nothing here is trying to look safe or corporate; it's a portfolio that argues its own case by being unmistakably made, not generated.\n\nThe palette does the same job in color: a stark, near-black-purple ink (Deep Eggplant) against a soft paper neutral, with exactly two accents — Electric Pink and Acid Lime — that never dilute into a third. Depth stays flat at rest; it only appears as a hard, no-blur, colored offset shadow the instant something becomes interactive, reinforcing the sticker-peel physicality rather than simulating real-world light.\n\nThis system explicitly rejects soft, muted, corporate-minimalist portfolio conventions — no gradients-as-glow, no frosted panels, no safe SaaS-dashboard palette. The bet is that \"design roots, developer instincts\" reads more convincingly through unapologetic, tactile craft than through restraint.",
+    "keyCharacteristics": [
+      "Thick 2px ink/accent outlines paired with generous rounded corners (pills, rounded-3xl)",
+      "Flat at rest, hard offset \"pop\" shadow + translate on hover/click — never a soft blur",
+      "Exactly two accents (Electric Pink, Acid Lime) against one ink neutral (Deep Eggplant)",
+      "Deliberate off-grid rotation on hero elements (headshot rings, display headline)",
+      "One display font reserved for a single hero word; Fredoka carries everything else"
+    ],
+    "rules": [
+      { "name": "The Two-Accent Rule", "body": "Electric Pink and Acid Lime are the only saturated accents in the system. A new UI need reaches for Deep Eggplant, Paper White, or Warm Shade before it reaches for a third hue.", "section": "colors" },
+      { "name": "The One-Word Display Rule", "body": "The display face and its outline/shadow treatment appear on exactly one hero word per page. It is a signature moment, not a heading style.", "section": "typography" },
+      { "name": "The Pop-on-Touch Rule", "body": "Nothing casts a shadow at rest. A hard, accent-tinted, zero-blur offset shadow plus a small translate is the only depth cue, and it appears only in response to hover or interaction.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do pair every clickable surface — button or card — with the same hard offset-shadow-plus-translate pop on hover; it's one interaction physic, not a per-component choice.",
+      "Do keep Electric Pink and Acid Lime as the system's only two accents (The Two-Accent Rule); reach for Deep Eggplant, Paper White, or Warm Shade before introducing a third hue.",
+      "Do reserve the Cherry Bomb One display treatment for a single hero word per page (The One-Word Display Rule); Fredoka carries every other typographic role.",
+      "Do treat lg (1024px) as the layout's real pivot — build mobile-first, then restructure at lg:, matching the rest of the codebase.",
+      "Do use the highlighter-gradient headline variant for section titles specifically; it's a title treatment, not a general emphasis style for body copy."
+    ],
+    "donts": [
+      "Don't reintroduce soft, muted, corporate-minimalist styling — no soft-blurred shadows, no desaturated \"safe\" palette, no glassmorphism/glow. This system's whole thesis is that it doesn't look like a template.",
+      "Don't treat --accent-bg, --accent-border, --code-bg, --social-bg, --black, --text-h, or --shadow as live tokens — they're declared in globals.css but not referenced by any component; verify a token is actually consumed before reusing it.",
+      "Don't rely on the font-display class (nav wordmark) or shadow-small / shadow-medium classes (blog cover image) as real styles — none of the three are defined anywhere in the Tailwind config or CSS; they currently resolve to nothing.",
+      "Don't treat the <Footer> rendered in app/layout.tsx as part of this system — it's unstyled Next.js-starter boilerplate (bg-accent-1, border-accent-2, text-success, \"Read Documentation\" / \"View on GitHub\") predating the current identity and uses none of its tokens.",
+      "Don't assume /blog or /work/[slug] already carry this system — both still run bare Tailwind defaults (plain container mx-auto px-5, no color bands, no Button/Card treatment) and haven't been brought into the Sticker Sheet identity yet."
+    ]
+  }
+}

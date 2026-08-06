@@ -4,9 +4,9 @@ import Link from "next/link";
 import { draftMode } from "next/headers";
 
 import { getAllPosts } from "@/lib/api";
-import CoverImage from "../../blocks/cover-image";
-import MoreStories from "../../blocks/more-stories";
-import Avatar from "../../blocks/avatar";
+import CoverImage from "@/app/ui/CoverImage";
+import MoreStories from "../../blocks/MoreStories";
+import Avatar from "@/app/ui/Avatar";
 import Card from "@/app/ui/Card";
 
 // import MoreStories from "@/components/blog/MoreStories";
@@ -40,6 +40,7 @@ function HeroPost({
 							title={title}
 							slug={slug}
 							url={coverImage?.url}
+							priority
 						/>
 					</div>
 					<div className='md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8  p-6 md:p-10'>

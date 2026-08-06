@@ -48,7 +48,7 @@ export default async function Page() {
 			alt='Tara Dunmore'
 			width={300}
 			height={375}
-			className='rounded-[2rem] border-2 border-[var(--text)] z-[1] relative w-full'
+			className='rounded-[2rem] border-2 border-[var(--text)] z-[1] relative w-full sm:max-w-[80vw] md:max-w-[40vw] lg:max-w-[100%]'
 		/>
 	);
 

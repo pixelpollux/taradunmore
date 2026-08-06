@@ -10,9 +10,8 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["Fredoka", "sans-serif"],
-				bagel: ["Bagel Fat One", "serif"],
-				cherry: ["Cherry Bomb One", "serif"],
+				sans: ["var(--font-Fredoka)", "sans-serif"],
+				cherry: ["var(--font-cherry)", "serif"],
 			},
 		},
 	},

@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Cherry+Bomb+One&family=Fredoka:wght@300..700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,9 +26,8 @@
 	--shadow:
 		rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-	--sans: "Fredoka", sans-serif;
-	--bagel: "Bagel Fat One", serif;
-	--cherry: "Cherry Bomb One", serif;
+	--sans: var(--font-Fredoka), sans-serif;
+	--cherry: var(--font-cherry), serif;
 	--breakpoint-xs: 30rem;
 
 	body {

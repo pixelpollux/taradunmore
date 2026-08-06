@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Avatar from "./avatar";
-import DateComponent from "./date";
-import CoverImage from "./cover-image";
+import Avatar from "@/app/ui/Avatar";
+import DateDisplay from "@/app/ui/DateDisplay";
+import CoverImage from "@/app/ui/CoverImage";
 
 function PostPreview({
   title,
@@ -29,7 +29,7 @@ function PostPreview({
         </Link>
       </h3>
       <div className="text-lg mb-4">
-        <DateComponent dateString={date} />
+        <DateDisplay dateString={date} />
       </div>
       <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
       {author && <Avatar name={author.name} picture={author.picture} />}

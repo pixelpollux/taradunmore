@@ -1,7 +1,7 @@
 import Headline from "@/app/ui/Headline";
 import Card from "@/app/ui/Card";
 import { Mail, ArrowUpRight } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "../../components/brand-icons";
+import { GithubIcon, LinkedinIcon } from "@/app/ui/BrandIcons";
 const socials = [
 	{
 		label: "GitHub",
