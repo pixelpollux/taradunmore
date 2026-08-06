@@ -109,6 +109,17 @@ trusting this design system's visual fidelity.** Everything else (Button,
 Card, Headline, DateDisplay, the icons) is plain DOM/SVG with no
 comparable risk.
 
+## Re-sync history
+
+- **2026-08-05**: re-synced after `previews/Button.tsx`'s import was changed
+  from `@/app/ui/Button` to a relative `../../app/ui/Button` (editor/linter
+  edit, not reverted). Both forms compile fine via esbuild + `cfg.tsconfig` —
+  this is purely a style inconsistency with the other 7 preview files, which
+  still use the `@/` alias. Not worth a repo-wide fix on its own; if editing
+  previews again, either form is safe to use. Anchor correctly scoped
+  verification to just `Button` (7/8 carried forward unchanged); grading
+  still skipped (no playwright), consistent with the prior run.
+
 ## Re-sync
 
 Re-run `node .ds-sync/resync.mjs --config .design-sync/config.json --node-modules ./node_modules --entry ./dist/index.js --out ./ds-bundle --remote .design-sync/.cache/remote-sync.json` —

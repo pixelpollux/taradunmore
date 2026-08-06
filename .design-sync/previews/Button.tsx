@@ -1,4 +1,4 @@
-import Button from "@/app/ui/Button";
+import Button from "../../app/ui/Button";
 
 export function Primary() {
 	return <Button text="see my work" href="/#work-section" />;
