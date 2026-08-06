@@ -3,11 +3,14 @@
   "shape": "package",
   "pkg": "taradunmore-ui",
   "globalName": "TaraDunmoreUI",
-  "srcDir": "app/ui",
+  "srcDir": ".design-sync/build-src",
   "tsconfig": "tsconfig.json",
   "cssEntry": ".design-sync/.cache/compiled-tailwind.css",
   "buildCmd": "npx tailwindcss -i .design-sync/tailwind-entry.css -o .design-sync/.cache/compiled-tailwind.css --config tailwind.config.ts",
   "extraFonts": [".design-sync/brand-fonts.css"],
+  "componentSrcMap": {
+    "ContentfulImage": null
+  },
   "docsMap": {
     "Button": ".design-sync/docs-stubs/Button.md",
     "Card": ".design-sync/docs-stubs/Card.md",

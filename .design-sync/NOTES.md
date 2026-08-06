@@ -7,7 +7,8 @@ package — there's no Storybook and no library `dist/` build. The synced
 "design system" is the 7 files in `app/ui/` (8 components once `BrandIcons.tsx`'s
 two named exports — `GithubIcon`, `LinkedinIcon` — are counted separately;
 that file has no default export, so it doesn't land as one grouped
-component). `cfg.srcDir` is `app/ui`.
+component). `cfg.srcDir` is `.design-sync/build-src` — **not** `app/ui`
+directly, see "Two critical bugs" below for why.
 
 - **`package.json` needed a `name` field.** The converter's `.d.ts`
   extraction (`lib/dts.mjs` `loadDts`) walks up from the source dir looking
@@ -82,35 +83,128 @@ component). `cfg.srcDir` is `app/ui`.
   flagging to the site owner independently — this may be an existing bug in
   the live site too, not something design-sync introduced or fixed.
 
-## Verification — NOT machine-checked
+## Two critical bugs found & fixed (2026-08-05)
 
-**No render check ever ran on this sync**, at the user's explicit choice (no
-playwright/chromium installed; declined a local `http-serve` preview too).
-`package-validate.mjs` ran with `--no-render-check` throughout. This means:
+The first sync's unverified risk ("Avatar/CoverImage should still render
+outside Next.js, but never confirmed") turned out to understate the actual
+problem — it wasn't isolated to those two components at all. The user
+reported every single component showing `⚠ no PascalCase exports in
+_preview/<Name>.js` live in claude.ai/design. Root-caused by executing the
+actual compiled `_ds_bundle.js` + `_preview/<Name>.js` files (fetched from
+the live project isn't possible — the preview iframe is cross-origin
+sandboxed, blocking both DOM access and the console reader) against a local
+jsdom DOM instead: two independent, compounding bugs.
 
-- None of the 8 authored previews (Avatar, Button, Card, CoverImage,
-  DateDisplay, GithubIcon, Headline, LinkedinIcon) have been screenshotted,
-  graded, or visually confirmed to render correctly — only confirmed to
-  **compile** cleanly.
-- `package-capture.mjs` (the absolute-grading step) never ran, so there are
-  no `.design-sync/.cache/review/*.grade.json` verdicts backing this upload.
-- The biggest actual risk, based on source inspection alone: `Avatar` and
-  `CoverImage` both go through `lib/contentful-image.tsx` → `next/image`.
-  `next/image`'s client implementation got fully bundled (confirmed via
-  `grep getImgProps ds-bundle/_ds_bundle.js`) and *should* still render a
-  plain `<img>` outside Next.js since a custom `loader` prop is passed
-  (bypassing Next's image-optimization API route) — but this was never
-  empirically confirmed in a browser.
+**Bug 1 — `next/image` can't run outside a webpack/Next build.**
+`Avatar`/`CoverImage` → `lib/contentful-image.tsx` → `next/image`, whose
+client code reads `process.env.__NEXT_IMAGE_OPTS` at module-init time (and
+likely more `process.*` refs deeper in its require chain — evaluation never
+got that far). `process` doesn't exist in a browser; Next's own webpack
+build always polyfills/defines it, esbuild's converter doesn't. This threw
+synchronously while evaluating `_ds_bundle.js`, which — because **all 8
+components share one bundle IIFE** — meant `window.TaraDunmoreUI` never got
+assigned for *any* component, not just the two using images. That's the
+whole-bundle symptom the screenshot showed.
+  - **Fix**: `.design-sync/build-src/contentful-image.tsx` — a shim with the
+    identical prop contract and loader URL logic (`${src}?w=${width}&q=...`)
+    as the real `lib/contentful-image.tsx`, rendering a plain `<img>`
+    instead of `next/image`. `.design-sync/build-src/Avatar.tsx` and
+    `CoverImage.tsx` are full copies of the real `app/ui/` components,
+    identical except importing this shim. **KEEP IN SYNC**: any prop/markup
+    change to the real `app/ui/Avatar.tsx` or `CoverImage.tsx` must be
+    mirrored into these two files by hand — nothing enforces it
+    automatically. `cfg.componentSrcMap: {"ContentfulImage": null}` excludes
+    the shim's own default export from being picked up as a phantom 9th
+    component (its name is PascalCase like a component).
+  - This is a design-sync-only substitution — `app/ui/Avatar.tsx` and
+    `CoverImage.tsx` (the real site) are untouched, still use `next/image`
+    normally, because that's correct and necessary there.
 
-**Next sync (or the user, right now) should install playwright + chromium,
-or open `ds-bundle/.review.html` (`npx serve ds-bundle`) in a real browser,
-and specifically check `Avatar` and `CoverImage` render their image, before
-trusting this design system's visual fidelity.** Everything else (Button,
-Card, Headline, DateDisplay, the icons) is plain DOM/SVG with no
-comparable risk.
+**Bug 2 — `export * from` never forwards a `default` export (ES spec, not
+an esbuild quirk).** Synth-entry mode's synthesized `.pkg-entry.mjs` combines
+every file under `cfg.srcDir` via `export * from "<file>"`. Every one of our
+components uses `export default function X() {...}` — and `export *`
+unconditionally excludes the literal `default` binding per spec. This
+silently dropped 6 of 8 components' default exports from the bundle's public
+namespace; only `BrandIcons.tsx`'s two *named* exports (`GithubIcon`,
+`LinkedinIcon`) survived. This bug was fully masked by Bug 1 (which crashed
+before the namespace even got assigned) and only became visible once Bug 1
+was fixed.
+  - **Fix**: `cfg.srcDir` now points at `.design-sync/build-src/`, a small
+    directory of thin redirects using **named** re-exports —
+    `export { default as Button } from "../../app/ui/Button"` — instead of
+    `export { default }`. The two Avatar/CoverImage shims (Bug 1's fix) were
+    changed the same way: `export function Avatar(...)` instead of
+    `export default function Avatar(...)`. Relative imports, not `@/`: the
+    converter's own discovery scan (`deriveComponentsFromSrc` in
+    `lib/source-kit.mjs`) uses its own ts-morph `Project` with no path-alias
+    config, so an `@/` import resolves to nothing there even though the real
+    esbuild bundling step (which *does* use `cfg.tsconfig`) handles it fine
+    — this bit a first attempt at these redirect files too.
+
+**Bug 3 — `data:` image URIs are blocked in the live preview iframe.**
+`Avatar`/`CoverImage` previews originally used inlined base64 `data:` URIs
+(a real downsized copy of the site's own headshot; a hand-drawn brand-colored
+SVG banner) specifically to avoid any network dependency. After fixing Bugs
+1–2, live screenshots (via `claude-in-chrome`, opening the actual project
+URL) showed both as broken-image icons — everything else rendered correctly,
+isolating it to `data:` sources specifically. claude.ai/design's sandboxed
+preview iframe apparently blocks `data:` in `img-src` (a CSP the local jsdom
+tests couldn't have caught — jsdom doesn't enforce a page's CSP at all).
+  - **Fix**: `.design-sync/previews/_fixtures.ts` now uses two stable HTTPS
+    URLs instead: `AVATAR_PHOTO_URL` = Tara's real GitHub avatar via the
+    ID-keyed `avatars.githubusercontent.com` CDN (stable even if the
+    username changes; matches the real `github.com/pixelpollux` link in
+    `ContactSection.tsx`); `COVER_IMAGE_URL` = a specific pinned
+    `picsum.photos/id/943/...` photo (deterministic — a bare
+    `picsum.photos/w/h` URL redirects to a *random* photo per load, which
+    would make the card's content flicker between syncs). Both confirmed via
+    `curl` to resolve as real images before use, then confirmed rendering
+    live in the actual product via `claude-in-chrome` screenshots.
+  - If either external host ever goes down or changes its response shape,
+    that's this design system's next visible failure mode — a lower-risk
+    trade than `data:` URIs given the sandbox's CSP, but not risk-free.
+    Watch for broken-image cards on `Avatar`/`CoverImage` on a future re-sync
+    and swap the URL if so.
+
+**Verification performed (2026-08-05, after all three fixes) — both a real
+local check and a real live check, not the official playwright pipeline**:
+no playwright/chromium in this session, so `package-validate.mjs`'s render
+check and `package-capture.mjs`'s grading still didn't run
+(`--no-render-check` throughout; no `.design-sync/.cache/review/*.grade.json`
+verdicts exist). Instead:
+1. **Local jsdom** (`.ds-sync/node_modules/jsdom`, installed for this
+   debugging session — **not currently in `cfg`/committed as a project
+   dependency**, reinstall if needed: `cd .ds-sync && npm i jsdom`), loading
+   each real `components/<group>/<Name>/<Name>.html` card via genuine
+   `<script src>` tag execution (not `eval` — strict-mode `eval` creates an
+   isolated `var` scope that doesn't leak to `window`, unlike a real
+   `<script>` tag; an earlier eval-based test gave a false "no exports"
+   negative because of this) with a `MessageChannel` polyfill (React 18's
+   scheduler needs it; jsdom doesn't provide one). Confirmed bundle
+   evaluates without throwing, `window.TaraDunmoreUI` has all 8 expected
+   keys, every preview's `window.__dsPreview` has the right story names, and
+   every story cell mounts non-empty DOM. This caught Bugs 1–2 but, since
+   jsdom doesn't enforce CSP, could NOT have caught Bug 3.
+2. **Live, in the actual product**, via the `claude-in-chrome` browser tool
+   (not a local server — opened `https://claude.ai/design/p/<projectId>`
+   directly) — real screenshots confirmed all 8 components' cards render
+   correctly with real visible content: icons, the Avatar photo, the
+   CoverImage photo, Button variants in the right colors, Card layouts,
+   Headline text. This is what caught Bug 3, and is the strongest
+   confirmation this sync has had — actual pixels in the actual product, not
+   a structural proxy for them.
 
 ## Re-sync history
 
+- **2026-08-05 (later same day)**: found + fixed the three critical bugs
+  above (see that section). `cfg.srcDir` changed from `app/ui` to
+  `.design-sync/build-src`; added `.design-sync/build-src/*` (8 files) and
+  `componentSrcMap: {"ContentfulImage": null}`; `previews/_fixtures.ts`
+  switched from `data:` URIs to HTTPS image URLs. All 8 components
+  re-verified from scratch (not an anchored partial re-verify — the srcDir
+  change invalidates every `sourceKey`, so this is expected and correct).
+  Confirmed live via `claude-in-chrome` screenshots after each fix.
 - **2026-08-05**: re-synced after `previews/Button.tsx`'s import was changed
   from `@/app/ui/Button` to a relative `../../app/ui/Button` (editor/linter
   edit, not reverted). Both forms compile fine via esbuild + `cfg.tsconfig` —

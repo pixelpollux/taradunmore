@@ -2,7 +2,7 @@ import Card from "@/app/ui/Card";
 import Headline from "@/app/ui/Headline";
 import Button from "@/app/ui/Button";
 import CoverImage from "@/app/ui/CoverImage";
-import { COVER_IMAGE_DATAURI } from "./_fixtures";
+import { COVER_IMAGE_URL } from "./_fixtures";
 
 export function Default() {
 	return (
@@ -25,7 +25,7 @@ export function Slim() {
 export function WorkItem() {
 	return (
 		<Card cardVariant="tight" className="flex flex-col gap-3 max-w-[22rem]">
-			<CoverImage title="Design system sync" url={COVER_IMAGE_DATAURI} slug="ds-sync" />
+			<CoverImage title="Design system sync" url={COVER_IMAGE_URL} slug="ds-sync" />
 			<div className="p-4 flex flex-col gap-2">
 				<h3 className="text-xl font-bold">Design system sync</h3>
 				<p className="text-sm">
