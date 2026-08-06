@@ -1,0 +1,22 @@
+/* Self-hosted copies of the brand fonts this site loads via next/font/google
+   (Fredoka, Cherry Bomb One — latin subset). Harvested by design-sync's
+   cfg.extraFonts purely for @font-face + file copy; the --font-Fredoka /
+   --font-cherry custom-property definitions live in tailwind-entry.css
+   instead, since extraFonts only harvests @font-face rules, not general CSS.
+   See .design-sync/NOTES.md. */
+
+@font-face {
+	font-family: "Fredoka";
+	font-style: normal;
+	font-weight: 300 700;
+	font-display: swap;
+	src: url("./brand-fonts/fredoka-latin.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Cherry Bomb One";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("./brand-fonts/cherry-bomb-one-latin.woff2") format("woff2");
+}

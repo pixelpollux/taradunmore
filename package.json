@@ -1,4 +1,5 @@
 {
+  "name": "taradunmore-ui",
   "private": true,
   "scripts": {
     "dev": "next",

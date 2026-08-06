@@ -1,0 +1,13 @@
+/* design-sync build input: the site's real globals.css, plus the
+   --font-Fredoka/--font-cherry token definitions that next/font/google
+   normally injects at runtime via a className on <html>/the headline —
+   absent here since previews render components standalone. See
+   brand-fonts.css (harvested separately for the @font-face rules + files)
+   and .design-sync/NOTES.md. */
+
+@import "../app/globals.css";
+
+:root {
+	--font-Fredoka: "Fredoka", sans-serif;
+	--font-cherry: "Cherry Bomb One", serif;
+}

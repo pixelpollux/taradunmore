@@ -1,0 +1,32 @@
+{
+  "projectId": "cb40ecc1-f8c7-4bd1-8133-20f34796ebd6",
+  "shape": "package",
+  "pkg": "taradunmore-ui",
+  "globalName": "TaraDunmoreUI",
+  "srcDir": "app/ui",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": ".design-sync/.cache/compiled-tailwind.css",
+  "buildCmd": "npx tailwindcss -i .design-sync/tailwind-entry.css -o .design-sync/.cache/compiled-tailwind.css --config tailwind.config.ts",
+  "extraFonts": [".design-sync/brand-fonts.css"],
+  "docsMap": {
+    "Button": ".design-sync/docs-stubs/Button.md",
+    "Card": ".design-sync/docs-stubs/Card.md",
+    "Headline": ".design-sync/docs-stubs/Headline.md",
+    "Avatar": ".design-sync/docs-stubs/Avatar.md",
+    "CoverImage": ".design-sync/docs-stubs/CoverImage.md",
+    "DateDisplay": ".design-sync/docs-stubs/DateDisplay.md",
+    "GithubIcon": ".design-sync/docs-stubs/GithubIcon.md",
+    "LinkedinIcon": ".design-sync/docs-stubs/LinkedinIcon.md"
+  },
+  "dtsPropsFor": {
+    "Avatar": "name: string;\n  picture: { url: string };",
+    "Button": "text: string;\n  buttonVariant?: \"primary\" | \"secondary\" | \"tertiary\" | \"disabled\" | \"disabledPill\";\n  buttonSize?: \"xs\" | \"sm\" | \"md\";\n  href?: string;\n  className?: string;\n  isClickable?: boolean;\n  onClick?: () => void;",
+    "Card": "children: React.ReactNode;\n  className?: string;\n  id?: string;\n  cardVariant?: \"thick\" | \"slim\" | \"tight\";\n  isClickable?: boolean;",
+    "CoverImage": "title: string;\n  url: string;\n  slug?: string;\n  priority?: boolean;",
+    "DateDisplay": "dateString: string;",
+    "Headline": "text: string;\n  headlineVariant?: \"primary\" | \"secondary\" | \"tertiary\" | \"highlighter\" | \"display\" | \"default\";\n  headlineLevel?: \"h1\" | \"h2\" | \"h3\" | \"default\";\n  className?: string;\n  id?: string;",
+    "GithubIcon": "className?: string;\n  width?: number | string;\n  height?: number | string;",
+    "LinkedinIcon": "className?: string;\n  width?: number | string;\n  height?: number | string;"
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}
