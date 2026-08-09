@@ -92,11 +92,11 @@ export default function ResumeList({ items }: { items: any[] }) {
 										isOpen ? "secondary" : "primary"
 									}
 								/>
-								<Button
+								{/* <Button
 									buttonVariant='secondary'
 									text='Download Resume'
 									href='/resume.pdf'
-								/>
+								/> */}
 							</div>
 						</div>
 					</div>

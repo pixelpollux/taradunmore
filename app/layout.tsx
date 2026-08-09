@@ -55,7 +55,7 @@ export default function RootLayout({
 			<body className='text-[var(--text)] font-sans font-normal'>
 				<section className='min-h-screen'>
 					<main>{children}</main>
-					<Footer />
+					{/* <Footer /> */}
 				</section>
 			</body>
 		</html>
