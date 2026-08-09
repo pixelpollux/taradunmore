@@ -59,6 +59,27 @@
 		rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 } */
 
+/* construction banner */
+.construction-banner__track {
+	animation: construction-banner-scroll 82s linear infinite;
+	@media screen and (min-width: 768px) {
+		animation: construction-banner-scroll 62s linear infinite;
+	}
+}
+@keyframes construction-banner-scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.construction-banner__track {
+		animation: none;
+	}
+}
+
 /* header nav */
 .nav__home-link {
 	-webkit-text-stroke: 0.05rem var(--text);
