@@ -1,13 +1,14 @@
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
 import Button from "../../../ui/Button";
 
 import CoverImage from "@/app/ui/CoverImage";
 import ContentfulImage from "@/lib/contentful-image";
 
 import { getAllWorkItems, getWorkItemBySlug } from "@/lib/api";
+import { Blocks } from "lucide-react";
 
 function getRichTextOptions(links: any) {
 	const assetMap = new Map<string, { url: string; description?: string }>(
@@ -87,6 +88,13 @@ function getRichTextOptions(links: any) {
 					/>
 				);
 			},
+		},
+		renderMark: {
+			[MARKS.CODE]: (text: any) => (
+				<code className='p-1 bg-[color-mix(in_oklch,var(--accent)_15%,var(--white))] font-semibold leading-9 rounded-md m-1 outline-1 outline-[var(--accent)] outline '>
+					{text}
+				</code>
+			),
 		},
 	};
 }
