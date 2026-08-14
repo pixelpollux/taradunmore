@@ -16,7 +16,7 @@ const richTextOptions = {
 			<li className='marker:text-[var(--accent)]'>{children}</li>
 		),
 		[BLOCKS.TABLE]: (node: any, children: any) => (
-			<table className='table table-auto mx-4 sm:mx-6 sm:mr-10 border-collapse border-none border-[var(--accent)]'>
+			<table className='table table-auto mx-4 sm:mx-6 sm:mr-10 border-collapse'>
 				<tbody>{children}</tbody>
 			</table>
 		),
@@ -36,11 +36,9 @@ const richTextOptions = {
 			</td>
 		),
 		[BLOCKS.PARAGRAPH]: (node: any, children: any) => <>{children}</>,
-		// @contentful/rich-text-types ships BLOCKS.BREAK_LINE in its type
-		// declarations but never actually defines it on the compiled enum
-		// (confirmed still broken as of the latest published version), so
-		// it evaluates to `undefined` at runtime and never matches. Use the
-		// literal node type string instead.
+		// Some versions of @contentful/rich-text-types include BLOCKS.BREAK_LINE in TS
+		// types but don't define it at runtime, so it never matches. Use the literal
+		// node type string instead.
 		"break-line": () => <br />,
 	},
 };
