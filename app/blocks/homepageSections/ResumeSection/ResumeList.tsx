@@ -15,7 +15,33 @@ const richTextOptions = {
 		[BLOCKS.LIST_ITEM]: (node: any, children: any) => (
 			<li className='marker:text-[var(--accent)]'>{children}</li>
 		),
+		[BLOCKS.TABLE]: (node: any, children: any) => (
+			<table className='table table-auto mx-4 sm:mx-6 sm:mr-10 border-collapse border-none border-[var(--accent)]'>
+				<tbody>{children}</tbody>
+			</table>
+		),
+		[BLOCKS.TABLE_ROW]: (node: any, children: any) => (
+			<tr className='flex flex-col sm:table-row border-b text-center border-[var(--accent)] '>
+				{children}
+			</tr>
+		),
+		[BLOCKS.TABLE_HEADER_CELL]: (node: any, children: any) => (
+			<th className='border-b border-b-[var(--accent)] p-2 first-of-type:text-left hidden sm:table-cell'>
+				{children}
+			</th>
+		),
+		[BLOCKS.TABLE_CELL]: (node: any, children: any) => (
+			<td className='sm:border-b border-b-[var(--accent)] bg-[color-mix(in_oklch,var(--accent)_10%,transparent)] p-1 sm:p-2 sm:first-of-type:text-left'>
+				{children}
+			</td>
+		),
 		[BLOCKS.PARAGRAPH]: (node: any, children: any) => <>{children}</>,
+		// @contentful/rich-text-types ships BLOCKS.BREAK_LINE in its type
+		// declarations but never actually defines it on the compiled enum
+		// (confirmed still broken as of the latest published version), so
+		// it evaluates to `undefined` at runtime and never matches. Use the
+		// literal node type string instead.
+		"break-line": () => <br />,
 	},
 };
 
@@ -111,6 +137,7 @@ export default function ResumeList({ items }: { items: any[] }) {
 									<ol className='flex flex-col gap-8'>
 										{items.map((item: any) => (
 											<li
+												className='flex flex-col'
 												key={`${item.companyName}-${item.roleStartDate}`}
 											>
 												<div className='flex justify-between flex-wrap gap-2'>
