@@ -16,7 +16,7 @@ const richTextOptions = {
 			<li className='marker:text-[var(--accent)]'>{children}</li>
 		),
 		[BLOCKS.TABLE]: (node: any, children: any) => (
-			<table className='table table-auto mx-4 sm:mx-6 sm:mr-10 border-collapse'>
+			<table className='table table-auto m-4 sm:mx-6 sm:mr-10 border-collapse'>
 				<tbody>{children}</tbody>
 			</table>
 		),
@@ -26,12 +26,12 @@ const richTextOptions = {
 			</tr>
 		),
 		[BLOCKS.TABLE_HEADER_CELL]: (node: any, children: any) => (
-			<th className='border-b border-b-[var(--accent)] p-2 first-of-type:text-left hidden sm:table-cell'>
+			<th className='border-b border-b-[var(--accent)] p-2 first-of-type:text-left hidden sm:table-cell bg-[color-mix(in_oklch,var(--accent)_10%,transparent)]'>
 				{children}
 			</th>
 		),
 		[BLOCKS.TABLE_CELL]: (node: any, children: any) => (
-			<td className='sm:border-b border-b-[var(--accent)] bg-[color-mix(in_oklch,var(--accent)_10%,transparent)] p-1 sm:p-2 sm:first-of-type:text-left'>
+			<td className='sm:border-b border-b-[var(--accent)]  p-1 sm:p-2 sm:first-of-type:text-left'>
 				{children}
 			</td>
 		),
