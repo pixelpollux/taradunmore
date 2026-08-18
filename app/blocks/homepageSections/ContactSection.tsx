@@ -25,7 +25,7 @@ const socials = [
 export default async function ContactSection() {
 	return (
 		<>
-			<section className='container--outer bg-[color-mix(in_oklch,var(--accent)_30%,transparent)] py-10 lg:py-20'>
+			<section className='container--outer bg-[color-mix(in_oklch,var(--accent)_30%,transparent)] bg-[radial-gradient(circle,color-mix(in_oklch,var(--accent)_30%,transparent)_1.4px,transparent_1.4px)] bg-[length:12px_12px] py-10 lg:py-20'>
 				<div className='container--inner container lg:max-w-7xl mx-auto px-8 lg:px-12'>
 					<Card id='contact-section'>
 						<div className='grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 lg:gap-12'>
