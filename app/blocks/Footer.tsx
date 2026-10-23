@@ -38,7 +38,7 @@ export default function Footer() {
 					<div className='flex flex-col items-center gap-2 text-center lg:items-start lg:text-left lg:w-1/3'>
 						<a
 							href='/'
-							className='nav__home-link font-display text-[1.25rem] lg:text-[1.5rem] font-bold text-[var(--text)]'
+							className='nav__home-link text-[1.25rem] lg:text-[1.5rem] font-bold text-[var(--text)]'
 						>
 							TaraDunmore
 							<span className='nav__home-accent text-[var(--text)]'>

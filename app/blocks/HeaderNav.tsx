@@ -49,7 +49,7 @@ export default function HeaderNav() {
 				<div className='flex justify-between items-center w-full container lg:max-w-7xl mx-auto px-0 lg:px-5'>
 					<a
 						href='/'
-						className='nav__home-link font-display text-[1.25rem] lg:text-[1.5rem] font-bold text-[var(--text)]'
+						className='nav__home-link text-[1.25rem] lg:text-[1.5rem] font-bold text-[var(--text)]'
 					>
 						TaraDunmore
 						<span className='nav__home-accent text-[var(--text)]'>

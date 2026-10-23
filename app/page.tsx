@@ -44,7 +44,7 @@ function Intro() {
 export default async function Page() {
 	const headshot = (
 		<ContentfulImage
-			src='/assets/imgs/headshot-4x5.png'
+			src='/assets/imgs/headshot-4x5.jpg'
 			alt='Tara Dunmore'
 			width={300}
 			height={375}

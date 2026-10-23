@@ -164,24 +164,19 @@ export default async function WorkItemPage({
 					)}
 					<div className='flex flex-wrap gap-3'>
 						{workItem.liveSiteUrl && (
-							<a
+							<Button
+								text='Visit Site'
 								href={workItem.liveSiteUrl}
-								target='_blank'
-								rel='noopener noreferrer'
-								className='tag hover:opacity-80'
-							>
-								Visit Site
-							</a>
+								external
+							/>
 						)}
 						{workItem.codeRepoUrl && (
-							<a
+							<Button
+								text='View Code'
+								buttonVariant='secondary'
 								href={workItem.codeRepoUrl}
-								target='_blank'
-								rel='noopener noreferrer'
-								className='tag hover:opacity-80'
-							>
-								View Code
-							</a>
+								external
+							/>
 						)}
 					</div>
 				</div>

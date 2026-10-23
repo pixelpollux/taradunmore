@@ -38,7 +38,6 @@ function HeroPost({
 					<div className=''>
 						<CoverImage
 							title={title}
-							slug={slug}
 							url={coverImage?.url}
 							priority
 						/>
@@ -106,16 +105,24 @@ export default async function Page() {
 						excerpt={morePosts[0].excerpt}
 					/>
 				)} */}
-				<HeroPost
-					title={allPosts[0].title}
-					coverImage={allPosts[0].coverImage}
-					date={allPosts[0].date}
-					author={allPosts[0].author}
-					slug={allPosts[0].slug}
-					excerpt={allPosts[0].excerpt}
-				/>
-				<h2>all posts</h2>
-				<MoreStories morePosts={allPosts.slice(1)} />
+				{heroPost ? (
+					<>
+						<HeroPost
+							title={heroPost.title}
+							coverImage={heroPost.coverImage}
+							date={heroPost.date}
+							author={heroPost.author}
+							slug={heroPost.slug}
+							excerpt={heroPost.excerpt}
+						/>
+						<h2>all posts</h2>
+						<MoreStories morePosts={morePosts} />
+					</>
+				) : (
+					<p className='py-16 text-center'>
+						no posts yet. check back soon!
+					</p>
+				)}
 				{/* <MoreStories morePosts={allPosts} /> */}
 
 				{/* <div className='container mx-auto flex flex-col lg:flex-row  items-center gap-4 lg:gap-[5rem] mb-12 lg:mb-24  '>

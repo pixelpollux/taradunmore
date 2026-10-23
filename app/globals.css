@@ -128,6 +128,19 @@ h2.headline {
 		font-size: 3.5rem;
 	}
 }
+/* small sticker label above a card title (e.g. "★ Featured") */
+.eyebrow {
+	display: inline-block;
+	padding: 0.25rem 0.5rem;
+	border: 2px solid var(--text);
+	border-radius: 30px;
+	background-color: var(--accent-secondary);
+	color: var(--text);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 1px;
+	line-height: 1;
+}
 .card__featured-image--hero {
 	@apply rounded-t-3xl border-b-2 border-b-[var(--text)];
 }

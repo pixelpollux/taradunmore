@@ -58,6 +58,7 @@ export default function Button({
 	onClick,
 	isClickable = true,
 	className = "",
+	external = false,
 }: {
 	text: string;
 	buttonVariant?:
@@ -71,6 +72,8 @@ export default function Button({
 	className?: string;
 	isClickable?: boolean;
 	onClick?: () => void;
+	/** Open `href` in a new tab (external sites). */
+	external?: boolean;
 }) {
 	const isDisabledVariant =
 		buttonVariant === "disabled" || buttonVariant === "disabledPill";
@@ -92,6 +95,10 @@ export default function Button({
 				<a
 					className={`${clickableVariants[isClickable ? "true" : "false"]} ${className} ${buttonSizes[buttonSize]}`}
 					href={href}
+					{...(external && {
+						target: "_blank",
+						rel: "noopener noreferrer",
+					})}
 					style={{
 						...buttonBaseStyles,
 						...buttonVariants[buttonVariant],

@@ -51,63 +51,55 @@ export default async function WorkSection() {
 									{featured.title}
 								</h3>
 								<p>{featured.shortBlurb}</p>
+								{/* TODO: make this a component */}
+								{/* TODO: spacing within card on featured work item is off, need to fix */}
 								{featured.techTags?.length > 0 && (
-									// TODO: make this a component
-									// TODO: spacing within card on featured work item is off, need to fix
-									<>
-										<div className='flex flex-wrap gap-2 mt-auto'>
-											{featured.techTags.map(
-												(tag: string) => (
-													<Button
-														key={tag}
-														text={tag}
-														className='tag'
-														buttonVariant='disabledPill'
-														buttonSize='xs'
-													/>
-												),
-											)}
-										</div>
-										<div className='flex flex-row flex-wrap gap-2 mt-auto justify-center self-center'>
-											{/* more info */}
-											<div>
-												<Button
-													buttonVariant='primary'
-													buttonSize='xs'
-													text='More Info'
-													href={`/work/${featured.slug}`}
-													className='text-[var(--text-inverse)]'
-												/>
-											</div>
-											{/* live site */}
-											{featured.liveSiteUrl && (
-												<div>
-													<Button
-														buttonVariant='secondary'
-														buttonSize='xs'
-														text='Live Site'
-														href={
-															featured.liveSiteUrl
-														}
-													/>
-												</div>
-											)}
-											{/* code repo */}
-											{featured.codeRepoUrl && (
-												<div>
-													<Button
-														buttonVariant='secondary'
-														buttonSize='xs'
-														text='Code Repo'
-														href={
-															featured.codeRepoUrl
-														}
-													/>
-												</div>
-											)}
-										</div>
-									</>
+									<div className='flex flex-wrap gap-2 mt-auto'>
+										{featured.techTags.map((tag: string) => (
+											<Button
+												key={tag}
+												text={tag}
+												className='tag'
+												buttonVariant='disabledPill'
+												buttonSize='xs'
+											/>
+										))}
+									</div>
 								)}
+								<div className='flex flex-row flex-wrap gap-2 mt-auto justify-center self-center'>
+									{/* more info */}
+									<div>
+										<Button
+											buttonVariant='primary'
+											buttonSize='xs'
+											text='More Info'
+											href={`/work/${featured.slug}`}
+											className='text-[var(--text-inverse)]'
+										/>
+									</div>
+									{/* live site */}
+									{featured.liveSiteUrl && (
+										<div>
+											<Button
+												buttonVariant='secondary'
+												buttonSize='xs'
+												text='Live Site'
+												href={featured.liveSiteUrl}
+											/>
+										</div>
+									)}
+									{/* code repo */}
+									{featured.codeRepoUrl && (
+										<div>
+											<Button
+												buttonVariant='secondary'
+												buttonSize='xs'
+												text='Code Repo'
+												href={featured.codeRepoUrl}
+											/>
+										</div>
+									)}
+								</div>
 							</div>{" "}
 						</Card>
 					)}
