@@ -9,7 +9,7 @@ export default async function AboutSection() {
 	return (
 		<>
 			<Layout text='about me' id='about-section' bgColor='bg-[var(--bg-shaded)]'>
-				<div>
+				<div className='rich-text'>
 					{about?.content?.json &&
 						documentToReactComponents(about.content.json)}
 				</div>

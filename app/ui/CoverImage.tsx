@@ -18,7 +18,8 @@ export default function CoverImage({
 }) {
   const image = (
     <ContentfulImage
-      alt={`Cover Image for ${title}`}
+      // Decorative: the title is always next to it, or on the wrapping link's aria-label.
+      alt=""
       priority={priority}
       width={2000}
       height={1000}

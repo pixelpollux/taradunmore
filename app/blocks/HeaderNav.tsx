@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const LINKS = [
 	{ href: "/#about-section", label: "about" },
@@ -16,8 +17,24 @@ const CONSTRUCTION_MESSAGE =
 
 export default function HeaderNav() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [isBannerPaused, setIsBannerPaused] = useState(false);
+	const pathname = usePathname();
 	const navRef = useRef<HTMLElement>(null);
 	const bannerRef = useRef<HTMLDivElement>(null);
+	const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+	// Escape closes the mobile menu and hands focus back to its button.
+	useEffect(() => {
+		if (!isOpen) return;
+		function onKeyDown(event: KeyboardEvent) {
+			if (event.key === "Escape") {
+				setIsOpen(false);
+				menuButtonRef.current?.focus();
+			}
+		}
+		document.addEventListener("keydown", onKeyDown);
+		return () => document.removeEventListener("keydown", onKeyDown);
+	}, [isOpen]);
 
 	useEffect(() => {
 		function setHeights() {
@@ -43,6 +60,7 @@ export default function HeaderNav() {
 		<>
 			<nav
 				ref={navRef}
+				aria-label='primary'
 				className='flex flex-col bg-[var(--bg)] lg:flex-row justify-center items-center gap-4 lg:gap-8 text-lg lg:text-xl font-sans font-bold sticky z-[50] top-0 border-b-[var(--text)] border-b-[.15rem] px-8 py-4 lg:px-12 lg:py-7'
 			>
 				{" "}
@@ -58,6 +76,7 @@ export default function HeaderNav() {
 					</a>
 
 					<button
+						ref={menuButtonRef}
 						type='button'
 						className='lg:hidden flex flex-col justify-center gap-1.5 w-6 h-8'
 						onClick={() => setIsOpen((open) => !open)}
@@ -92,6 +111,13 @@ export default function HeaderNav() {
 							<li key={link.href}>
 								<a
 									href={link.href}
+									className='nav__link'
+									aria-current={
+										link.href === "/blog" &&
+										pathname.startsWith("/blog")
+											? "page"
+											: undefined
+									}
 									onClick={() => setIsOpen(false)}
 								>
 									{link.label}
@@ -104,14 +130,20 @@ export default function HeaderNav() {
 
 			<div
 				ref={bannerRef}
-				role='status'
-				className='sticky top-[var(--nav-only-height,0px)] z-[49] overflow-hidden whitespace-nowrap border-b-[.15rem] border-b-[var(--text)] bg-[color-mix(in_oklch,var(--accent-secondary)_70%,var(--white))] py-2 lg:mb-24'
+				className='construction-banner sticky top-[var(--nav-only-height,0px)] z-[49] overflow-hidden whitespace-nowrap border-b-[.15rem] border-b-[var(--text)] bg-[color-mix(in_oklch,var(--accent-secondary)_70%,var(--white))] py-2 lg:mb-24'
 			>
-				<div className='construction-banner__track flex w-max gap-12'>
+				{/* One calm copy for assistive tech; the scrolling copies are decoration. */}
+				<p className='sr-only !mb-0'>{CONSTRUCTION_MESSAGE}</p>
+				<div
+					aria-hidden='true'
+					className='construction-banner__track flex w-max gap-12'
+					style={{
+						animationPlayState: isBannerPaused ? "paused" : undefined,
+					}}
+				>
 					{[0, 1].map((trackIndex) => (
 						<span
 							key={trackIndex}
-							aria-hidden={trackIndex === 1}
 							className='flex shrink-0 items-center gap-12 pr-12'
 						>
 							{Array.from({ length: 8 }).map((_, i) => (
@@ -125,6 +157,13 @@ export default function HeaderNav() {
 						</span>
 					))}
 				</div>
+				<button
+					type='button'
+					onClick={() => setIsBannerPaused((paused) => !paused)}
+					className='absolute right-2 top-1/2 -translate-y-1/2 rounded-full border-2 border-[var(--text)] bg-[var(--bg)] px-2 py-0.5 text-xs font-bold leading-none tracking-[1px] motion-reduce:hidden'
+				>
+					{isBannerPaused ? "play banner" : "pause banner"}
+				</button>
 			</div>
 		</>
 	);

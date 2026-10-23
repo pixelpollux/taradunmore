@@ -41,8 +41,13 @@ export default function RootLayout({
 	return (
 		<html lang='en' className={`${fredoka.variable} scroll-smooth`}>
 			<body className='text-[var(--text)] font-sans font-normal'>
+				<a href='#main' className='skip-link'>
+					skip to content
+				</a>
 				<section className='min-h-screen flex flex-col'>
-					<main className='flex-1'>{children}</main>
+					<main id='main' tabIndex={-1} className='flex-1 focus:outline-none'>
+						{children}
+					</main>
 					<Footer />
 				</section>
 			</body>

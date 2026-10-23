@@ -68,18 +68,21 @@ export default async function Page() {
 										>
 											<Headline
 												headlineVariant='display'
-												headlineLevel='h1'
+												headlineLevel='decorative'
 												className={`text-center leading-[.85] mb-8 lg:mb-0 lg:-mt-[6rem] lg:leading-1 lg:text-left text-[12rem] lg:text-6xl lg:text-[14rem] -rotate-[4deg] font-cherry ${cherry.variable}`}
 												text='hi!'
 											/>
 											<div className='text-center lg:text-left font-bold'>
-												<h2 className='headline'>
+												<h1
+													className='headline'
+													aria-label="Hi! I'm Tara Dunmore, a front-end developer."
+												>
 													I'm{" "}
 													<span className='headline--highlighter'>
 														Tara
 													</span>
 													!
-												</h2>
+												</h1>
 											</div>{" "}
 											<div>
 												<span className='font-[500] lg:text-[1.2rem]'>
@@ -87,7 +90,7 @@ export default async function Page() {
 													developer instincts.
 													Self-taught, self-driven,
 													systems-minded, building the{" "}
-													<span className='text-[var(--accent)]'>
+													<span className='text-[var(--accent-text)]'>
 														bridge between design
 														and code.
 													</span>

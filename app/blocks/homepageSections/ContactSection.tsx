@@ -70,8 +70,11 @@ export default async function ContactSection() {
 														<div className='text-center sm:text-left'>
 															<h3 className='font-bold text-lg lg:text-xl'>
 																{label}
+																{href.startsWith("http") && (
+																	<span className='sr-only'> (opens in new tab)</span>
+																)}
 															</h3>
-															<p className='text-sm lg:text-base !mb-0 text-[var(--grey)]'>
+															<p className='text-sm lg:text-base !mb-0 text-[var(--text-muted)]'>
 																{handle}
 															</p>
 														</div>

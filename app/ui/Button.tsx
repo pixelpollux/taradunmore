@@ -1,7 +1,7 @@
 // import "../../index.css";
 
 const clickableVariants = {
-	true: "hover:cursor-pointer hover:translate-x-[-.25rem] hover:translate-y-[-.25rem] hover:shadow-[.25rem_.25rem_0_0_color-mix(in_oklch,var(--accent)_30%,transparent)] transition-[transform,box-shadow] duration-300 ease-in-out cursor-pointer",
+	true: "hover:cursor-pointer hover:translate-x-[-.25rem] hover:translate-y-[-.25rem] hover:shadow-[.25rem_.25rem_0_0_color-mix(in_oklch,var(--accent)_30%,transparent)] active:translate-x-[-.25rem] active:translate-y-[-.25rem] active:shadow-[.25rem_.25rem_0_0_color-mix(in_oklch,var(--accent)_30%,transparent)] transition-[transform,box-shadow] duration-300 ease-in-out cursor-pointer",
 	false: "cursor-default",
 };
 
@@ -32,15 +32,15 @@ const buttonVariants = {
 		color: "var(--text)",
 	},
 	disabled: {
-		border: "solid 2px var(--grey)",
+		border: "solid 2px var(--text-muted)",
 		backgroundColor: "var(--bg)",
-		color: "var(--grey)",
+		color: "var(--text-muted)",
 		borderRadius: "30px",
 	},
 	disabledPill: {
-		border: "solid 2px var(--grey)",
+		border: "solid 2px var(--text-muted)",
 		backgroundColor: "var(--bg)",
-		color: "var(--grey)",
+		color: "var(--text-muted)",
 		borderRadius: "30px",
 	},
 };
@@ -59,6 +59,8 @@ export default function Button({
 	isClickable = true,
 	className = "",
 	external = false,
+	ariaExpanded,
+	ariaControls,
 }: {
 	text: string;
 	buttonVariant?:
@@ -74,6 +76,9 @@ export default function Button({
 	onClick?: () => void;
 	/** Open `href` in a new tab (external sites). */
 	external?: boolean;
+	/** For buttons that show or hide a region; pair with `ariaControls`. */
+	ariaExpanded?: boolean;
+	ariaControls?: string;
 }) {
 	const isDisabledVariant =
 		buttonVariant === "disabled" || buttonVariant === "disabledPill";
@@ -105,10 +110,15 @@ export default function Button({
 					}}
 				>
 					{text}
+					{external && (
+						<span className='sr-only'> (opens in new tab)</span>
+					)}
 				</a>
 			) : (
 				<button
 					type='button'
+					aria-expanded={ariaExpanded}
+					aria-controls={ariaControls}
 					className={`${clickableVariants[isClickable ? "true" : "false"]} ${className} ${buttonSizes[buttonSize]}`}
 					onClick={onClick}
 					style={{

@@ -11,7 +11,7 @@ export default function Avatar({
     <div className="flex items-center">
       <div className="mr-4 w-12 h-12">
         <ContentfulImage
-          alt={name}
+          alt=""
           className="object-cover h-full rounded-full"
           height={48}
           width={48}

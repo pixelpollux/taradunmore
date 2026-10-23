@@ -8,6 +8,7 @@ import CoverImage from "@/app/ui/CoverImage";
 import MoreStories from "../../blocks/MoreStories";
 import Avatar from "@/app/ui/Avatar";
 import Card from "@/app/ui/Card";
+import Headline from "@/app/ui/Headline";
 
 // import MoreStories from "@/components/blog/MoreStories";
 function HeroPost({
@@ -44,10 +45,10 @@ function HeroPost({
 					</div>
 					<div className='md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8  p-6 md:p-10'>
 						<div>
-							<h3 className='mb-4 text-4xl lg:text-6xl leading-tight'>
+							<h2 className='mb-4 text-4xl lg:text-6xl leading-tight'>
 								{" "}
 								{title}
-							</h3>
+							</h2>
 							<div className='mb-4 md:mb-0 text-lg'>
 								<time dateTime={date}>
 									{new Date(date).toLocaleDateString()}
@@ -83,6 +84,12 @@ export default async function Page() {
 	return (
 		<>
 			<div className='container mx-auto px-5'>
+				<Headline
+					text='blog'
+					headlineLevel='h1'
+					headlineVariant='highlighter'
+					className='mb-8 text-center sm:text-left'
+				/>
 				{/* hero post */}
 				{/* {heroPost && (
 					<HeroPost

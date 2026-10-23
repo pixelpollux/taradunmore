@@ -20,6 +20,11 @@
 	--code-bg: #f4f3ec;
 	--accent: var(--pink);
 	--accent-secondary: var(--lime);
+	/* Text-safe companions: --accent (pink) and --grey fail 4.5:1 for small
+	   text on --bg. Use these for words; keep --accent / --grey for fills,
+	   borders and large type. */
+	--accent-text: #b8006f; /* 5.7:1 on white, 5.1:1 on shade */
+	--text-muted: #5a4a5c; /* 7.3:1 on white, 4.5:1 on the pink contact wash */
 	--accent-bg: rgba(170, 59, 255, 0.1);
 	--accent-border: rgba(170, 59, 255, 0.5);
 	--social-bg: rgba(244, 243, 236, 0.5);
@@ -59,7 +64,73 @@
 		rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 } */
 
+/* accessibility: focus, skip link, links in running text, reduced motion */
+:focus-visible {
+	outline: 3px solid var(--text);
+	outline-offset: 3px;
+}
+.skip-link {
+	position: fixed;
+	top: 0.75rem;
+	left: 0.75rem;
+	z-index: 100;
+	transform: translateY(-200%);
+	padding: 0.5rem 1rem;
+	border: 2px solid var(--text);
+	border-radius: 30px;
+	background: var(--text);
+	color: var(--text-inverse);
+	font-weight: 700;
+	text-decoration: none;
+}
+.skip-link:focus {
+	transform: none;
+}
+.rich-text a,
+p a {
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.2em;
+}
+.rich-text a:hover,
+p a:hover {
+	color: var(--accent-text);
+}
+/* nav + footer links: no underline at rest, pink underline on hover, solid on current page */
+.nav__link {
+	text-decoration: underline;
+	text-decoration-color: transparent;
+	text-decoration-thickness: 0.2rem;
+	text-underline-offset: 0.35rem;
+	transition: text-decoration-color 200ms;
+}
+.nav__link:hover {
+	text-decoration-color: var(--accent);
+}
+.nav__link[aria-current="page"] {
+	text-decoration-color: var(--text);
+}
+/* skills: commas are decoration, kept out of the DOM text */
+.skill-list li:not(:last-child)::after {
+	content: ","/"";
+}
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto !important;
+	}
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+	}
+}
+
 /* construction banner */
+.construction-banner:hover .construction-banner__track,
+.construction-banner:focus-within .construction-banner__track {
+	animation-play-state: paused;
+}
 .construction-banner__track {
 	animation: construction-banner-scroll 82s linear infinite;
 	@media screen and (min-width: 768px) {
@@ -112,6 +183,7 @@
 }
 /* TODO: this is broken, come back */
 
+h1.headline,
 h2.headline {
 	font-size: 2.5rem;
 	@media (min-width: 1024px) {

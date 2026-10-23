@@ -45,24 +45,23 @@ export default function Footer() {
 								.com
 							</span>
 						</a>
-						<p className='text-sm text-[var(--grey)] max-w-xs'>
+						<p className='text-sm text-[var(--text-muted)] max-w-xs'>
 							Design roots, developer instincts — building the
 							bridge between design and code.
 						</p>
 					</div>
 
-					<ul className='flex flex-wrap justify-center gap-x-6 gap-y-2 text-base font-bold lg:justify-center'>
-						{NAV_LINKS.map((link) => (
-							<li key={link.href}>
-								<a
-									href={link.href}
-									className='hover:text-[var(--accent)] transition-colors duration-200'
-								>
-									{link.label}
-								</a>
-							</li>
-						))}
-					</ul>
+					<nav aria-label='footer'>
+						<ul className='flex flex-wrap justify-center gap-x-6 gap-y-2 text-base font-bold lg:justify-center'>
+							{NAV_LINKS.map((link) => (
+								<li key={link.href}>
+									<a href={link.href} className='nav__link'>
+										{link.label}
+									</a>
+								</li>
+							))}
+						</ul>
+					</nav>
 
 					<div className='flex items-center justify-center gap-3 lg:justify-end lg:w-1/3'>
 						{SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
@@ -71,7 +70,11 @@ export default function Footer() {
 								href={href}
 								target='_blank'
 								rel='noreferrer noopener'
-								aria-label={label}
+								aria-label={
+									href.startsWith("mailto:")
+										? label
+										: `${label} (opens in new tab)`
+								}
 							>
 								<span className='inline-flex size-11 items-center justify-center rounded-full border-2 border-[var(--text)] text-[var(--text)] hover:bg-[var(--text)] hover:text-[var(--bg)] transition-colors duration-200'>
 									<Icon />
@@ -82,12 +85,12 @@ export default function Footer() {
 				</div>
 
 				<div className='mt-10 flex flex-col-reverse items-center gap-4 border-t border-[var(--accent)] pt-6 lg:flex-row lg:justify-between'>
-					<p className='text-sm text-[var(--grey)]'>
+					<p className='text-sm text-[var(--text-muted)]'>
 						© {year} Tara Dunmore. All rights reserved.
 					</p>
 					<a
 						href='#top'
-						className='inline-flex items-center gap-1 text-sm font-bold hover:text-[var(--accent)] transition-colors duration-200'
+						className='nav__link inline-flex items-center gap-1 text-sm font-bold'
 					>
 						back to top <ArrowUp className='size-4' />
 					</a>

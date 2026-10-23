@@ -57,21 +57,13 @@ export default async function SkillsSection() {
 							<h3 className='text-lg font-bold tracking-[1] break-normal wrap-anywhere mb-2 italic'>
 								{skillCategory.label}
 							</h3>
-							<ul className='flex flex-row flex-wrap gap-2'>
+							<ul className='skill-list flex flex-row flex-wrap gap-x-2'>
 								{[...skillCategory.skills]
 									.sort((firstSkill, secondSkill) =>
 										firstSkill.localeCompare(secondSkill),
 									)
-									.map((skill, index) => (
-										<li key={skill}>
-											<span>
-												{skill}
-												{index <
-												skillCategory.skills.length - 1
-													? ","
-													: ""}
-											</span>
-										</li>
+									.map((skill) => (
+										<li key={skill}>{skill}</li>
 									))}
 							</ul>
 						</div>

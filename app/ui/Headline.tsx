@@ -13,6 +13,8 @@ const headlineLevels = {
 	h1: "h1",
 	h2: "h2",
 	h3: "h3",
+	// Purely visual text (e.g. the giant "hi!"): not a heading, hidden from assistive tech.
+	decorative: "div",
 };
 
 export default function Headline({
@@ -30,7 +32,7 @@ export default function Headline({
 		| "highlighter"
 		| "display"
 		| "default";
-	headlineLevel?: "h1" | "h2" | "h3" | "default";
+	headlineLevel?: "h1" | "h2" | "h3" | "default" | "decorative";
     className?: string;
     id?: string;
 }) {
@@ -38,7 +40,13 @@ export default function Headline({
 		<>
 			{React.createElement(
 				headlineLevels[headlineLevel] || "h2",
-				{ className: className, id: id },
+				{
+					className: className,
+					id: id,
+					...(headlineLevel === "decorative" && {
+						"aria-hidden": true,
+					}),
+				},
 				<span className={headlineVariants[headlineVariant]}>
 					{text}
 				</span>,

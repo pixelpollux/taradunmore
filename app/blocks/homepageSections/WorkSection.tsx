@@ -84,6 +84,7 @@ export default async function WorkSection() {
 												buttonVariant='secondary'
 												buttonSize='xs'
 												text='Live Site'
+												external
 												href={featured.liveSiteUrl}
 											/>
 										</div>
@@ -95,6 +96,7 @@ export default async function WorkSection() {
 												buttonVariant='secondary'
 												buttonSize='xs'
 												text='Code Repo'
+												external
 												href={featured.codeRepoUrl}
 											/>
 										</div>
@@ -164,6 +166,7 @@ export default async function WorkSection() {
 													buttonVariant='secondary'
 													buttonSize='xs'
 													text='Live Site'
+													external
 													href={item.liveSiteUrl}
 												/>
 											</div>
@@ -175,6 +178,7 @@ export default async function WorkSection() {
 													buttonVariant='secondary'
 													buttonSize='xs'
 													text='Code Repo'
+													external
 													href={item.codeRepoUrl}
 												/>
 											</div>

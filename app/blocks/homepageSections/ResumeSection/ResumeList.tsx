@@ -112,6 +112,8 @@ export default function ResumeList({ items }: { items: any[] }) {
 										isOpen ? "Hide Resume" : "View Resume"
 									}
 									onClick={() => setIsOpen((open) => !open)}
+									ariaExpanded={isOpen}
+									ariaControls='resume-details'
 									buttonVariant={
 										isOpen ? "secondary" : "primary"
 									}
@@ -125,7 +127,10 @@ export default function ResumeList({ items }: { items: any[] }) {
 						</div>
 					</div>
 					{isOpen && (
-						<div className='flex flex-col gap-10 pt-6 lg:pt-8'>
+						<div
+							id='resume-details'
+							className='flex flex-col gap-10 pt-6 lg:pt-8'
+						>
 							{groupedItems.map(({ category, items }) => (
 								<div key={category}>
 									<h3 className='font-bold text-2xl mb-6 border-b-2 border-[var(--accent)]'>
@@ -141,7 +146,7 @@ export default function ResumeList({ items }: { items: any[] }) {
 												<div className='flex justify-between flex-wrap gap-2'>
 													<h4 className='font-bold text-xl'>
 														{item.role} ·{" "}
-														<span className='text-[var(--accent)]'>
+														<span className='text-[var(--accent-text)]'>
 															{item.companyName}
 														</span>
 													</h4>
@@ -155,12 +160,15 @@ export default function ResumeList({ items }: { items: any[] }) {
 														)}
 													</span>
 												</div>
-												{item.roleDescription?.json &&
-													documentToReactComponents(
-														item.roleDescription
-															.json,
-														richTextOptions,
-													)}
+												{item.roleDescription?.json && (
+													<div className='rich-text'>
+														{documentToReactComponents(
+															item.roleDescription
+																.json,
+															richTextOptions,
+														)}
+													</div>
+												)}
 											</li>
 										))}
 									</ol>
