@@ -14,14 +14,23 @@ export function slugify(text: string) {
 
 /**
  * A slugger that de-duplicates within one page: "Results", "Results" becomes
- * "results", "results-2". Make one per render so ids stay stable.
+ * "results", "results-2". Every emitted id is tracked, so a heading whose own
+ * text slugs to "results-2" cannot collide with a generated suffix. Make one
+ * per render so ids stay stable.
  */
 export function makeSlugger() {
-	const seen = new Map<string, number>();
+	const used = new Set<string>();
+	const lastSuffix = new Map<string, number>();
 	return (text: string) => {
 		const base = slugify(text);
-		const count = (seen.get(base) ?? 0) + 1;
-		seen.set(base, count);
-		return count === 1 ? base : `${base}-${count}`;
+		let suffix = lastSuffix.get(base) ?? 1;
+		let candidate = base;
+		while (used.has(candidate)) {
+			suffix += 1;
+			candidate = `${base}-${suffix}`;
+		}
+		lastSuffix.set(base, suffix);
+		used.add(candidate);
+		return candidate;
 	};
 }
