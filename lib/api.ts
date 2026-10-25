@@ -35,8 +35,12 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
 				(body?.errors ?? []).map((error: any) => error.message).join("; "),
 			)
 			.catch(() => "");
+		const hint =
+			res.status === 401 || res.status === 403
+				? ` Check ${preview ? "CONTENTFUL_PREVIEW_ACCESS_TOKEN" : "CONTENTFUL_ACCESS_TOKEN"} and CONTENTFUL_SPACE_ID for this environment (on Vercel, Preview and Production have separate environment variables; current: ${process.env.VERCEL_ENV ?? "local"}).`
+				: "";
 		throw new Error(
-			`Contentful request failed: ${res.status} ${res.statusText}${detail ? ` (${detail})` : ""}`,
+			`Contentful request failed: ${res.status} ${res.statusText}${detail ? ` (${detail})` : ""}.${hint}`,
 		);
 	}
 
