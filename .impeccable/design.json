@@ -1,140 +1,305 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-05T00:00:00.000Z",
+  "generatedAt": "2026-10-25T02:30:00.813Z",
   "title": "Design System: TaraDunmore.com",
   "extensions": {
     "colorMeta": {
-      "electric-pink": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(95% 0.008 74)",
+        "tonalRamp": [
+          "oklch(15% 0.008 74)",
+          "oklch(26% 0.008 74)",
+          "oklch(38% 0.008 74)",
+          "oklch(49% 0.008 74)",
+          "oklch(61% 0.008 74)",
+          "oklch(72% 0.008 74)",
+          "oklch(84% 0.008 74)",
+          "oklch(95% 0.008 74)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "oklch(98% 0.006 75)",
+        "tonalRamp": [
+          "oklch(15% 0.006 75)",
+          "oklch(26% 0.006 75)",
+          "oklch(38% 0.006 75)",
+          "oklch(49% 0.006 75)",
+          "oklch(61% 0.006 75)",
+          "oklch(72% 0.006 75)",
+          "oklch(84% 0.006 75)",
+          "oklch(95% 0.006 75)"
+        ]
+      },
+      "plum": {
         "role": "primary",
-        "displayName": "Electric Pink",
-        "canonical": "oklch(65% 0.25 350)",
+        "displayName": "Plum",
+        "canonical": "oklch(26% 0.08 338)",
         "tonalRamp": [
-          "oklch(18% 0.12 350)",
-          "oklch(30% 0.18 350)",
-          "oklch(42% 0.22 350)",
-          "oklch(54% 0.25 350)",
-          "oklch(65% 0.25 350)",
-          "oklch(76% 0.20 350)",
-          "oklch(86% 0.13 350)",
-          "oklch(95% 0.05 350)"
+          "oklch(15% 0.065 338)",
+          "oklch(26% 0.08 338)",
+          "oklch(38% 0.08 338)",
+          "oklch(49% 0.08 338)",
+          "oklch(61% 0.08 338)",
+          "oklch(72% 0.08 338)",
+          "oklch(84% 0.08 338)",
+          "oklch(95% 0.035 338)"
         ]
       },
-      "acid-lime": {
+      "plum-muted": {
+        "role": "neutral",
+        "displayName": "Plum Muted",
+        "canonical": "oklch(41% 0.054 335)",
+        "tonalRamp": [
+          "oklch(15% 0.054 335)",
+          "oklch(26% 0.054 335)",
+          "oklch(38% 0.054 335)",
+          "oklch(49% 0.054 335)",
+          "oklch(61% 0.054 335)",
+          "oklch(72% 0.054 335)",
+          "oklch(84% 0.054 335)",
+          "oklch(95% 0.034 335)"
+        ]
+      },
+      "lime": {
         "role": "secondary",
-        "displayName": "Acid Lime",
-        "canonical": "oklch(94% 0.23 125)",
+        "displayName": "Lime",
+        "canonical": "oklch(82% 0.174 120)",
         "tonalRamp": [
-          "oklch(20% 0.09 125)",
-          "oklch(32% 0.14 125)",
-          "oklch(45% 0.18 125)",
-          "oklch(58% 0.22 125)",
-          "oklch(72% 0.24 125)",
-          "oklch(83% 0.24 125)",
-          "oklch(90% 0.23 125)",
-          "oklch(97% 0.10 125)"
+          "oklch(15% 0.034 120)",
+          "oklch(26% 0.059 120)",
+          "oklch(38% 0.089 120)",
+          "oklch(49% 0.114 120)",
+          "oklch(61% 0.139 120)",
+          "oklch(72% 0.169 120)",
+          "oklch(84% 0.174 120)",
+          "oklch(95% 0.174 120)"
         ]
       },
-      "deep-eggplant": {
-        "role": "neutral",
-        "displayName": "Deep Eggplant",
-        "canonical": "oklch(20% 0.12 320)",
+      "lime-100": {
+        "role": "secondary",
+        "displayName": "Lime 100",
+        "canonical": "oklch(93% 0.083 117)",
         "tonalRamp": [
-          "oklch(12% 0.08 320)",
-          "oklch(20% 0.12 320)",
-          "oklch(30% 0.13 320)",
-          "oklch(40% 0.13 320)",
-          "oklch(52% 0.12 320)",
-          "oklch(65% 0.10 320)",
-          "oklch(80% 0.06 320)",
-          "oklch(94% 0.02 320)"
+          "oklch(15% 0.033 117)",
+          "oklch(26% 0.058 117)",
+          "oklch(38% 0.083 117)",
+          "oklch(49% 0.083 117)",
+          "oklch(61% 0.083 117)",
+          "oklch(72% 0.083 117)",
+          "oklch(84% 0.083 117)",
+          "oklch(95% 0.083 117)"
         ]
       },
-      "paper-white": {
-        "role": "neutral",
-        "displayName": "Paper White",
-        "canonical": "oklch(96% 0.001 90)",
+      "lime-800": {
+        "role": "secondary",
+        "displayName": "Lime 800",
+        "canonical": "oklch(48% 0.118 126)",
         "tonalRamp": [
-          "oklch(20% 0.001 90)",
-          "oklch(32% 0.001 90)",
-          "oklch(45% 0.001 90)",
-          "oklch(58% 0.001 90)",
-          "oklch(72% 0.001 90)",
-          "oklch(84% 0.001 90)",
-          "oklch(91% 0.001 90)",
-          "oklch(96% 0.001 90)"
+          "oklch(15% 0.038 126)",
+          "oklch(26% 0.063 126)",
+          "oklch(38% 0.093 126)",
+          "oklch(49% 0.118 126)",
+          "oklch(61% 0.118 126)",
+          "oklch(72% 0.118 126)",
+          "oklch(84% 0.118 126)",
+          "oklch(95% 0.118 126)"
         ]
       },
-      "warm-shade": {
-        "role": "neutral",
-        "displayName": "Warm Shade",
-        "canonical": "oklch(91% 0.001 90)",
+      "orchid": {
+        "role": "secondary",
+        "displayName": "Orchid",
+        "canonical": "oklch(76% 0.102 331)",
         "tonalRamp": [
-          "oklch(18% 0.001 90)",
-          "oklch(30% 0.001 90)",
-          "oklch(43% 0.001 90)",
-          "oklch(56% 0.001 90)",
-          "oklch(70% 0.001 90)",
-          "oklch(82% 0.001 90)",
-          "oklch(91% 0.001 90)",
-          "oklch(95% 0.001 90)"
+          "oklch(15% 0.067 331)",
+          "oklch(26% 0.102 331)",
+          "oklch(38% 0.102 331)",
+          "oklch(49% 0.102 331)",
+          "oklch(61% 0.102 331)",
+          "oklch(72% 0.102 331)",
+          "oklch(84% 0.102 331)",
+          "oklch(95% 0.037 331)"
         ]
       },
-      "muted-grey": {
-        "role": "neutral",
-        "displayName": "Muted Grey",
-        "canonical": "oklch(60% 0.003 260)",
+      "orchid-100": {
+        "role": "secondary",
+        "displayName": "Orchid 100",
+        "canonical": "oklch(91% 0.039 331)",
         "tonalRamp": [
-          "oklch(20% 0.003 260)",
-          "oklch(32% 0.003 260)",
-          "oklch(44% 0.003 260)",
-          "oklch(52% 0.003 260)",
-          "oklch(60% 0.003 260)",
-          "oklch(70% 0.003 260)",
-          "oklch(82% 0.003 260)",
-          "oklch(92% 0.003 260)"
+          "oklch(15% 0.039 331)",
+          "oklch(26% 0.039 331)",
+          "oklch(38% 0.039 331)",
+          "oklch(49% 0.039 331)",
+          "oklch(61% 0.039 331)",
+          "oklch(72% 0.039 331)",
+          "oklch(84% 0.039 331)",
+          "oklch(95% 0.039 331)"
+        ]
+      },
+      "orchid-800": {
+        "role": "secondary",
+        "displayName": "Orchid 800",
+        "canonical": "oklch(47% 0.114 332)",
+        "tonalRamp": [
+          "oklch(15% 0.069 332)",
+          "oklch(26% 0.114 332)",
+          "oklch(38% 0.114 332)",
+          "oklch(49% 0.114 332)",
+          "oklch(61% 0.114 332)",
+          "oklch(72% 0.114 332)",
+          "oklch(84% 0.114 332)",
+          "oklch(95% 0.039 332)"
+        ]
+      },
+      "amber": {
+        "role": "tertiary",
+        "displayName": "Amber",
+        "canonical": "oklch(78% 0.129 64)",
+        "tonalRamp": [
+          "oklch(15% 0.034 64)",
+          "oklch(26% 0.059 64)",
+          "oklch(38% 0.084 64)",
+          "oklch(49% 0.109 64)",
+          "oklch(61% 0.129 64)",
+          "oklch(72% 0.129 64)",
+          "oklch(84% 0.114 64)",
+          "oklch(95% 0.029 64)"
+        ]
+      },
+      "amber-100": {
+        "role": "tertiary",
+        "displayName": "Amber 100",
+        "canonical": "oklch(90% 0.06 69)",
+        "tonalRamp": [
+          "oklch(15% 0.03 69)",
+          "oklch(26% 0.055 69)",
+          "oklch(38% 0.06 69)",
+          "oklch(49% 0.06 69)",
+          "oklch(61% 0.06 69)",
+          "oklch(72% 0.06 69)",
+          "oklch(84% 0.06 69)",
+          "oklch(95% 0.035 69)"
+        ]
+      },
+      "amber-800": {
+        "role": "tertiary",
+        "displayName": "Amber 800",
+        "canonical": "oklch(47% 0.112 52)",
+        "tonalRamp": [
+          "oklch(15% 0.037 52)",
+          "oklch(26% 0.067 52)",
+          "oklch(38% 0.097 52)",
+          "oklch(49% 0.112 52)",
+          "oklch(61% 0.112 52)",
+          "oklch(72% 0.112 52)",
+          "oklch(84% 0.102 52)",
+          "oklch(95% 0.027 52)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "oklch(89% 0.011 348)",
+        "tonalRamp": [
+          "oklch(15% 0.011 348)",
+          "oklch(26% 0.011 348)",
+          "oklch(38% 0.011 348)",
+          "oklch(49% 0.011 348)",
+          "oklch(61% 0.011 348)",
+          "oklch(72% 0.011 348)",
+          "oklch(84% 0.011 348)",
+          "oklch(95% 0.011 348)"
         ]
       }
     },
     "typographyMeta": {
       "display": {
-        "displayName": "Display (Cherry Bomb One)",
-        "purpose": "One hero word per page, rendered as a stroked-outline transparent-fill glyph with a hard layered drop shadow. Never used for section titles or running text."
+        "displayName": "Display (Shrikhand)",
+        "purpose": "Hero name blocks only, with the Ghost."
       },
-      "headline": {
-        "displayName": "Headline",
-        "purpose": "Section titles, almost always paired with the highlighter-gradient variant."
+      "page-title": {
+        "displayName": "Page title",
+        "purpose": "One h1 per page, with the Ghost."
+      },
+      "section-title": {
+        "displayName": "Section title",
+        "purpose": "Homepage h2s, with the Ghost."
+      },
+      "card-title": {
+        "displayName": "Card title",
+        "purpose": "Cards, resume roles and list rows. 24px minimum for Shrikhand."
+      },
+      "lead": {
+        "displayName": "Lead (Work Sans 500)",
+        "purpose": "Intros, shortBlurb, excerpt."
       },
       "body": {
-        "displayName": "Body",
-        "purpose": "Default reading copy across About, Resume, and Work descriptions."
+        "displayName": "Body (Work Sans)",
+        "purpose": "Default reading copy."
+      },
+      "prose": {
+        "displayName": "Prose",
+        "purpose": "Case study and post bodies in a 740 to 760px measure."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Card blurbs, captions, meta."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Buttons, nav links, tech-tag pills — always bold with tracked-out letter-spacing."
+        "purpose": "Eyebrows, group labels and dates: 13px, bold, uppercase, tracked."
       }
     },
     "shadows": [
       {
-        "name": "pop-sm",
-        "value": ".25rem .25rem 0 0 color-mix(in oklch, var(--accent) 30%, transparent)",
-        "purpose": "Hard, zero-blur hover shadow on Button, paired with a small up-left translate."
+        "name": "pop",
+        "value": "3px 3px 0 var(--lime | --orchid | --amber | --plum)",
+        "purpose": "Solid, zero-blur offset shadow on buttons, chips and pills. Lifts translate(-3px, -3px) over 150ms."
       },
       {
-        "name": "pop-lg",
-        "value": ".5rem .5rem 0 0 color-mix(in oklch, var(--accent) 40%, transparent)",
-        "purpose": "Hard, zero-blur hover shadow on clickable Card, scaled up from pop-sm."
+        "name": "pop-card",
+        "value": "5px 5px 0 var(--accent)",
+        "purpose": "Solid shadow on whole-card links, one step bolder than a button."
+      },
+      {
+        "name": "dot-shadow",
+        "value": "radial-gradient(circle, ink 42%, transparent 46%) at 8px pitch, offset 10 to 16px, mix-blend-mode: multiply",
+        "purpose": "Halftone dot layer behind static containers. Never behind or through text."
+      },
+      {
+        "name": "ghost",
+        "value": "-3px 0 0 var(--orchid), 3px 3px 0 var(--lime)",
+        "purpose": "Misregistered text-shadow on Shrikhand at 32px and up."
       }
     ],
     "motion": [
       {
-        "name": "pop-transition",
-        "value": "transform 300ms ease-in-out, box-shadow 300ms ease-in-out",
-        "purpose": "Shared hover-pop transition for Button and Card."
+        "name": "lift",
+        "value": "translate(-3px, -3px) over 150ms ease",
+        "purpose": "Hover on every interactive element. Removed under prefers-reduced-motion."
+      },
+      {
+        "name": "focus",
+        "value": "3px dashed currentColor, 3px offset",
+        "purpose": "Visible focus ring on every interactive element."
       }
     ],
     "breakpoints": [
-      { "name": "xs", "value": "30rem" },
-      { "name": "lg", "value": "1024px" }
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "page-max",
+        "value": "1200px"
+      }
     ]
   },
   "components": [
@@ -142,87 +307,134 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Default call-to-action pill: Deep Eggplant fill, pink-tinted text, hard offset-shadow pop on hover.",
-      "html": "<button class=\"ds-btn ds-btn-primary\">see my work</button>",
-      "css": ".ds-btn { font-family: var(--font-Fredoka), sans-serif; letter-spacing: 1px; font-weight: 700; border-radius: 30px; padding: 0.5rem 0.75rem; cursor: pointer; transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out; } .ds-btn-primary { background-color: #330036; color: color-mix(in oklch, #fe019a 70%, #ffffff); border: solid 2px #330036; } .ds-btn-primary:hover, .ds-btn-primary:focus-visible { transform: translate(-0.25rem, -0.25rem); box-shadow: .25rem .25rem 0 0 color-mix(in oklch, #fe019a 30%, transparent); }"
+      "description": "Main action in any area: plum fill, paper text, solid lime shadow that lifts on hover.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">See my work</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 24px; font: 700 18px/1.2 var(--font-text), system-ui, sans-serif; border: 4px solid var(--plum); border-radius: 999px; cursor: pointer; transition: transform 150ms ease; } .ds-btn:hover { transform: translate(-3px, -3px); } .ds-btn:focus-visible { outline: 3px dashed var(--plum); outline-offset: 3px; } .ds-btn-primary { background: var(--plum); color: var(--paper); box-shadow: 3px 3px 0 var(--lime); }"
     },
     {
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Inverted-fill pill for lower-emphasis actions alongside a primary button.",
-      "html": "<button class=\"ds-btn ds-btn-secondary\">get in touch</button>",
-      "css": ".ds-btn { font-family: var(--font-Fredoka), sans-serif; letter-spacing: 1px; font-weight: 700; border-radius: 30px; padding: 0.5rem 0.75rem; cursor: pointer; transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out; } .ds-btn-secondary { background-color: #f2f2f2; color: #330036; border: solid 2px #330036; } .ds-btn-secondary:hover, .ds-btn-secondary:focus-visible { transform: translate(-0.25rem, -0.25rem); box-shadow: .25rem .25rem 0 0 color-mix(in oklch, #fe019a 30%, transparent); }"
+      "description": "Second action: surface fill, plum text, solid orchid shadow.",
+      "html": "<button class=\"ds-btn ds-btn-secondary\">Get in touch</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 24px; font: 700 18px/1.2 var(--font-text), system-ui, sans-serif; border: 4px solid var(--plum); border-radius: 999px; cursor: pointer; transition: transform 150ms ease; } .ds-btn:hover { transform: translate(-3px, -3px); } .ds-btn:focus-visible { outline: 3px dashed var(--plum); outline-offset: 3px; } .ds-btn-secondary { background: var(--surface); color: var(--plum); box-shadow: 3px 3px 0 var(--orchid); }"
     },
     {
-      "name": "Disabled Tag Pill",
-      "kind": "chip",
-      "refersTo": "button-disabled",
-      "description": "Non-interactive tech-tag chip, reusing the disabled button variant — no hover physics, rendered as a span.",
-      "html": "<span class=\"ds-tag\" aria-disabled=\"true\">TypeScript</span>",
-      "css": ".ds-tag { font-family: var(--font-Fredoka), sans-serif; letter-spacing: 1px; font-weight: 600; border-radius: 30px; padding: 0.25rem 0.5rem; font-size: 0.75rem; line-height: 1; background-color: #f2f2f2; color: #858585; border: solid 2px #858585; display: inline-block; }"
-    },
-    {
-      "name": "Card",
-      "kind": "card",
-      "refersTo": "card-default",
-      "description": "Base surface: rounded-3xl, thick pink outline, flat at rest, hard offset-shadow pop when clickable.",
-      "html": "<div class=\"ds-card ds-card--clickable\"><h3 class=\"ds-card__title\">Work Item</h3><p class=\"ds-card__body\">A short project blurb goes here.</p></div>",
-      "css": ".ds-card { background-color: #f2f2f2; border: 2px solid #fe019a; border-radius: 1.5rem; padding: 1.5rem; transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out; } .ds-card--clickable { cursor: pointer; } .ds-card--clickable:hover, .ds-card--clickable:focus-visible { transform: translate(-0.5rem, -0.5rem); box-shadow: .5rem .5rem 0 0 color-mix(in oklch, #fe019a 40%, transparent); } .ds-card__title { font-family: var(--font-Fredoka), sans-serif; font-weight: 700; font-size: 1.25rem; color: #330036; margin: 0 0 0.5rem; } .ds-card__body { font-family: var(--font-Fredoka), sans-serif; color: #330036; margin: 0; line-height: 1.5; }"
-    },
-    {
-      "name": "Section Headline (Highlighter)",
+      "name": "Text Link",
       "kind": "custom",
-      "refersTo": "headline",
-      "description": "Section-title treatment: bold heading text struck through with a two-tone highlighter-marker gradient band.",
-      "html": "<h2 class=\"ds-headline\"><span class=\"ds-headline__highlight\">skills</span></h2>",
-      "css": ".ds-headline { font-family: var(--font-Fredoka), sans-serif; font-weight: 700; font-size: 2.5rem; line-height: 1; margin: 0; color: #330036; } .ds-headline__highlight { background-image: linear-gradient(#edff00, #c9ff00); -webkit-box-decoration-break: clone; box-decoration-break: clone; background-position: 0 88%; background-repeat: no-repeat; background-size: 100% 32%; padding-inline: 0.5rem; }"
+      "refersTo": "text-link",
+      "description": "Inline and low-emphasis actions (Live site, Code): Orchid 800, bold, 2px underline.",
+      "html": "<a class=\"ds-link\" href=\"#\">Live site</a>",
+      "css": ".ds-link { color: var(--orchid-800); font: 700 18px/1.2 var(--font-text), system-ui, sans-serif; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; } .ds-link:hover { text-decoration-thickness: 4px; } .ds-link:focus-visible { outline: 3px dashed var(--plum); outline-offset: 3px; }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "button-secondary",
+      "description": "Work-index toggle (aria-pressed). Off: surface with plum shadow. On: plum fill with lime shadow.",
+      "html": "<button class=\"ds-chip\" aria-pressed=\"false\">React</button> <button class=\"ds-chip ds-chip-on\" aria-pressed=\"true\">Next.js</button>",
+      "css": ".ds-chip { min-height: 44px; padding: 8px 20px; font: 700 18px/1.2 var(--font-text), system-ui, sans-serif; border: 4px solid var(--plum); border-radius: 999px; background: var(--surface); color: var(--plum); box-shadow: 3px 3px 0 var(--plum); cursor: pointer; transition: transform 150ms ease; } .ds-chip:hover { transform: translate(-3px, -3px); } .ds-chip-on { background: var(--plum); color: var(--paper); box-shadow: 3px 3px 0 var(--lime); } .ds-chip:focus-visible { outline: 3px dashed var(--plum); outline-offset: 3px; }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "button-secondary",
+      "description": "Static tint chip, rotating lime, orchid and amber. No shadow, no hover.",
+      "html": "<span class=\"ds-tag ds-tag-lime\">Next.js</span> <span class=\"ds-tag ds-tag-orchid\">React</span> <span class=\"ds-tag ds-tag-amber\">Contentful</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; padding: 4px 12px; font: 700 15px/1.2 var(--font-text), system-ui, sans-serif; color: var(--plum); border: 3px solid var(--plum); border-radius: 999px; } .ds-tag-lime { background: var(--lime-100); } .ds-tag-orchid { background: var(--orchid-100); } .ds-tag-amber { background: var(--amber-100); }"
+    },
+    {
+      "name": "Static Card",
+      "kind": "card",
+      "refersTo": "static-card",
+      "description": "Container that does nothing: opaque surface box over a halftone dot layer. Dots sit still.",
+      "html": "<div class=\"ds-static\"><div class=\"ds-static-box\"><h3 class=\"ds-card-title\">Project title</h3><p class=\"ds-card-copy\">A short blurb sits here, in small plum-muted text.</p></div></div>",
+      "css": ".ds-static { position: relative; max-width: 320px; } .ds-static::before { content: \"\"; position: absolute; inset: 0; border-radius: 30px; transform: translate(12px, 12px); background-image: radial-gradient(circle, var(--lime) 42%, transparent 46%); background-size: 8px 8px; mix-blend-mode: multiply; } .ds-static-box { position: relative; background: var(--surface); border: 4px solid var(--plum); border-radius: 30px; padding: 24px; } .ds-card-title { margin: 0 0 8px; font: 400 24px/1.15 var(--font-display), Georgia, serif; color: var(--plum); } .ds-card-copy { margin: 0; font: 400 15px/1.5 var(--font-text), system-ui, sans-serif; color: var(--plum-muted); }"
+    },
+    {
+      "name": "Link Card",
+      "kind": "card",
+      "refersTo": "link-card",
+      "description": "Whole-card link: solid accent shadow that lifts on hover. Never contains another link.",
+      "html": "<a class=\"ds-link-card\" href=\"#\"><span class=\"ds-lc-label\">Next project</span><span class=\"ds-lc-title\">taradunmore.com rebuild</span></a>",
+      "css": ".ds-link-card { display: block; max-width: 320px; padding: 24px; background: var(--surface); border: 4px solid var(--plum); border-radius: 30px; box-shadow: 5px 5px 0 var(--orchid); color: var(--plum); text-decoration: none; transition: transform 150ms ease; } .ds-link-card:hover { transform: translate(-3px, -3px); } .ds-link-card:focus-visible { outline: 3px dashed var(--plum); outline-offset: 3px; } .ds-lc-label { display: block; margin-bottom: 4px; font: 700 13px/1.3 var(--font-text), system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; } .ds-lc-title { display: block; font: 400 24px/1.15 var(--font-display), Georgia, serif; }"
     },
     {
       "name": "Navigation",
       "kind": "nav",
-      "refersTo": "nav",
-      "description": "Sticky header with a thick bottom border and a two-tone stroked/filled wordmark.",
-      "html": "<nav class=\"ds-nav\"><a href=\"/\" class=\"ds-nav__wordmark\"><span class=\"ds-nav__wordmark-accent\">TaraDunmore</span><span class=\"ds-nav__wordmark-ink\">.com</span></a><ul class=\"ds-nav__links\"><li><a href=\"#about-section\">about</a></li><li><a href=\"#work-section\">work</a></li><li><a href=\"#contact-section\">contact</a></li></ul></nav>",
-      "css": ".ds-nav { display: flex; justify-content: space-between; align-items: center; gap: 2rem; background-color: #f2f2f2; border-bottom: .15rem solid #330036; padding: 1rem 2rem; position: sticky; top: 0; font-family: var(--font-Fredoka), sans-serif; font-weight: 700; } .ds-nav__wordmark { font-size: 1.5rem; font-weight: 700; text-decoration: none; -webkit-text-stroke: 0.05rem #330036; } .ds-nav__wordmark-accent { -webkit-text-fill-color: #fe019a; text-shadow: 0.2rem 0.2rem 0 color-mix(in oklch, #330036 12%, transparent); } .ds-nav__wordmark-ink { -webkit-text-fill-color: #330036; } .ds-nav__links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; font-size: 1.125rem; } .ds-nav__links a { color: #330036; text-decoration: none; }"
+      "refersTo": "button-primary",
+      "description": "Floating pill: monogram and wordmark left, links right, Blog as an amber-orchid gradient pill with a lime shadow. No shadow on the bar itself.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main\"><span class=\"ds-nav-brand\"><span class=\"ds-mono\" aria-hidden=\"true\">td</span><span class=\"ds-nav-name\">Tara Dunmore</span></span><span class=\"ds-nav-links\"><a href=\"#\">About</a><a href=\"#\">Work</a><a href=\"#\">Skills</a><a href=\"#\">Resume</a><a href=\"#\">Contact</a><a class=\"ds-blog\" href=\"#\">Blog <svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></span></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 8px 12px 8px 16px; background: var(--surface); border: 4px solid var(--plum); border-radius: 999px; font: 700 18px/1.2 var(--font-text), system-ui, sans-serif; color: var(--plum); } .ds-nav-brand { display: inline-flex; align-items: center; gap: 12px; } .ds-mono { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; background: var(--orchid); font: 400 24px/1 var(--font-display), Georgia, serif; } .ds-nav-name { font: 400 22px/1 var(--font-display), Georgia, serif; } .ds-nav-links { display: inline-flex; align-items: center; gap: 4px; } .ds-nav-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; color: var(--plum); text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 4px; } .ds-nav-links a:hover { text-decoration-color: var(--orchid); } .ds-nav-links a:focus-visible { outline: 3px dashed var(--plum); outline-offset: 3px; } .ds-nav-links .ds-blog { gap: 4px; margin-left: 8px; background: linear-gradient(160deg, var(--amber), var(--orchid)); border: 4px solid var(--plum); border-radius: 999px; box-shadow: 3px 3px 0 var(--lime); text-decoration: none; transition: transform 150ms ease; } .ds-nav-links .ds-blog:hover { transform: translate(-3px, -3px); }"
     },
     {
-      "name": "Contact Tile",
+      "name": "Contact Pill",
       "kind": "custom",
-      "refersTo": "card-default",
-      "description": "Signature composite: a clickable Card holding a circular accent-tinted icon badge, a label, and a handle.",
-      "html": "<a href=\"#\" class=\"ds-contact-tile\"><span class=\"ds-contact-tile__badge\">✉</span><span class=\"ds-contact-tile__text\"><strong class=\"ds-contact-tile__label\">Email</strong><span class=\"ds-contact-tile__handle\">me@taradunmore.com</span></span></a>",
-      "css": ".ds-contact-tile { display: flex; align-items: center; gap: 1rem; background-color: color-mix(in oklch, #fe019a 30%, transparent); border: 2px solid #fe019a; border-radius: 1.5rem; padding: 1rem; text-decoration: none; transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out; } .ds-contact-tile:hover, .ds-contact-tile:focus-visible { transform: translate(-0.5rem, -0.5rem); box-shadow: .5rem .5rem 0 0 color-mix(in oklch, #fe019a 40%, transparent); } .ds-contact-tile__badge { display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; border-radius: 1.5rem; background-color: color-mix(in oklch, #fe019a 20%, transparent); color: #330036; font-size: 1.25rem; flex-shrink: 0; } .ds-contact-tile__text { display: flex; flex-direction: column; } .ds-contact-tile__label { font-family: var(--font-Fredoka), sans-serif; font-weight: 700; font-size: 1.125rem; color: #330036; } .ds-contact-tile__handle { font-family: var(--font-Fredoka), sans-serif; font-size: 0.875rem; color: #858585; }"
+      "refersTo": "button-secondary",
+      "description": "Icon badge, label and handle. Collapses to a 56px icon-only circle below 768px.",
+      "html": "<a class=\"ds-contact\" href=\"#\" aria-label=\"Email, me@taradunmore.com\"><span class=\"ds-badge\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"16\" x=\"2\" y=\"4\" rx=\"2\"/><path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\"/></svg></span><span class=\"ds-contact-text\"><strong>Email</strong><small>me@taradunmore.com</small></span></a>",
+      "css": ".ds-contact { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 8px 20px 8px 8px; background: var(--surface); border: 4px solid var(--plum); border-radius: 999px; box-shadow: 3px 3px 0 var(--plum); color: var(--plum); text-decoration: none; font-family: var(--font-text), system-ui, sans-serif; transition: transform 150ms ease; } .ds-contact:hover { transform: translate(-3px, -3px); } .ds-contact:focus-visible { outline: 3px dashed var(--plum); outline-offset: 3px; } .ds-badge { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 3px solid var(--plum); border-radius: 999px; background: var(--amber); } .ds-contact-text { display: flex; flex-direction: column; line-height: 1.2; } .ds-contact-text strong { font-weight: 700; } .ds-contact-text small { font-size: 15px; color: var(--plum-muted); }"
+    },
+    {
+      "name": "Sticker CTA",
+      "kind": "custom",
+      "refersTo": "button-primary",
+      "description": "The round Download PDF sticker, one per page: an orchid circle offset behind a lime-amber circle, both multiplied, tilted 8deg.",
+      "html": "<a class=\"ds-sticker\" href=\"#\"><span class=\"ds-st-orchid\" aria-hidden=\"true\"></span><span class=\"ds-st-main\" aria-hidden=\"true\"></span><span class=\"ds-st-ring\" aria-hidden=\"true\"></span><span class=\"ds-st-text\">Download PDF</span></a>",
+      "css": ".ds-sticker { position: relative; display: inline-block; width: 220px; height: 220px; transform: rotate(8deg); color: var(--plum); text-decoration: none; } .ds-sticker span { position: absolute; inset: 0; border-radius: 999px; } .ds-st-orchid { background: var(--orchid); transform: translate(12px, 10px); mix-blend-mode: multiply; } .ds-st-main { background: radial-gradient(circle at 35% 30%, var(--lime), var(--amber)); mix-blend-mode: multiply; } .ds-st-ring { border: 4px solid var(--plum); } .ds-st-text { display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; font: 400 30px/1.05 var(--font-display), Georgia, serif; } .ds-sticker:focus-visible { outline: 3px dashed var(--plum); outline-offset: 3px; }"
     }
   ],
   "narrative": {
-    "northStar": "The Sticker Sheet",
-    "overview": "TaraDunmore.com looks like a sheet of stickers laid out by hand, not a template filled in: thick cartoon-outline borders, pill-shaped buttons, and section titles struck through with a highlighter-marker gradient. Hero elements sit slightly off-grid — the headshot rotated a few degrees inside two independently-tilted outline rings, the giant stroked \"hi!\" cocked at -4deg — the deliberate imperfection of something placed by hand rather than centered by a grid system. Nothing here is trying to look safe or corporate; it's a portfolio that argues its own case by being unmistakably made, not generated.\n\nThe palette does the same job in color: a stark, near-black-purple ink (Deep Eggplant) against a soft paper neutral, with exactly two accents — Electric Pink and Acid Lime — that never dilute into a third. Depth stays flat at rest; it only appears as a hard, no-blur, colored offset shadow the instant something becomes interactive, reinforcing the sticker-peel physicality rather than simulating real-world light.\n\nThis system explicitly rejects soft, muted, corporate-minimalist portfolio conventions — no gradients-as-glow, no frosted panels, no safe SaaS-dashboard palette. The bet is that \"design roots, developer instincts\" reads more convincingly through unapologetic, tactile craft than through restraint.",
+    "northStar": "Printed by hand, built with care.",
+    "overview": "The site looks like it came off a risograph: warm paper, a dark plum ink plus three bright spot inks, visible grain, slightly misregistered type, halftone dot shadows, and bright shapes that blend where they overlap. It keeps v1's sticker DNA (thick outlines, round shapes, a little tilt) and prints it.\n\nUnderneath, everything is systematic: tokenized, accessible, CMS-driven. That tension is the brand. Delight on the surface, rigor underneath. The site should prove \"design roots, developer instincts\" rather than claim it.",
     "keyCharacteristics": [
-      "Thick 2px ink/accent outlines paired with generous rounded corners (pills, rounded-3xl)",
-      "Flat at rest, hard offset \"pop\" shadow + translate on hover/click — never a soft blur",
-      "Exactly two accents (Electric Pink, Acid Lime) against one ink neutral (Deep Eggplant)",
-      "Deliberate off-grid rotation on hero elements (headshot rings, display headline)",
-      "One display font reserved for a single hero word; Fredoka carries everything else"
+      "Warm paper, one dark ink (Plum) and three spot inks (Lime, Orchid, Amber), each with a job",
+      "Thick plum outlines and round shapes, with a little hand-placed tilt",
+      "Shrikhand for headings and stickers; Work Sans for everything else",
+      "Dots sit still, solid ink moves: halftone dots mean 'container', a solid offset shadow means 'click me'",
+      "Riso texture is a layer: grain, ghost misregistration and overprints, never behind or under text",
+      "Delight on the surface, rigor underneath: tokenized, accessible, CMS-driven"
     ],
     "rules": [
-      { "name": "The Two-Accent Rule", "body": "Electric Pink and Acid Lime are the only saturated accents in the system. A new UI need reaches for Deep Eggplant, Paper White, or Warm Shade before it reaches for a third hue.", "section": "colors" },
-      { "name": "The One-Word Display Rule", "body": "The display face and its outline/shadow treatment appear on exactly one hero word per page. It is a signature moment, not a heading style.", "section": "typography" },
-      { "name": "The Pop-on-Touch Rule", "body": "Nothing casts a shadow at rest. A hard, accent-tinted, zero-blur offset shadow plus a small translate is the only depth cue, and it appears only in response to hover or interaction.", "section": "elevation" }
+      {
+        "name": "The Shadow Rule",
+        "body": "Dots sit still. Solid ink moves. Interactive elements get a solid, zero-blur offset shadow and lift on hover; static containers get a halftone dot layer behind an opaque box; stickers and the nav get nothing.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Paper Rule",
+        "body": "Backgrounds are paper or surface. Spot inks are fills inside outlined shapes, never full-bleed section bands.",
+        "section": "colors"
+      },
+      {
+        "name": "The Photo Rule",
+        "body": "Photos and project screenshots are always shown in natural color. No duotone for now.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ghost",
+        "body": "Display, page titles, section titles and prose H2s carry the misregistered riso shadow. Never on text under 32px, never on body.",
+        "section": "typography"
+      },
+      {
+        "name": "The Text-Safe Rule",
+        "body": "Accent 500s are fills only. When an accent must be text, use its 800; links are Orchid 800. Text never sits on dots or overprints.",
+        "section": "colors"
+      }
     ],
     "dos": [
-      "Do pair every clickable surface — button or card — with the same hard offset-shadow-plus-translate pop on hover; it's one interaction physic, not a per-component choice.",
-      "Do keep Electric Pink and Acid Lime as the system's only two accents (The Two-Accent Rule); reach for Deep Eggplant, Paper White, or Warm Shade before introducing a third hue.",
-      "Do reserve the Cherry Bomb One display treatment for a single hero word per page (The One-Word Display Rule); Fredoka carries every other typographic role.",
-      "Do treat lg (1024px) as the layout's real pivot — build mobile-first, then restructure at lg:, matching the rest of the codebase.",
-      "Do use the highlighter-gradient headline variant for section titles specifically; it's a title treatment, not a general emphasis style for body copy."
+      "Follow the **Shadow Rule**: solid = clickable, dots = static, nothing on stickers or the nav.",
+      "Keep dot layers behind **opaque** boxes; never put `mix-blend-mode` on a box that sits on dots.",
+      "Use accent 800s for any accent-colored text.",
+      "Keep content in Contentful (About, Work, Resume, Posts). Skills stay hardcoded.",
+      "Alternate tilt and dot ink between neighbors."
     ],
     "donts": [
-      "Don't reintroduce soft, muted, corporate-minimalist styling — no soft-blurred shadows, no desaturated \"safe\" palette, no glassmorphism/glow. This system's whole thesis is that it doesn't look like a template.",
-      "Don't treat --accent-bg, --accent-border, --code-bg, --social-bg, --black, --text-h, or --shadow as live tokens — they're declared in globals.css but not referenced by any component; verify a token is actually consumed before reusing it.",
-      "Don't rely on the font-display class (nav wordmark) or shadow-small / shadow-medium classes (blog cover image) as real styles — none of the three are defined anywhere in the Tailwind config or CSS; they currently resolve to nothing.",
-      "Don't treat the <Footer> rendered in app/layout.tsx as part of this system — it's unstyled Next.js-starter boilerplate (bg-accent-1, border-accent-2, text-success, \"Read Documentation\" / \"View on GitHub\") predating the current identity and uses none of its tokens.",
-      "Don't assume /blog or /work/[slug] already carry this system — both still run bare Tailwind defaults (plain container mx-auto px-5, no color bands, no Button/Card treatment) and haven't been brought into the Sticker Sheet identity yet."
+      "Don't use accent 500s as text, put text on overprints or dots, or add a fourth spot ink.",
+      "Don't use Shrikhand under 24px, for body or labels, or the Ghost under 32px.",
+      "Don't use soft or blurred shadows, glassmorphism, or full-bleed colored section bands.",
+      "Don't bring back v1 pieces: Electric Pink, Fredoka, Cherry Bomb One, the stroked \"hi!\", the highlighter headline, the outline rings around the headshot, or the construction ticker.",
+      "Don't add a per-component grain layer."
     ]
   }
 }

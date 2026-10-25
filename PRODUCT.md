@@ -19,7 +19,7 @@ The site does not optimize for one audience at the expense of the others; each g
 
 ## Product Purpose
 
-TaraDunmore.com is Tara Dunmore's personal portfolio and resume site: a single-page home (about, skills, resume, work, contact) plus a planned blog. It exists to represent Tara — her work, skills, and how to reach her — to whoever lands on it, whether they're hiring, considering a freelance engagement, or just looking.
+TaraDunmore.com is Tara Dunmore's personal portfolio and resume site: a single-page home (hero, about, work, skills, resume, contact), a Work index with a case study per project, and a blog. It exists to represent Tara — her work, skills, and how to reach her — to whoever lands on it, whether they're hiring, considering a freelance engagement, or just looking.
 
 ## Positioning
 
@@ -27,14 +27,17 @@ TaraDunmore.com is Tara Dunmore's personal portfolio and resume site: a single-p
 
 ## Operating Context
 
-- Content for About copy, Resume items, and Work items is authored in **Contentful**, not hardcoded — treat these as live CMS data, not fixed strings, when reasoning about future changes.
-- The header nav already links to `/blog`, but the blog is **planned, not built** — there is no live blog route/content yet. Don't assume it exists or is finished.
-- Primary navigation sections live on the single homepage: about, skills, work, resume, contact (in-page anchors), plus the not-yet-live blog.
+- Content for About copy, Resume items, Work items and blog posts is authored in **Contentful**, not hardcoded — treat these as live CMS data, not fixed strings, when reasoning about future changes. Skills are the exception: they are hardcoded in `SkillsSection.tsx`.
+- Routes: `/` (home), `/work` (index with tech filters), `/work/[slug]` (case study), `/blog` (index), `/blog/[slug]` (post). The blog has an empty state ("The first post is still on the press") and is meant to grow; posts are written in Contentful.
+- Primary navigation: About, Work, Skills, Resume, Contact (in-page anchors on the homepage) plus a Blog pill.
+- The resume is a PDF at `/resume.pdf` (`public/resume.pdf`), linked from the Download PDF sticker in the Resume section. Replace the file to update it.
+- The contact form posts to a server action that sends mail through Resend. It needs `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` (see `.env.example`).
+- Visual and interaction rules live in `DESIGN.md` (v2, the risograph system); the build history is in `docs/redesign-plan.md`.
 
 ## Capabilities and Constraints
 
 - Built with Next.js (App Router) + Contentful as the CMS/data source.
-- Work items support: title, short blurb, cover image, tech tags, slug (detail page), optional live site URL, optional code repo URL, and a featured item.
+- Work items support: title, short blurb, cover image, tech tags, slug (case study page), rich-text description, optional live site URL, optional code repo URL, and an `order` (Integer). The lowest `order` is the featured project on the homepage and drives the Work index and previous/next links.
 - Skills are grouped by category (languages/frameworks, CMS/platforms, testing & CI/CD, accessibility, UI/UX, version control, project management/collaboration, AI tools).
 - Contact surfaces GitHub (@pixelpollux), LinkedIn (in/tarajdunmore), and email (me@taradunmore.com) directly on the page.
 
@@ -48,7 +51,7 @@ TaraDunmore.com is Tara Dunmore's personal portfolio and resume site: a single-p
 1. Serve multiple audiences without a forced single funnel — a recruiter, a client, and a peer should each find what they came for.
 2. The design-to-dev bridge is the throughline — content and craft should demonstrate it, not just claim it in hero copy.
 3. Content is data, not decoration — About, Resume, and Work stay CMS-driven; don't hardcode what's meant to be edited in Contentful.
-4. Don't get ahead of what's built — the blog is a stated intention, not a shipped feature.
+4. Don't get ahead of what's built — the blog ships with an honest empty state until there are real posts; never fill it, or any section, with placeholder content.
 
 ## Accessibility & Inclusion
 

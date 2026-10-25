@@ -169,7 +169,7 @@ export default async function WorkItemPage({
 					aria-label='More work'
 					className='mx-auto mt-template max-w-page px-5'
 				>
-					<ul className='grid gap-8 md:grid-cols-2'>
+					<ul className='grid grid-cols-1 gap-8 md:grid-cols-2'>
 						{previous && (
 							<li>
 								<AdjacentCard

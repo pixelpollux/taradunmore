@@ -1,34 +1,39 @@
-import Button from "../../app/ui/Button";
+import Button from "@/app/ui/Button";
 
 export function Primary() {
-	return <Button text="see my work" href="/#work-section" />;
+	return <Button href="/#work">See my work</Button>;
 }
 
 export function Secondary() {
-	return <Button buttonVariant="secondary" text="get in touch" href="/#contact-section" />;
-}
-
-export function Tertiary() {
-	return <Button buttonVariant="tertiary" text="Read more" />;
-}
-
-export function DisabledTag() {
 	return (
-		<Button
-			text="React"
-			className="tag"
-			buttonVariant="disabledPill"
-			buttonSize="xs"
-		/>
+		<Button variant="secondary" href="/#contact">
+			Get in touch
+		</Button>
 	);
 }
 
-export function Sizes() {
+export function TextLink() {
 	return (
-		<div className="flex gap-3 items-center">
-			<Button text="Extra small" buttonSize="xs" />
-			<Button text="Small" buttonSize="sm" />
-			<Button text="Medium" buttonSize="md" />
+		<Button variant="text" href="https://example.com" external>
+			Live site
+		</Button>
+	);
+}
+
+export function Disabled() {
+	return <Button variant="disabled">Unavailable</Button>;
+}
+
+export function InARow() {
+	return (
+		<div className="flex flex-wrap items-center gap-5">
+			<Button>Case study</Button>
+			<Button variant="text" href="https://example.com" external>
+				Live site
+			</Button>
+			<Button variant="text" href="https://example.com" external>
+				Code
+			</Button>
 		</div>
 	);
 }

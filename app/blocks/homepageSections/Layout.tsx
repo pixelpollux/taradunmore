@@ -10,18 +10,21 @@ import Headline from "@/app/ui/Headline";
 export default function Layout({
 	id,
 	title,
+	labelledBy,
 	actions,
 	children,
 }: {
 	id: string;
 	title?: string;
+	/** id of the section's own heading, when it has no `title` (About, Resume, Contact). */
+	labelledBy?: string;
 	actions?: ReactNode;
 	children: ReactNode;
 }) {
 	return (
 		<section
 			id={id}
-			aria-labelledby={title ? `${id}-title` : undefined}
+			aria-labelledby={labelledBy ?? (title ? `${id}-title` : undefined)}
 			className='scroll-mt-[110px]'
 		>
 			<div className='mx-auto max-w-page px-5'>

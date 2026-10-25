@@ -1,16 +1,26 @@
 import CoverImage from "@/app/ui/CoverImage";
 import { COVER_IMAGE_URL } from "./_fixtures";
 
-export function Linked() {
+export function Plain() {
 	return (
-		<CoverImage
-			title="Building a design system sync"
-			url={COVER_IMAGE_URL}
-			slug="building-a-design-system-sync"
-		/>
+		<div className="max-w-md p-4">
+			<CoverImage url={COVER_IMAGE_URL} />
+		</div>
 	);
 }
 
-export function Unlinked() {
-	return <CoverImage title="Work item cover, no link" url={COVER_IMAGE_URL} />;
+export function WithDotShadow() {
+	return (
+		<div className="max-w-md p-4">
+			<CoverImage url={COVER_IMAGE_URL} ink="orchid" tilt={-0.6} />
+		</div>
+	);
+}
+
+export function NoImage() {
+	return (
+		<div className="max-w-md p-4">
+			<CoverImage ink="amber" />
+		</div>
+	);
 }

@@ -57,7 +57,7 @@ export default function ResumeList({ items }: { items: any[] }) {
 	let rowIndex = 0;
 
 	return (
-		<Layout id='resume'>
+		<Layout id='resume' labelledBy='resume-title'>
 			<div className='flex flex-wrap items-start gap-x-16 gap-y-14'>
 				<div className='min-w-0 flex-[1_1_560px]'>
 					<Headline id='resume-title' variant='section' level='h2'>
