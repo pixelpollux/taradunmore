@@ -6,7 +6,7 @@
   "srcDir": ".design-sync/build-src",
   "tsconfig": "tsconfig.json",
   "cssEntry": ".design-sync/.cache/compiled-tailwind.css",
-  "buildCmd": "npx tailwindcss -i .design-sync/tailwind-entry.css -o .design-sync/.cache/compiled-tailwind.css --config tailwind.config.ts",
+  "buildCmd": "npx tailwindcss -i .design-sync/tailwind-entry.css -o .design-sync/.cache/compiled-tailwind.css --config .design-sync/tailwind.config.ts",
   "extraFonts": [".design-sync/brand-fonts.css"],
   "componentSrcMap": {
     "ContentfulImage": null

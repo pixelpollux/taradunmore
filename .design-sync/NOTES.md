@@ -19,7 +19,7 @@ A personal Next.js site, not a publishable package: no Storybook, no `dist/`. Th
 
 ## CSS and fonts
 
-- No compiled stylesheet in the repo. `cfg.cssEntry` is `.design-sync/.cache/compiled-tailwind.css`, produced by `cfg.buildCmd` (Tailwind CLI over `tailwind-entry.css`, which `@import`s the real `app/globals.css`, which imports `app/styles/tokens.css`). `resync.mjs` runs the build; a bare `package-build.mjs` does not.
+- No compiled stylesheet in the repo. `cfg.cssEntry` is `.design-sync/.cache/compiled-tailwind.css`, produced by `cfg.buildCmd` (Tailwind CLI with `.design-sync/tailwind.config.ts`, which is the site config plus the preview files so preview-only utilities such as `w-48` and `max-w-xs` are generated, over `tailwind-entry.css`, which `@import`s the real `app/globals.css`, which imports `app/styles/tokens.css`). `resync.mjs` runs the build; a bare `package-build.mjs` does not.
 - `--font-display` and `--font-text` are normally injected by `next/font/google` on `<html>`. `tailwind-entry.css` redeclares them as literal family names.
 - `brand-fonts.css` plus `brand-fonts/*.woff2` are self-hosted **latin-subset** copies of Shrikhand and Work Sans (variable, upright and italic), fetched from `fonts.gstatic.com` through the legacy `css2` endpoint with a desktop Chrome user agent. Non-Latin copy would need more subsets.
 
