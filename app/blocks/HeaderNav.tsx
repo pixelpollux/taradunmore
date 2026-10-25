@@ -1,131 +1,125 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import Monogram from "@/app/ui/Monogram";
+import { cn } from "@/lib/cn";
 
 const LINKS = [
-	{ href: "/#about-section", label: "about" },
-	{ href: "/#skills-section", label: "skills" },
-	{ href: "/#work-section", label: "work" },
-	{ href: "/#resume-section", label: "resume" },
-	{ href: "/blog", label: "blog" },
-	{ href: "/#contact-section", label: "contact" },
+	{ href: "/#about", label: "About" },
+	{ href: "/#work", label: "Work" },
+	{ href: "/#skills", label: "Skills" },
+	{ href: "/#resume", label: "Resume" },
+	{ href: "/#contact", label: "Contact" },
 ];
 
-const CONSTRUCTION_MESSAGE =
-	"🚧 This site is under construction — thanks for your patience! 🚧";
+const linkClass =
+	"inline-flex min-h-tap items-center rounded-full px-4 font-bold underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-orchid";
 
+/**
+ * Floating pill nav: sticky, surface fill, 4px plum border, no shadow (it
+ * scrolls over text). Below 768px the links collapse behind a Menu button.
+ */
 export default function HeaderNav() {
 	const [isOpen, setIsOpen] = useState(false);
-	const navRef = useRef<HTMLElement>(null);
-	const bannerRef = useRef<HTMLDivElement>(null);
+	const pathname = usePathname();
+	const menuButtonRef = useRef<HTMLButtonElement>(null);
+	const onBlog = pathname.startsWith("/blog");
 
+	// Close the menu after navigating.
+	useEffect(() => setIsOpen(false), [pathname]);
+
+	// Escape closes the menu and hands focus back to its button.
 	useEffect(() => {
-		function setHeights() {
-			const navHeight = navRef.current?.offsetHeight ?? 0;
-			const bannerHeight = bannerRef.current?.offsetHeight ?? 0;
-
-			document.documentElement.style.setProperty(
-				"--nav-only-height",
-				`${navHeight}px`,
-			);
-			document.documentElement.style.setProperty(
-				"--nav-height",
-				`${navHeight + bannerHeight}px`,
-			);
+		if (!isOpen) return;
+		function onKeyDown(event: KeyboardEvent) {
+			if (event.key === "Escape") {
+				setIsOpen(false);
+				menuButtonRef.current?.focus();
+			}
 		}
+		document.addEventListener("keydown", onKeyDown);
+		return () => document.removeEventListener("keydown", onKeyDown);
+	}, [isOpen]);
 
-		setHeights();
-		window.addEventListener("resize", setHeights);
-		return () => window.removeEventListener("resize", setHeights);
-	}, []);
+	const blogPill = (
+		<Link
+			href='/blog'
+			aria-current={onBlog ? "page" : undefined}
+			onClick={() => setIsOpen(false)}
+			className='lift inline-flex min-h-tap items-center gap-1 rounded-full border border-plum bg-grad-amber-orchid px-5 font-bold text-plum shadow-pop-lime'
+		>
+			Blog
+			<ArrowUpRight aria-hidden='true' className='size-4' strokeWidth={3} />
+		</Link>
+	);
 
 	return (
-		<>
-			<nav
-				ref={navRef}
-				className='flex flex-col bg-[var(--bg)] lg:flex-row justify-center items-center gap-4 lg:gap-8 text-lg lg:text-xl font-sans font-bold sticky z-[50] top-0 border-b-[var(--text)] border-b-[.15rem] px-8 py-4 lg:px-12 lg:py-7'
-			>
-				{" "}
-				<div className='flex justify-between items-center w-full container lg:max-w-7xl mx-auto px-0 lg:px-5'>
-					<a
+		<header className='sticky top-4 z-50 px-4'>
+			<nav aria-label='Main' className='relative mx-auto max-w-page'>
+				<div className='flex min-h-[64px] items-center justify-between gap-4 rounded-full border border-plum bg-surface py-2 pl-4 pr-3 md:pr-4'>
+					<Link
 						href='/'
-						className='nav__home-link font-display text-[1.25rem] lg:text-[1.5rem] font-bold text-[var(--text)]'
+						className='flex items-center gap-2 rounded-full md:gap-3'
+						onClick={() => setIsOpen(false)}
 					>
-						TaraDunmore
-						<span className='nav__home-accent text-[var(--text)]'>
-							.com
+						<Monogram />
+						<span className='whitespace-nowrap font-display text-[20px] leading-none md:text-[22px]'>
+							Tara Dunmore
 						</span>
-					</a>
+					</Link>
 
-					<button
-						type='button'
-						className='lg:hidden flex flex-col justify-center gap-1.5 w-6 h-8'
-						onClick={() => setIsOpen((open) => !open)}
-						aria-expanded={isOpen}
-						aria-controls='primary-nav-list'
-						aria-label={isOpen ? "Close menu" : "Open menu"}
-					>
-						<span
-							className={`block h-0.5 w-full bg-[var(--text)] transition-transform duration-200 ${
-								isOpen ? "rotate-45 translate-y-2" : ""
-							}`}
-						/>
-						<span
-							className={`block h-0.5 w-full bg-[var(--text)] transition-opacity duration-200 ${
-								isOpen ? "opacity-0" : ""
-							}`}
-						/>
-						<span
-							className={`block h-0.5 w-full bg-[var(--text)] transition-transform duration-200 ${
-								isOpen ? "-rotate-45 -translate-y-2" : ""
-							}`}
-						/>
-					</button>
-
-					<ul
-						id='primary-nav-list'
-						className={`${
-							isOpen ? "flex" : "hidden"
-						} flex-col gap-4 absolute top-full left-0 w-full bg-[var(--bg)] border-b-[var(--text)] border-b-[.15rem] px-8 py-4 lg:static lg:flex lg:flex-row lg:gap-8 lg:w-auto lg:border-none lg:p-0`}
-					>
+					<ul className='hidden items-center gap-1 md:flex'>
 						{LINKS.map((link) => (
 							<li key={link.href}>
-								<a
-									href={link.href}
-									onClick={() => setIsOpen(false)}
-								>
+								<Link href={link.href} className={linkClass}>
 									{link.label}
-								</a>
+								</Link>
 							</li>
 						))}
+						<li className='ml-2'>{blogPill}</li>
 					</ul>
-				</div>
-			</nav>
 
-			<div
-				ref={bannerRef}
-				role='status'
-				className='sticky top-[var(--nav-only-height,0px)] z-[49] overflow-hidden whitespace-nowrap border-b-[.15rem] border-b-[var(--text)] bg-[color-mix(in_oklch,var(--accent-secondary)_70%,var(--white))] py-2 lg:mb-24'
-			>
-				<div className='construction-banner__track flex w-max gap-12'>
-					{[0, 1].map((trackIndex) => (
-						<span
-							key={trackIndex}
-							aria-hidden={trackIndex === 1}
-							className='flex shrink-0 items-center gap-12 pr-12'
-						>
-							{Array.from({ length: 8 }).map((_, i) => (
-								<span
-									key={i}
-									className='font-sans text-sm font-bold text-[var(--text)] lg:text-base'
-								>
-									{CONSTRUCTION_MESSAGE}
-								</span>
-							))}
-						</span>
-					))}
+					<button
+						ref={menuButtonRef}
+						type='button'
+						aria-expanded={isOpen}
+						aria-controls='primary-nav-list'
+						onClick={() => setIsOpen((open) => !open)}
+						className='lift inline-flex min-h-tap items-center gap-2 rounded-full border border-plum bg-plum px-4 font-bold text-paper shadow-pop-lime focus-visible:outline-plum md:hidden'
+					>
+						{isOpen ? (
+							<X aria-hidden='true' className='size-5' strokeWidth={3} />
+						) : (
+							<Menu aria-hidden='true' className='size-5' strokeWidth={3} />
+						)}
+						<span>{isOpen ? "Close" : "Menu"}</span>
+					</button>
 				</div>
-			</div>
-		</>
+
+				<ul
+					id='primary-nav-list'
+					className={cn(
+						"absolute left-0 right-0 top-[calc(100%+12px)] flex-col gap-1 rounded-card border border-plum bg-surface p-4 md:hidden",
+						isOpen ? "flex" : "hidden",
+					)}
+				>
+					{LINKS.map((link) => (
+						<li key={link.href}>
+							<Link
+								href={link.href}
+								className={cn(linkClass, "w-full")}
+								onClick={() => setIsOpen(false)}
+							>
+								{link.label}
+							</Link>
+						</li>
+					))}
+					<li className='pt-2'>{blogPill}</li>
+				</ul>
+			</nav>
+		</header>
 	);
 }

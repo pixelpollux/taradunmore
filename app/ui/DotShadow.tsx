@@ -13,13 +13,15 @@ export const dotInk: Record<Ink, string> = {
  * Halftone dot shadow for STATIC containers (DESIGN.md "Shadow Rule").
  * The child must have an opaque background so dots never show through it.
  * Rotation lives on the wrapper so the dots tilt with the box; the `tilt`
- * class zeroes it below 768px.
+ * class zeroes it below 768px. Use `as='span'` inside headings, where a
+ * <div> would be invalid.
  */
 export default function DotShadow({
 	ink,
 	offset = 12,
 	radius = "var(--radius-card)",
 	tilt = 0,
+	as: As = "div",
 	className,
 	children,
 }: {
@@ -27,18 +29,25 @@ export default function DotShadow({
 	offset?: number;
 	radius?: string;
 	tilt?: number;
+	as?: "div" | "span";
 	className?: string;
 	children: ReactNode;
 }) {
 	return (
-		<div
-			className={cn("relative", tilt !== 0 && "tilt", className)}
+		<As
+			className={cn(
+				"relative",
+				As === "span" && "block",
+				tilt !== 0 && "tilt",
+				className,
+			)}
 			style={tilt ? { transform: `rotate(${tilt}deg)` } : undefined}
 		>
-			<div
+			<As
 				aria-hidden='true'
 				className={cn(
 					"pointer-events-none absolute inset-0 bg-dot multiply",
+					As === "span" && "block",
 					dotInk[ink],
 				)}
 				style={{
@@ -46,9 +55,12 @@ export default function DotShadow({
 					transform: `translate(${offset}px, ${offset}px)`,
 				}}
 			/>
-			<div className='relative' style={{ borderRadius: radius }}>
+			<As
+				className={cn("relative", As === "span" && "block")}
+				style={{ borderRadius: radius }}
+			>
 				{children}
-			</div>
-		</div>
+			</As>
+		</As>
 	);
 }

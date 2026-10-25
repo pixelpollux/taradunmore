@@ -12,6 +12,7 @@ const padding = {
 const radius = {
 	card: { css: "var(--radius-card)", cls: "rounded-card" },
 	panel: { css: "var(--radius-panel)", cls: "rounded-panel" },
+	form: { css: "28px", cls: "rounded-[28px]" },
 } as const;
 
 /** Solid link-card shadows: 5px, one step bolder than a button's 3px. */
