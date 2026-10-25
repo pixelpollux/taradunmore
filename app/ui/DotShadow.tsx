@@ -46,7 +46,7 @@ export default function DotShadow({
 					transform: `translate(${offset}px, ${offset}px)`,
 				}}
 			/>
-			<div className='relative' style={{ borderRadius: radius }}>
+			<div className='relative h-full' style={{ borderRadius: radius }}>
 				{children}
 			</div>
 		</div>

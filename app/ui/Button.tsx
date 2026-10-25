@@ -6,17 +6,17 @@ import type {
 import { cva, type VariantProps } from "class-variance-authority";
 
 const button = cva(
-	"inline-flex min-h-tap items-center justify-center gap-2 font-bold leading-tight no-underline",
+	"inline-flex min-h-tap items-center justify-center gap-2 font-bold leading-tight",
 	{
 		variants: {
 			variant: {
 				primary:
-					"lift rounded-full border border-plum bg-plum px-6 py-2 text-paper shadow-pop-lime focus-visible:outline-plum",
+					"lift no-underline rounded-full border border-plum bg-plum px-6 py-2 text-paper shadow-pop-lime focus-visible:outline-plum",
 				secondary:
-					"lift rounded-full border border-plum bg-surface px-6 py-2 text-plum shadow-pop-orchid",
+					"lift no-underline rounded-full border border-plum bg-surface px-6 py-2 text-plum shadow-pop-orchid",
 				text: "text-link underline decoration-2 underline-offset-4 hover:decoration-4",
 				disabled:
-					"cursor-not-allowed rounded-full border border-dashed border-plum-muted bg-surface px-6 py-2 text-plum-muted",
+					"cursor-not-allowed no-underline rounded-full border border-dashed border-plum-muted bg-surface px-6 py-2 text-plum-muted",
 			},
 		},
 		defaultVariants: { variant: "primary" },
