@@ -1,50 +1,16 @@
-import { Cherry_Bomb_One } from "next/font/google";
-
-import { CMS_NAME, CMS_URL } from "@/lib/constants";
 import AboutSection from "./blocks/homepageSections/AboutSection";
 import ContactSection from "./blocks/homepageSections/ContactSection";
 import ResumeSection from "./blocks/homepageSections/ResumeSection/ResumeSection";
-import HeaderNav from "@/app/blocks/HeaderNav";
 import ContentfulImage from "@/lib/contentful-image";
 import WorkSection from "./blocks/homepageSections/WorkSection";
 import Headline from "@/app/ui/Headline";
 import Button from "@/app/ui/Button";
 import SkillsSection from "./blocks/homepageSections/SkillsSection";
-const cherry = Cherry_Bomb_One({
-	variable: "--font-cherry",
-	subsets: ["latin"],
-	display: "swap",
-	weight: "400",
-});
-
-function Intro() {
-	return (
-		<section className='flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12'>
-			<h2 className='text-center md:text-left text-lg mt-5 md:pl-8'>
-				A statically generated blog example using{" "}
-				<a
-					href='https://nextjs.org/'
-					className='underline hover:text-success duration-200 transition-colors'
-				>
-					Next.js
-				</a>{" "}
-				and{" "}
-				<a
-					href={CMS_URL}
-					className='underline hover:text-success duration-200 transition-colors'
-				>
-					{CMS_NAME}
-				</a>
-				.
-			</h2>
-		</section>
-	);
-}
 
 export default async function Page() {
 	const headshot = (
 		<ContentfulImage
-			src='/assets/imgs/headshot-4x5.png'
+			src='/assets/imgs/headshot-4x5.jpg'
 			alt='Tara Dunmore'
 			width={300}
 			height={375}
@@ -54,7 +20,6 @@ export default async function Page() {
 
 	return (
 		<>
-			<HeaderNav />
 			<div className=' mx-auto flex '>
 				<div className='flex flex-col w-full items-center gap-1 lg:gap-[2rem]'>
 					<div className='flex flex-col w-full gap-1 lg:gap-[2rem] mb-12 lg:mb-12'>
@@ -69,7 +34,7 @@ export default async function Page() {
 											<Headline
 												headlineVariant='display'
 												headlineLevel='h1'
-												className={`text-center leading-[.85] mb-8 lg:mb-0 lg:-mt-[6rem] lg:leading-1 lg:text-left text-[12rem] lg:text-6xl lg:text-[14rem] -rotate-[4deg] font-cherry ${cherry.variable}`}
+												className={`text-center leading-[.85] mb-8 lg:mb-0 lg:-mt-[6rem] lg:leading-1 lg:text-left text-[12rem] lg:text-6xl lg:text-[14rem] -rotate-[4deg] font-display`}
 												text='hi!'
 											/>
 											<div className='text-center lg:text-left font-bold'>
