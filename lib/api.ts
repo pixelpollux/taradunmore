@@ -1,4 +1,87 @@
-const POST_GRAPHQL_FIELDS = `
+import { readingTime } from "@/lib/readingTime";
+
+// --- Fetching ---------------------------------------------------------------
+
+/**
+ * Every Contentful query goes through here, tagged "contentful" so one
+ * revalidation call refreshes everything. Fails fast: a bad status or a real
+ * GraphQL error throws with the cause in the message, instead of returning
+ * half a response that crashes a page later.
+ */
+async function fetchGraphQL(query: string, preview = false): Promise<any> {
+	const res = await fetch(
+		`https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${
+					preview
+						? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+						: process.env.CONTENTFUL_ACCESS_TOKEN
+				}`,
+			},
+			body: JSON.stringify({ query }),
+			next: { tags: ["contentful"] },
+		},
+	);
+
+	if (!res.ok) {
+		// Contentful answers invalid queries (an unknown field, say) with a 400
+		// and the reason in the body, so surface it.
+		const detail = await res
+			.json()
+			.then((body: any) =>
+				(body?.errors ?? []).map((error: any) => error.message).join("; "),
+			)
+			.catch(() => "");
+		throw new Error(
+			`Contentful request failed: ${res.status} ${res.statusText}${detail ? ` (${detail})` : ""}`,
+		);
+	}
+
+	const json = await res.json();
+	if (json.errors?.length) {
+		// A link to a missing or unpublished entry is data, not a bug: Contentful
+		// still returns everything else.
+		const fatal = json.errors.filter(
+			(error: any) =>
+				error?.extensions?.contentful?.code !== "UNRESOLVABLE_LINK",
+		);
+		if (fatal.length) {
+			throw new Error(
+				`Contentful GraphQL errors: ${fatal.map((error: any) => error.message).join("; ")}`,
+			);
+		}
+		console.warn(
+			`Contentful: ${json.errors.length} unresolvable link(s) in response`,
+		);
+	}
+	return json;
+}
+
+// --- Posts ------------------------------------------------------------------
+
+const POST_LIST_FIELDS = `
+  slug
+  title
+  coverImage {
+    url
+  }
+  date
+  author {
+    name
+    picture {
+      url
+    }
+  }
+  excerpt
+  content {
+    json
+  }
+`;
+
+const POST_FIELDS = `
   slug
   title
   coverImage {
@@ -28,57 +111,31 @@ const POST_GRAPHQL_FIELDS = `
   }
 `;
 
-async function fetchGraphQL(query: string, preview = false): Promise<any> {
-	const res = await fetch(
-		// TODO: come back to this
-		// fetchGraphQL() returns JSON even when the HTTP request fails or when Contentful returns GraphQL errors. That can lead to downstream crashes (e.g., pages reading post.title when post is undefined) with little context. Consider failing fast: validate res.ok, and throw when json.errors is present so the error boundary/logs point at the real cause. Also, the cache tag is currently named "blog" but this helper is used for resume/work/content blocks too, so a more generic tag name avoids confusion.
-
-		`https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
-		{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${
-					preview
-						? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-						: process.env.CONTENTFUL_ACCESS_TOKEN
-				}`,
-			},
-			body: JSON.stringify({ query }),
-			next: { tags: ["blog"] },
-		},
-	);
-	const json = await res.json();
-	if (json.errors) {
-		console.error("GraphQL errors:", JSON.stringify(json.errors, null, 2));
-	}
-	return json;
+/**
+ * Adds `readingMinutes`. List items drop the body afterwards: the list query
+ * only fetches `content.json` so the word count can be computed here.
+ */
+function withReadingTime(post: any, keepContent: boolean) {
+	if (!post) return post;
+	const { content, ...rest } = post;
+	return {
+		...rest,
+		...(keepContent && { content }),
+		readingMinutes: readingTime(content?.json),
+	};
 }
 
 function extractPost(fetchResponse: any): any {
-	return fetchResponse?.data?.postCollection?.items?.[0];
+	return withReadingTime(
+		fetchResponse?.data?.postCollection?.items?.[0],
+		true,
+	);
 }
 
 function extractPostEntries(fetchResponse: any): any[] {
-	return fetchResponse?.data?.postCollection?.items ?? [];
-}
-
-// Contentful stores some links without a scheme ("poplivelykc.com"), which the
-// browser treats as a path on this site. Add https:// when none is present.
-function normalizeExternalUrl(url?: string | null) {
-	if (!url) return url;
-	const trimmed = url.trim();
-	if (/^(https?:|mailto:|tel:|\/)/i.test(trimmed)) return trimmed;
-	return `https://${trimmed}`;
-}
-
-function normalizeWorkItem(item: any) {
-	if (!item) return item;
-	return {
-		...item,
-		liveSiteUrl: normalizeExternalUrl(item.liveSiteUrl),
-		codeRepoUrl: normalizeExternalUrl(item.codeRepoUrl),
-	};
+	return (fetchResponse?.data?.postCollection?.items ?? []).map(
+		(post: any) => withReadingTime(post, false),
+	);
 }
 
 export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
@@ -86,7 +143,7 @@ export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
 		`query {
       postCollection(where: { slug: ${JSON.stringify(slug)} }, preview: true, limit: 1) {
         items {
-          ${POST_GRAPHQL_FIELDS}
+          ${POST_FIELDS}
         }
       }
     }`,
@@ -95,6 +152,7 @@ export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
 	return extractPost(entry);
 }
 
+/** Newest first, with `readingMinutes` and no body. */
 export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
 	const entries = await fetchGraphQL(
 		`query {
@@ -102,7 +160,7 @@ export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
 			isDraftMode ? "true" : "false"
 		}, limit: 20) {
         items {
-          ${POST_GRAPHQL_FIELDS}
+          ${POST_LIST_FIELDS}
         }
       }
     }`,
@@ -110,6 +168,44 @@ export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
 	);
 	return extractPostEntries(entries);
 }
+
+export async function getPostAndMorePosts(
+	slug: string,
+	preview: boolean,
+): Promise<any> {
+	const [entry, entries] = await Promise.all([
+		fetchGraphQL(
+			`query {
+      postCollection(where: { slug: ${JSON.stringify(slug)} }, preview: ${
+				preview ? "true" : "false"
+			}, limit: 1) {
+        items {
+          ${POST_FIELDS}
+        }
+      }
+    }`,
+			preview,
+		),
+		fetchGraphQL(
+			`query {
+       postCollection(where: { slug_not_in: [${JSON.stringify(slug)}] }, order: date_DESC, preview: ${
+				preview ? "true" : "false"
+			}, limit: 2) {
+        items {
+          ${POST_LIST_FIELDS}
+        }
+      }
+    }`,
+			preview,
+		),
+	]);
+	return {
+		post: extractPost(entry),
+		morePosts: extractPostEntries(entries),
+	};
+}
+
+// --- Resume -----------------------------------------------------------------
 
 export async function getResumeItems(preview: boolean = false) {
 	const entries = await fetchGraphQL(
@@ -133,44 +229,42 @@ export async function getResumeItems(preview: boolean = false) {
 	return entries?.data?.resumeItemCollection?.items ?? [];
 }
 
-export async function getPostAndMorePosts(
-	slug: string,
-	preview: boolean,
-): Promise<any> {
-	const entry = await fetchGraphQL(
-		`query {
-      postCollection(where: { slug: ${JSON.stringify(slug)} }, preview: ${
-			preview ? "true" : "false"
-		}, limit: 1) {
-        items {
-          ${POST_GRAPHQL_FIELDS}
-        }
-      }
-    }`,
-		preview,
-	);
-	const entries = await fetchGraphQL(
-		`query {
-       postCollection(where: { slug_not_in: [${JSON.stringify(slug)}] }, order: date_DESC, preview: ${
-			preview ? "true" : "false"
-		}, limit: 2) {
-        items {
-          ${POST_GRAPHQL_FIELDS}
-        }
-      }
-    }`,
-		preview,
-	);
+// --- Work -------------------------------------------------------------------
+
+// Contentful stores some links without a scheme ("poplivelykc.com"), which the
+// browser treats as a path on this site. Add https:// when none is present.
+function normalizeExternalUrl(url?: string | null) {
+	if (!url) return url;
+	const trimmed = url.trim();
+	if (/^(https?:|mailto:|tel:|\/)/i.test(trimmed)) return trimmed;
+	return `https://${trimmed}`;
+}
+
+function normalizeWorkItem(item: any) {
+	if (!item) return item;
 	return {
-		post: extractPost(entry),
-		morePosts: extractPostEntries(entries),
+		...item,
+		liveSiteUrl: normalizeExternalUrl(item.liveSiteUrl),
+		codeRepoUrl: normalizeExternalUrl(item.codeRepoUrl),
 	};
 }
 
-const WORK_ITEM_FIELDS = `
+/** Everything the homepage cards and the Work index need: no rich text. */
+const WORK_LIST_FIELDS = `
 	title
 	slug
 	shortBlurb
+	coverImage {
+		url
+		description
+	}
+	techTags
+	liveSiteUrl
+	codeRepoUrl
+`;
+
+const WORK_DETAIL_FIELDS = `
+	${WORK_LIST_FIELDS}
 	fullDescription {
 		json
 		links {
@@ -183,26 +277,26 @@ const WORK_ITEM_FIELDS = `
 			}
 		}
 	}
-	coverImage {
-		url
-		description
-	}
-	techTags
-	liveSiteUrl
-	codeRepoUrl
 `;
 
-export async function getAllWorkItems(preview: boolean = false) {
-	// Lowest `order` first (that item is featured on the homepage). If the
-	// `order` field is not on the content type yet, Contentful rejects the query,
-	// so retry without it and keep Contentful's default order.
+let warnedAboutOrder = false;
+
+/**
+ * All work items, lowest `order` first (the first is featured on the
+ * homepage). Light query: no `fullDescription`, so the nested rich-text links
+ * no longer push it over Contentful's query complexity limit, which is what
+ * the old `limit: 10` workaround was hiding.
+ *
+ * If the `order` field is not published on the content type yet, Contentful
+ * rejects the query; retry without it and keep Contentful's default order.
+ */
+export async function getWorkItemList(preview: boolean = false) {
 	const run = (withOrder: boolean) =>
 		fetchGraphQL(
-			// TODO: removing the limit breaks things, i don't know why. return later.
 			`query {
-				workItemCollection(${withOrder ? "order: order_ASC, " : ""}preview: ${preview}, limit: 10) {
+				workItemCollection(${withOrder ? "order: order_ASC, " : ""}preview: ${preview}, limit: 50) {
 					items {
-						${WORK_ITEM_FIELDS}
+						${WORK_LIST_FIELDS}
 						${withOrder ? "order" : ""}
 					}
 				}
@@ -210,12 +304,37 @@ export async function getAllWorkItems(preview: boolean = false) {
 			preview,
 		);
 
-	let entries = await run(true);
-	if (entries?.errors) entries = await run(false);
+	let entries;
+	try {
+		entries = await run(true);
+	} catch (error) {
+		if (!/\border\b/.test(String(error))) throw error;
+		if (!warnedAboutOrder) {
+			warnedAboutOrder = true;
+			console.warn(
+				"Contentful: `order` is not available on WorkItem yet; using the default order.",
+			);
+		}
+		entries = await run(false);
+	}
 
 	return (entries?.data?.workItemCollection?.items ?? []).map(
 		normalizeWorkItem,
 	);
+}
+
+/** The projects either side of `slug` in `order`. Either may be null at the ends. */
+export async function getAdjacentWorkItems(
+	slug: string,
+	preview: boolean = false,
+) {
+	const items = await getWorkItemList(preview);
+	const index = items.findIndex((item: any) => item.slug === slug);
+	if (index === -1) return { previous: null, next: null };
+	return {
+		previous: items[index - 1] ?? null,
+		next: items[index + 1] ?? null,
+	};
 }
 
 export async function getWorkItemBySlug(
@@ -226,20 +345,24 @@ export async function getWorkItemBySlug(
 		`query {
 			workItemCollection(where: { slug: ${JSON.stringify(slug)} }, preview: ${preview}, limit: 1) {
 				items {
-					${WORK_ITEM_FIELDS}
+					${WORK_DETAIL_FIELDS}
 				}
 			}
 		}`,
 		preview,
 	);
 
-	return normalizeWorkItem(entries?.data?.workItemCollection?.items?.[0]) ?? null;
+	return (
+		normalizeWorkItem(entries?.data?.workItemCollection?.items?.[0]) ?? null
+	);
 }
+
+// --- Content blocks ---------------------------------------------------------
 
 export async function getContentBlock(title: string, preview: boolean = false) {
 	const entry = await fetchGraphQL(
 		`query {
-				contentBlockCollection(where: { title: ${JSON.stringify(title)} }, preview: ${preview}, limit: 1) { 
+				contentBlockCollection(where: { title: ${JSON.stringify(title)} }, preview: ${preview}, limit: 1) {
 					items {
 					title
 					content {

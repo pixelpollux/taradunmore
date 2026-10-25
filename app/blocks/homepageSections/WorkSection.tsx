@@ -1,5 +1,5 @@
 import Layout from "./Layout";
-import { getAllWorkItems as getWorkItems } from "@/lib/api";
+import { getWorkItemList as getWorkItems } from "@/lib/api";
 import { StaticCard } from "@/app/ui/Card";
 import Button from "@/app/ui/Button";
 import Headline from "@/app/ui/Headline";

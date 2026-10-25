@@ -207,3 +207,27 @@ export function renderRichText(
 		},
 	});
 }
+
+/**
+ * The h2 headings of a document, in order, with the same ids `renderRichText`
+ * gives them (same slugger, same walk order). Feeds the case study's
+ * "On this page" rail.
+ */
+export function getHeadings(
+	content: RichContent,
+): Array<{ id: string; text: string }> {
+	if (!content?.json) return [];
+	const slug = makeSlugger();
+	const headings: Array<{ id: string; text: string }> = [];
+
+	const walk = (node: any) => {
+		if (node?.nodeType === BLOCKS.HEADING_2) {
+			const text = nodeText(node).trim();
+			headings.push({ id: slug(nodeText(node)), text });
+			return;
+		}
+		(node?.content ?? []).forEach(walk);
+	};
+	walk(content.json);
+	return headings;
+}
