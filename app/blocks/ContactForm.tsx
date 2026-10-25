@@ -67,6 +67,13 @@ export default function ContactForm() {
 						error={state.errors?.email}
 					/>
 					<Field
+						label='Subject'
+						name='subject'
+						required
+						defaultValue={state.values?.subject}
+						error={state.errors?.subject}
+					/>
+					<Field
 						label='Message'
 						name='message'
 						multiline
