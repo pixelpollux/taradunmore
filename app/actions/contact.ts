@@ -53,9 +53,8 @@ export async function sendContact(
 			from: CONTACT_FROM_EMAIL,
 			to: CONTACT_TO_EMAIL,
 			replyTo: email,
-			// Strip line breaks so a name cannot inject extra headers.
-			subject: subject ? `Portfolio message from ${name.replace(/[\r\n]+/g, " ")}` : "",
-			text: message,
+			subject: subject.replace(/[\r\n]+/g, " "),
+			text: `From: ${name} <${email}>\n\n${message}`,
 		});
 		if (error) throw new Error(error.message);
 	} catch (error) {
