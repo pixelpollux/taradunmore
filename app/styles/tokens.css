@@ -1,0 +1,89 @@
+/*
+ * TaraDunmore.com design tokens (DESIGN.md v2, Plum + Lime)
+ * Proposed location: app/styles/tokens.css, imported at the top of app/globals.css.
+ * Components read the SEMANTIC tier only. Primitives exist so the semantic tier has names to point at.
+ */
+
+:root {
+	/* ---------- Primitive: inks ---------- */
+	--paper: #f3efea;
+	--surface: #fbf8f4;
+	--plum: #3a1030;
+	--plum-muted: #5e4057;
+	--rule: #e2d9dd;
+
+	--lime: #b8d43a;
+	--lime-100: #e3efb0;
+	--lime-800: #4e6a0c;
+
+	--orchid: #d79ad0;
+	--orchid-100: #f0d7ec;
+	--orchid-800: #7e3f76;
+
+	--amber: #f2a65a;
+	--amber-100: #fad9b5;
+	--amber-800: #8a4510;
+
+	/* ---------- Primitive: ink blends ---------- */
+	--grad-lime-amber: linear-gradient(135deg, var(--lime), var(--amber));
+	--grad-orchid-lime: linear-gradient(135deg, var(--orchid), var(--lime));
+	--grad-amber-orchid: linear-gradient(160deg, var(--amber), var(--orchid));
+
+	/* ---------- Semantic: color ---------- */
+	--color-bg-page: var(--paper);
+	--color-bg-surface: var(--surface);
+	--color-text: var(--plum);
+	--color-text-muted: var(--plum-muted);
+	--color-text-inverse: var(--paper);
+	--color-border: var(--plum);
+	--color-link: var(--orchid-800);
+	--color-action-primary: var(--plum);
+	--color-error: var(--amber-800);
+	--color-error-bg: var(--amber-100);
+	--color-success: var(--lime-800);
+	--color-success-bg: var(--lime-100);
+
+	/* ---------- Shape ---------- */
+	--border-width: 4px;
+	--border-width-chip: 3px;
+	--radius-field: 14px;
+	--radius-figure: 24px;
+	--radius-card: 30px;
+	--radius-panel: 36px;
+	--radius-pill: 999px;
+
+	/* ---------- Space ---------- */
+	--page-max: 1200px;
+	--page-x: 20px;
+	--space-section: 140px;
+	--space-template: 96px;
+	--tap-min: 44px;
+
+	/* ---------- Riso dials ---------- */
+	--riso-offset: 3px;
+	--riso-ghost: calc(var(--riso-offset) * -1) 0 0 var(--orchid), var(--riso-offset) var(--riso-offset) 0 var(--lime);
+	--riso-dot-pitch: 8px;
+	--riso-dot-offset: 12px;
+	--riso-dot-lime: radial-gradient(circle, var(--lime) 42%, transparent 46%);
+	--riso-dot-orchid: radial-gradient(circle, var(--orchid) 42%, transparent 46%);
+	--riso-dot-amber: radial-gradient(circle, var(--amber) 42%, transparent 46%);
+	--riso-grain-opacity: 0.15;
+
+	/* ---------- Interaction (the Shadow Rule) ---------- */
+	--shadow-pop-lime: var(--riso-offset) var(--riso-offset) 0 var(--lime);
+	--shadow-pop-orchid: var(--riso-offset) var(--riso-offset) 0 var(--orchid);
+	--shadow-pop-amber: var(--riso-offset) var(--riso-offset) 0 var(--amber);
+	--shadow-pop-plum: var(--riso-offset) var(--riso-offset) 0 var(--plum);
+	--lift: translate(-3px, -3px);
+	--lift-duration: 150ms;
+	--focus-ring: 3px dashed currentColor;
+	--focus-offset: 3px;
+}
+
+@media (max-width: 767px) {
+	:root {
+		--space-section: 96px;
+		--space-template: 72px;
+		--riso-grain-opacity: 0.09;
+	}
+}

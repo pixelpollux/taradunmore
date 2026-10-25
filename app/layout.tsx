@@ -1,43 +1,49 @@
 import "./globals.css";
-import { Fredoka } from "next/font/google";
-import { EXAMPLE_PATH, CMS_NAME } from "@/lib/constants";
-import Button from "@/app/ui/Button";
+import type { Metadata } from "next";
+import { Shrikhand, Work_Sans } from "next/font/google";
+import HeaderNav from "@/app/blocks/HeaderNav";
+import Grain from "@/app/ui/Grain";
 
-export const metadata = {
-	title: `TaraDunmore.com`,
-	description: `This is a blog built with Next.js and ${CMS_NAME}.`,
+const SITE_DESCRIPTION =
+	"Tara Dunmore is a front-end developer with design roots and developer instincts, building design systems and accessible interfaces with React, Next.js and Contentful.";
+
+export const metadata: Metadata = {
+	metadataBase: new URL("https://taradunmore.com"),
+	title: {
+		default: "Tara Dunmore | Front-End Developer",
+		template: "%s | TaraDunmore.com",
+	},
+	description: SITE_DESCRIPTION,
+	openGraph: {
+		type: "website",
+		siteName: "TaraDunmore.com",
+		title: "Tara Dunmore | Front-End Developer",
+		description: SITE_DESCRIPTION,
+		// No `url` here: this object is inherited by every route that does not
+		// set its own openGraph, and a fixed "/" would label them all as the
+		// homepage. Pages with their own metadata supply their URL.
+	},
+	twitter: {
+		card: "summary",
+		title: "Tara Dunmore | Front-End Developer",
+		description: SITE_DESCRIPTION,
+	},
 };
 
-const fredoka = Fredoka({
-	variable: "--font-Fredoka",
+const display = Shrikhand({
+	variable: "--font-display",
+	weight: "400",
 	subsets: ["latin"],
 	display: "swap",
 });
 
-function Footer() {
-	return (
-		<footer className='bg-accent-1 border-t border-accent-2'>
-			<div className='container mx-auto px-5'>
-				<div className='py-28 flex flex-col lg:flex-row items-center'>
-					<h3 className='text-4xl lg:text-5xl font-bold tracking-tighter leading-tight text-center lg:text-left mb-10 lg:mb-0 lg:pr-4 lg:w-1/2'>
-						Footer
-					</h3>
-					<div className='flex flex-col lg:flex-row justify-center items-center lg:pl-4 lg:w-1/2'>
-						<Button
-							text='Read Documentation'
-							href='https://nextjs.org/docs'
-						/>
-						<Button
-							text='View on GitHub'
-							buttonVariant='secondary'
-							href={`https://github.com/vercel/next.js/tree/canary/examples/${EXAMPLE_PATH}`}
-						/>
-					</div>
-				</div>
-			</div>
-		</footer>
-	);
-}
+// Variable font: covers 400 / 500 / 700 plus italic in two files.
+const text = Work_Sans({
+	variable: "--font-text",
+	style: ["normal", "italic"],
+	subsets: ["latin"],
+	display: "swap",
+});
 
 export default function RootLayout({
 	children,
@@ -45,18 +51,25 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang='en' className={`${fredoka.variable} scroll-smooth`}>
-			<head>
-				<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-				<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-				<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-				<link rel="manifest" href="/site.webmanifest" />
-			</head>
-			<body className='text-[var(--text)] font-sans font-normal'>
-				<section className='min-h-screen'>
-					<main>{children}</main>
-					{/* <Footer /> */}
-				</section>
+		<html lang='en' className={`${display.variable} ${text.variable}`}>
+			<body className='bg-paper text-plum font-sans text-body'>
+				<a href='#main' className='skip-link'>
+					Skip to content
+				</a>
+				<div className='flex min-h-screen flex-col'>
+					<HeaderNav />
+					{/* scroll-mt: the skip link lands below the sticky nav, not under it.
+					    --nav-height is set by the v1 nav; 110px matches the v2 floating nav. */}
+					<main
+						id='main'
+						tabIndex={-1}
+						className='flex-1 scroll-mt-[var(--nav-height,110px)] focus:outline-none'
+					>
+						{children}
+					</main>
+					{/* SiteFooter lands in Phase 3 */}
+				</div>
+				<Grain />
 			</body>
 		</html>
 	);

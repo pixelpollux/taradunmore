@@ -16,7 +16,9 @@ const buttonBaseStyles = {
 const buttonVariants = {
 	primary: {
 		backgroundColor: "var(--text)",
-		color: "color-mix(in oklch, var(--accent) 70%, #ffffff)",
+		// Paper on plum (14:1). The old pink-tinted label came out near 4.4:1 once
+		// --accent became orchid-800. Phase 2 rewrites this component anyway.
+		color: "var(--text-inverse)",
 		border: "solid 2px var(--text)",
 		borderRadius: "30px",
 	},

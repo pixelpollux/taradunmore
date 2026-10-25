@@ -60,13 +60,31 @@ function extractPost(fetchResponse: any): any {
 }
 
 function extractPostEntries(fetchResponse: any): any[] {
-	return fetchResponse?.data?.postCollection?.items;
+	return fetchResponse?.data?.postCollection?.items ?? [];
+}
+
+// Contentful stores some links without a scheme ("poplivelykc.com"), which the
+// browser treats as a path on this site. Add https:// when none is present.
+function normalizeExternalUrl(url?: string | null) {
+	if (!url) return url;
+	const trimmed = url.trim();
+	if (/^(https?:|mailto:|tel:|\/)/i.test(trimmed)) return trimmed;
+	return `https://${trimmed}`;
+}
+
+function normalizeWorkItem(item: any) {
+	if (!item) return item;
+	return {
+		...item,
+		liveSiteUrl: normalizeExternalUrl(item.liveSiteUrl),
+		codeRepoUrl: normalizeExternalUrl(item.codeRepoUrl),
+	};
 }
 
 export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
 	const entry = await fetchGraphQL(
 		`query {
-      postCollection(where: { slug: "${slug}" }, preview: true, limit: 1) {
+      postCollection(where: { slug: ${JSON.stringify(slug)} }, preview: true, limit: 1) {
         items {
           ${POST_GRAPHQL_FIELDS}
         }
@@ -121,7 +139,7 @@ export async function getPostAndMorePosts(
 ): Promise<any> {
 	const entry = await fetchGraphQL(
 		`query {
-      postCollection(where: { slug: "${slug}" }, preview: ${
+      postCollection(where: { slug: ${JSON.stringify(slug)} }, preview: ${
 			preview ? "true" : "false"
 		}, limit: 1) {
         items {
@@ -187,7 +205,9 @@ export async function getAllWorkItems(preview: boolean = false) {
 		preview,
 	);
 
-	return entries?.data?.workItemCollection?.items ?? [];
+	return (entries?.data?.workItemCollection?.items ?? []).map(
+		normalizeWorkItem,
+	);
 }
 
 export async function getWorkItemBySlug(
@@ -196,7 +216,7 @@ export async function getWorkItemBySlug(
 ) {
 	const entries = await fetchGraphQL(
 		`query {
-			workItemCollection(where: { slug: "${slug}" }, preview: ${preview}, limit: 1) {
+			workItemCollection(where: { slug: ${JSON.stringify(slug)} }, preview: ${preview}, limit: 1) {
 				items {
 					${WORK_ITEM_FIELDS}
 				}
@@ -205,7 +225,7 @@ export async function getWorkItemBySlug(
 		preview,
 	);
 
-	return entries?.data?.workItemCollection?.items?.[0] ?? null;
+	return normalizeWorkItem(entries?.data?.workItemCollection?.items?.[0]) ?? null;
 }
 
 export async function getContentBlock(title: string, preview: boolean = false) {

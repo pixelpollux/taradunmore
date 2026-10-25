@@ -1,133 +1,105 @@
+@import "./styles/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	--white: #f2f2f2;
-	--shade: #e5e5e5;
-	--grey: #858585;
-	--black: #08060d;
-	--eggplant: #330036;
-	--pink: #fe019a;
-	--lime: #c9ff00;
-
-	--text: #330036;
-	--text-inverse: var(--white);
-	--text-h: #08060d;
-	--bg: var(--white);
-	--bg-shaded: var(--shade);
-	--border: #e5e4e7;
-	--code-bg: #f4f3ec;
-	--accent: var(--pink);
-	--accent-secondary: var(--lime);
-	--accent-bg: rgba(170, 59, 255, 0.1);
-	--accent-border: rgba(170, 59, 255, 0.5);
-	--social-bg: rgba(244, 243, 236, 0.5);
-	--shadow:
-		rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-	--sans: var(--font-Fredoka), sans-serif;
-	--cherry: var(--font-cherry), serif;
-	--breakpoint-xs: 30rem;
-
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
 	body {
-		background-color: var(--bg);
-		color: var(--text);
+		background: var(--color-bg-page);
+		color: var(--color-text);
 	}
-	p {
-		margin-bottom: 1rem;
-		line-height: 1.5;
+	:where(a, button, input, textarea, select, summary):focus-visible {
+		outline: var(--focus-ring);
+		outline-offset: var(--focus-offset);
 	}
-}
-
-/* @theme {
-	--sans: "Fredoka", sans-serif;
-	--bagel: "Bagel Fat One", serif;
-	--cherry: "Cherry Bomb One", serif;
-
-	--text: #330036; 
-	--text-h: #08060d;
-	--bg: #f2f2f2;
-	--border: #e5e4e7;
-	--code-bg: #f4f3ec;
-	--accent: #fe019a; 
-	--accent-secondary: #c9ff00; 
-	--accent-bg: rgba(170, 59, 255, 0.1);
-	--accent-border: rgba(170, 59, 255, 0.5);
-	--social-bg: rgba(244, 243, 236, 0.5);
-	--shadow:
-		rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-} */
-
-/* construction banner */
-.construction-banner__track {
-	animation: construction-banner-scroll 82s linear infinite;
-	@media screen and (min-width: 768px) {
-		animation: construction-banner-scroll 62s linear infinite;
+	details > summary {
+		list-style: none;
 	}
-}
-@keyframes construction-banner-scroll {
-	from {
-		transform: translateX(0);
+	details > summary::-webkit-details-marker {
+		display: none;
 	}
-	to {
-		transform: translateX(-50%);
-	}
-}
-@media (prefers-reduced-motion: reduce) {
-	.construction-banner__track {
-		animation: none;
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
 	}
 }
 
-/* header nav */
-.nav__home-link {
-	-webkit-text-stroke: 0.05rem var(--text);
-	-webkit-text-fill-color: var(--accent);
-	text-shadow: 0.2rem 0.2rem 0
-		color-mix(in oklch, var(--text) 12%, transparent);
-}
-.nav__home-accent {
-	-webkit-text-fill-color: var(--text);
-}
-
-/* headlines */
-
-.headline--highlighter {
-	background-image: linear-gradient(#edff00, var(--accent-secondary));
-	-webkit-box-decoration-break: clone;
-	box-decoration-break: clone;
-	background-position: 0 88%;
-	background-repeat: no-repeat;
-	background-size: 100% 32%;
-	padding-inline: 0.5rem;
-}
-
-.headline--display {
-	-webkit-text-stroke: 0.25rem var(--text);
-	-webkit-text-fill-color: transparent;
-	text-shadow:
-		0.35rem 0.35rem var(--accent),
-		0.65rem 0.65rem 0 color-mix(in oklch, var(--text) 12%, transparent);
-}
-/* TODO: this is broken, come back */
-
-h2.headline {
-	font-size: 2.5rem;
-	@media (min-width: 1024px) {
-		font-size: 3.5rem;
+@layer utilities {
+	.ghost {
+		text-shadow: var(--riso-ghost);
+	}
+	.multiply {
+		mix-blend-mode: multiply;
+	}
+	.lift {
+		transition:
+			transform var(--lift-duration) ease,
+			box-shadow var(--lift-duration) ease;
+	}
+	.lift:hover {
+		transform: var(--lift);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.lift:hover {
+			transform: none;
+		}
+	}
+	/* static containers lose their tilt on mobile */
+	@media (max-width: 767px) {
+		.tilt {
+			transform: none !important;
+		}
 	}
 }
-.headline--display {
-	font-size: 156px;
+
+/* Skip link: first tab stop, visible on focus. */
+.skip-link {
+	position: fixed;
+	top: 12px;
+	left: 12px;
+	z-index: 100;
+	transform: translateY(-200%);
+	min-height: var(--tap-min);
+	display: inline-flex;
+	align-items: center;
+	padding: 0 20px;
+	border: var(--border-width) solid var(--color-border);
+	border-radius: var(--radius-pill);
+	background: var(--color-action-primary);
+	color: var(--color-text-inverse);
+	font-weight: 700;
+	text-decoration: none;
+	box-shadow: var(--shadow-pop-lime);
 }
-.headline--highlighter {
-	line-height: 1;
-	font-size: 2.5rem;
-	@media (min-width: 1024px) {
-		font-size: 3.5rem;
-	}
+.skip-link:focus {
+	transform: none;
 }
-.card__featured-image--hero {
-	@apply rounded-t-3xl border-b-2 border-b-[var(--text)];
+
+/* ------------------------------------------------------------------
+   TEMPORARY v1 compatibility aliases. v1 components (Button, Card,
+   Headline, HeaderNav, the homepage sections) still read these names
+   until they are rebuilt in Phases 2 and 3. Delete this whole block
+   once `grep -rn "var(--accent\|var(--text)\|var(--bg\|var(--grey" app`
+   comes back empty.
+   ------------------------------------------------------------------ */
+:root {
+	--text: var(--plum);
+	--text-inverse: var(--paper);
+	--bg: var(--paper);
+	--bg-shaded: var(--surface);
+	--white: var(--paper);
+	--grey: var(--plum-muted);
+	--accent: var(--orchid-800);
+	--accent-secondary: var(--lime);
+	--sans: var(--font-text), system-ui, sans-serif;
+	--cherry: var(--font-display), Georgia, serif;
+}
+p {
+	margin-bottom: 1rem;
+	line-height: 1.5;
 }
