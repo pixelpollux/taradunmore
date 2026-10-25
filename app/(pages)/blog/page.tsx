@@ -1,118 +1,90 @@
-// import HeroPost from "@/components/hero-post";
-
+import type { Metadata } from "next";
 import { draftMode } from "next/headers";
-
-import { getAllPosts } from "@/lib/api";
-import CoverImage from "@/app/ui/CoverImage";
-import MoreStories from "../../blocks/MoreStories";
-import Avatar from "@/app/ui/Avatar";
-import { LinkCard } from "@/app/ui/Card";
+import Button from "@/app/ui/Button";
 import Headline from "@/app/ui/Headline";
-import DateDisplay from "@/app/ui/DateDisplay";
+import Shapes from "@/app/ui/Shapes";
+import type { Ink } from "@/app/ui/DotShadow";
+import { LatestPost, PostRow } from "@/app/blocks/PostCards";
+import { getAllPosts } from "@/lib/api";
 
-// import MoreStories from "@/components/blog/MoreStories";
-function HeroPost({
-	title,
-	coverImage,
-	date,
-	excerpt,
-	author,
-	slug,
-}: {
-	title: string;
-	coverImage: any;
-	date: string;
-	excerpt: string;
-	author: any;
-	slug: string;
-}) {
-	// Transitional: the v2 blog index (latest card, earlier-posts list, empty state) lands in Phase 5.
-	return (
-		<section>
-			<LinkCard
-				href={`/blog/${slug}`}
-				accent='lime'
-				className='flex flex-col md:flex-row'
-			>
-				<div className='md:flex-[3]'>
-					<CoverImage
-						url={coverImage?.url}
-						radius='0'
-						className='h-full border-0'
-						priority
-					/>
-				</div>
-				<div className='flex flex-col gap-3 p-6 md:flex-[2] md:p-8'>
-					<DateDisplay dateString={date} className='text-label uppercase' />
-					<Headline variant='card' level='h2'>
-						{title}
-					</Headline>
-					<p className='text-lead'>{excerpt}</p>
-					{author && (
-						<Avatar name={author.name} picture={author.picture} />
-					)}
-				</div>
-			</LinkCard>
-		</section>
-	);
-}
-export default async function Page() {
+export const metadata: Metadata = {
+	title: "Blog",
+	description:
+		"Notes from Tara Dunmore on design systems, front-end craft and a career that took the long way around.",
+	alternates: { canonical: "/blog" },
+};
+
+const rowInks: Ink[] = ["orchid", "amber", "lime"];
+
+export default async function BlogPage() {
 	const { isEnabled } = await draftMode();
-	const allPosts = await getAllPosts(isEnabled);
-
-	const heroPost = allPosts[0];
-	// const everyPost = allPosts;
-	const morePosts = allPosts.slice(1);
+	const posts = await getAllPosts(isEnabled);
+	const [latest, ...earlier] = posts;
 
 	return (
 		<>
-			<div className='container mx-auto px-5'>
-				{/* hero post */}
-				{/* {heroPost && (
-					<HeroPost
-						title={heroPost.title}
-						coverImage={heroPost.coverImage}
-						date={heroPost.date}
-						author={heroPost.author}
-						slug={heroPost.slug}
-						excerpt={heroPost.excerpt}
-					/>
-				)} */}
-				{/* <h2>all posts but hero</h2> */}
-				{/* {morePosts && (
-					<HeroPost
-						title={morePosts[0].title}
-						coverImage={morePosts[0].coverImage}
-						date={morePosts[0].date}
-						author={morePosts[0].author}
-						slug={morePosts[0].slug}
-						excerpt={morePosts[0].excerpt}
-					/>
-				)} */}
-				<HeroPost
-					title={allPosts[0].title}
-					coverImage={allPosts[0].coverImage}
-					date={allPosts[0].date}
-					author={allPosts[0].author}
-					slug={allPosts[0].slug}
-					excerpt={allPosts[0].excerpt}
-				/>
-				<h2>all posts</h2>
-				<MoreStories morePosts={allPosts.slice(1)} />
-				{/* <MoreStories morePosts={allPosts} /> */}
+			<header className='mx-auto flex max-w-page flex-wrap items-center justify-between gap-x-10 gap-y-4 px-5 pt-10'>
+				<div>
+					<Headline variant='page' level='h1'>
+						Blog
+					</Headline>
+					<p className='mt-4 max-w-[36rem] text-lead'>
+						Notes on design systems, front-end craft, and what I&apos;m
+						learning along the way.
+					</p>
+				</div>
+				<Shapes variant='pair' />
+			</header>
 
-				{/* <div className='container mx-auto flex flex-col lg:flex-row  items-center gap-4 lg:gap-[5rem] mb-12 lg:mb-24  '>
-					<div>
-						<div>
-							<div className='relative'>
-								<div className='absolute -inset-3 -rotate-3 rounded-[2rem] border-2 border-plum z-[5]'></div>
-								<div className='absolute -inset-3 rotate-2 rounded-[2rem] border-2 border-lime z-0'></div>
-							</div>
+			{latest ? (
+				<>
+					<section
+						aria-labelledby='latest-title'
+						className='mx-auto mt-14 max-w-page px-5'
+					>
+						<h2 id='latest-title' className='mb-6 text-label uppercase'>
+							Latest
+						</h2>
+						<LatestPost post={latest} />
+					</section>
+
+					{earlier.length > 0 && (
+						<section
+							aria-labelledby='earlier-title'
+							className='mx-auto mt-template max-w-page px-5'
+						>
+							<h2 id='earlier-title' className='mb-6 text-label uppercase'>
+								Earlier posts
+							</h2>
+							<ol className='flex flex-col gap-7'>
+								{earlier.map((post: any, index: number) => (
+									<li key={post.slug}>
+										<PostRow
+											post={post}
+											accent={rowInks[index % rowInks.length]}
+										/>
+									</li>
+								))}
+							</ol>
+						</section>
+					)}
+				</>
+			) : (
+				<div className='mx-auto mt-14 max-w-page px-5'>
+					<div className='rounded-card border border-dashed border-plum bg-surface p-10 text-center md:p-14'>
+						<Headline variant='feature' level='h2'>
+							The first post is still on the press.
+						</Headline>
+						<p className='mx-auto mt-4 max-w-md text-lead'>
+							Check back soon. In the meantime, here&apos;s what I&apos;ve
+							been building.
+						</p>
+						<div className='mt-8'>
+							<Button href='/work'>See my work</Button>
 						</div>
 					</div>
-				</div> */}
-				{/* <MoreStories morePosts={morePosts} /> */}
-			</div>
+				</div>
+			)}
 		</>
 	);
 }

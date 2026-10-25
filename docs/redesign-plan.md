@@ -225,7 +225,7 @@ The v2 branch starts from `main`, so the earlier v1 fix PRs are not part of it. 
 - [x] **Phase 2:** empty `alt` on decorative `CoverImage` and `Avatar`; `Button` `external` prop (new tab plus "opens in new tab" text); `Headline` `level="decorative"` for purely visual text.
 - [x] **Phase 3:** nav: Escape closes the mobile menu and returns focus, `aria-label`s on the primary and footer navs, `aria-current`; hero `h1` is the name, not "hi!"; contact links say when they open a new tab; resume uses native `<details>`.
 - [x] **Phase 4:** blog list guards zero posts (`extractPostEntries` already returns `[]`).
-- [ ] **Phase 5:** no nested links in post cards (a `LinkCard` must not contain another `<a>`).
+- [x] **Phase 5:** no nested links in post cards (a `LinkCard` must not contain another `<a>`).
 - [x] **Temporary:** delete the "TEMPORARY v1 compatibility aliases" block at the bottom of `app/globals.css` once no component reads the v1 token names.
 
 ## Phase 2 notes
@@ -252,3 +252,12 @@ The v2 branch starts from `main`, so the earlier v1 fix PRs are not part of it. 
 - `order` is still not exposed by the Delivery API. Until it is, `getWorkItemList` falls back to Contentful's default order (one warning per build).
 - Blog post and case study bodies already render through `renderRichText`; `lib/markdown.tsx` is deleted. Phase 5 restyles the page chrome around them.
 - Untested: embedded images inside rich text (no entry has one yet).
+
+## Phase 5 notes
+
+- Built: case study (`/work/[slug]`) with header, cover overlapping by 32px, 740px body + sticky "On this page" rail, previous/next cards and the CTA banner; Work index (`/work`) with chips (md+) or drawer (below md), live count, empty state; blog post (`/blog/[slug]`) with meta line, byline, 760px body with drop cap, "More posts"; blog index with Latest, Earlier posts rows and the zero-posts empty state; a styled 404.
+- **Placeholder copy to edit** (DESIGN.md gives no wording): the one-line intros on `/work` and `/blog`, the CTA banner text ("I'm open to full-time roles and the occasional freelance project. Say hi."), and the 404 text. All three are plain strings in `app/(pages)/work/page.tsx`, `app/(pages)/blog/page.tsx`, `app/blocks/CtaBanner.tsx` and `app/not-found.tsx`.
+- Previous/next does not wrap: the first project has no "Previous".
+- Per-page metadata added (title, description, Open Graph, canonical) for `/work`, `/blog`, `/work/[slug]`, `/blog/[slug]`.
+- `app/blocks/MoreStories.tsx` removed; `ProjectCard` is shared by the homepage and the Work index.
+- Not exercised with real content: a case study with no cover (the cover is skipped), a post with embedded images, and a project with zero tags.
