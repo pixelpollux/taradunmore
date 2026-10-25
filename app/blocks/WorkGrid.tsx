@@ -102,6 +102,7 @@ export default function WorkGrid({
 						<li key={item.slug}>
 							<ProjectCard
 								item={item}
+								titleLevel='h2'
 								ink={dots[index % dots.length]}
 								tilt={index % 2 ? 0.8 : -0.8}
 							/>

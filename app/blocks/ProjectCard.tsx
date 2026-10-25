@@ -63,10 +63,13 @@ export default function ProjectCard({
 	item,
 	ink,
 	tilt = 0,
+	titleLevel = "h3",
 }: {
 	item: any;
 	ink: Ink;
 	tilt?: number;
+	/** h3 under a section heading (homepage), h2 on the Work index. */
+	titleLevel?: "h2" | "h3";
 }) {
 	return (
 		<StaticCard ink={ink} pad='none' tilt={tilt}>
@@ -81,7 +84,7 @@ export default function ProjectCard({
 					/>
 				</div>
 				<div className='flex flex-col gap-3 p-5'>
-					<Headline variant='card' level='h3'>
+					<Headline variant='card' level={titleLevel}>
 						{item.title}
 					</Headline>
 					<p className='text-small text-plum-muted'>{item.shortBlurb}</p>

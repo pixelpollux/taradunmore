@@ -5,16 +5,13 @@ export function Default() {
 }
 
 export function Sized() {
-	return <GithubIcon width={40} height={40} className="text-[var(--accent)]" />;
+	return <GithubIcon width={40} height={40} className="text-plum" />;
 }
 
 export function InBadge() {
-	// Mirrors the real composition in ContactSection.tsx: the icon in a
-	// rounded accent badge. The site itself doesn't pass width/height to
-	// GithubIcon there — see .design-sync/NOTES.md re: unconstrained
-	// intrinsic SVG size in that real usage.
+	// Mirrors the real composition: the icon in a round badge (see ContactLink).
 	return (
-		<span className="inline-flex size-12 items-center justify-center rounded-3xl bg-[color-mix(in_oklch,var(--accent)_20%,transparent)] text-[--text]">
+		<span className="inline-flex size-10 items-center justify-center rounded-full border-chip border-plum bg-lime">
 			<GithubIcon width={24} height={24} />
 		</span>
 	);

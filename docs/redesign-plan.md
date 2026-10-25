@@ -208,15 +208,15 @@ export async function sendContact(_prev: unknown, formData: FormData) {
 
 ## Phase 6: QA and cleanup
 
-- [ ] Lighthouse accessibility 100 on home, a case study, the Work index, a post, and the Blog index.
-- [ ] Keyboard pass: nav, the mobile menu, the resume rows, the filter drawer, the form, the "On this page" rail.
-- [ ] Screen reader spot check: the filter count announces, contact pills read "GitHub, @pixelpollux", decorative layers are skipped.
-- [ ] Contrast spot check against DESIGN.md "Contrast".
-- [ ] `prefers-reduced-motion` on: no lift, no smooth scroll.
-- [ ] Widths 390, 768, 1024, 1440: no horizontal scroll; dot shadows don't get clipped by a parent's `overflow: hidden`.
-- [ ] Search the codebase for v1 leftovers: `--accent`, `--pink`, `--eggplant`, `Fredoka`, `cherry`, `headline--`, `construction`, `disabledPill`.
-- [ ] Update `PRODUCT.md` "Operating Context" (the blog routes exist now, with an empty state) and `README.md` (still the Vercel example's readme).
-- [ ] Regenerate `.impeccable/design.json`; rerun design-sync against the new `app/ui`.
+- [x] Accessibility audit on home, two case studies, the Work index, a post, the Blog index and the 404 (axe-core 4.10, WCAG 2.2 AA + best practices; **Lighthouse itself was not run**: no Chrome CLI here). Zero violations after fixes; color-contrast is "incomplete" in axe because of the grain overlay and gradients, so contrast was computed separately (below).
+- [x] Keyboard pass: tab order and a 3px dashed ring on every stop on the homepage (nav, buttons, resume rows, sticker, contact pills, form, footer); Enter toggles resume rows; Escape closes the mobile menu; the filter drawer closes on pick; the rail tracks headings. Not hand-tested: Space key on summaries and the rail with a real keyboard-only session.
+- [~] Screen reader spot check: checked the accessibility tree and ARIA instead of a real screen reader (landmarks, labels, "GitHub, @pixelpollux (opens in new tab)", the `role=status` count, no decorative layer exposed). **A VoiceOver pass is still worth doing.**
+- [x] Contrast: every pair in DESIGN.md recomputed and matches (plum on paper 14.15, plum-muted 7.82, orchid-800 6.42, lime-800 5.41, amber-800 6.75). Plum on any gradient point is at least 7.27:1; the sticker overprint is 4.17:1 at 30px (large text, 3:1 needed).
+- [x] `prefers-reduced-motion`: verified in the compiled CSS (no lift, `scroll-behavior: auto`, chevron turns only under no-preference). Not toggled in a live OS setting.
+- [x] Widths 390, 768, 1024, 1440: no horizontal scroll on any page type, and no dot layer clipped by an overflow parent. Found and fixed two real overflows: the case-study previous/next grid at 390, and the nav at 768 (it now collapses below 1024).
+- [x] v1 leftovers: none in `app`, `lib`, config or docs.
+- [x] `PRODUCT.md` and `README.md` rewritten.
+- [x] `.impeccable/design.json` regenerated from DESIGN.md v2 (14 colors with OKLCH ramps, 10 components, narrative). [~] `.design-sync/` inputs rewritten for v2 and type-checked, but **design-sync itself was not run** (its scripts are not in this repo); see `.design-sync/NOTES.md`.
 
 ## Carry-overs from the v1 PRs (branch started from `main`)
 
@@ -261,3 +261,11 @@ The v2 branch starts from `main`, so the earlier v1 fix PRs are not part of it. 
 - Per-page metadata added (title, description, Open Graph, canonical) for `/work`, `/blog`, `/work/[slug]`, `/blog/[slug]`.
 - `app/blocks/MoreStories.tsx` removed; `ProjectCard` is shared by the homepage and the Work index.
 - Not exercised with real content: a case study with no cover (the cover is skipped), a post with embedded images, and a project with zero tags.
+
+## Phase 6 notes
+
+- **Fixed during QA:** empty `<th>` in a resume table (rendered as a plain cell), heading order on `/work` (cards are `h2` there), prev/next grid overflow at 390px, nav overflow at 768 to 1023px (the nav now collapses below `lg`, a deliberate change from the 768px rule in DESIGN.md), unnamed About, Resume and Contact sections (now `aria-labelledby`). Removed unused `lib/constants.ts`.
+- **Content to fix in Contentful:** the Haunting of Hatfield House case study starts with an `h3` (no `h2` above it), which axe flags as heading order; and the `" SCSS/Sass"` tag has a leading space (the Work index trims it, the homepage line does not).
+- **`order` still not exposed by the Delivery API** as of this phase (the build logs one warning per build). Phase 5's note that the warning had gone was wrong: that build's output was filtered and hid it.
+- `/styleguide` is kept as a dev-only living styleguide (404s in production).
+- The claude.ai design system artifact was rebuilt from v2 (10 component cards and a new cover). Its tokens and previews were checked locally, not against claude.ai's own renderer.

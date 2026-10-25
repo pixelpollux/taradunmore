@@ -1,23 +1,13 @@
 import Headline from "@/app/ui/Headline";
 
-export function Default() {
-	return <Headline text="let's connect!" />;
-}
-
-export function Highlighter() {
-	return <Headline text="Tara" headlineVariant="highlighter" />;
-}
-
-export function Display() {
-	return <Headline text="hi!" headlineVariant="display" headlineLevel="h1" />;
-}
-
-export function Levels() {
+export function Variants() {
 	return (
-		<div className="flex flex-col gap-2">
-			<Headline text="Heading level 1" headlineLevel="h1" />
-			<Headline text="Heading level 2" headlineLevel="h2" />
-			<Headline text="Heading level 3" headlineLevel="h3" />
+		<div className="flex flex-col gap-8 p-4">
+			<Headline variant="display" level="h2">Tara</Headline>
+			<Headline variant="page" level="h2">Page title</Headline>
+			<Headline variant="section" level="h2">Section title</Headline>
+			<Headline variant="feature" level="h3">Feature title</Headline>
+			<Headline variant="card" level="h3">Card title</Headline>
 		</div>
 	);
 }

@@ -1,65 +1,37 @@
-## Using this design system
+## Using this design system (v2, "printed by hand")
 
-No provider or root wrapper is required — every component is a plain,
-context-free function; just import and render.
+No provider or root wrapper is required: every component is a plain function, so just import and render. Components are Tailwind-styled; the page must load the system's stylesheet (`styles.css`), which defines the tokens below.
 
-**Styling idiom: Tailwind utility classes + this system's own CSS custom
-properties for color/type, referenced via Tailwind's arbitrary-value
-syntax** (`bg-[var(--accent)]`, `text-[var(--text)]`) rather than Tailwind's
-default palette. Never reach for Tailwind's stock colors (`bg-blue-500`,
-`text-gray-700`, …) — this system doesn't use them; always go through the
-tokens below.
+**Styling idiom.** Tailwind utility classes mapped to CSS custom properties. Use the semantic names (`bg-paper`, `text-plum`, `border-plum`, `rounded-card`, `shadow-pop-lime`, `font-display`, `text-section-title`). Never use Tailwind's stock palette (`bg-blue-500`, `text-gray-700`) and never raw hex.
 
-**Tokens** (defined in `styles.css`'s import closure — real names, use
-these exactly):
+**Core rule: dots sit still, solid ink moves.** Clickable things (Button, FilterChip, ContactLink, LinkCard) get a solid, zero-blur offset shadow and lift on hover. Static containers (StaticCard, Disclosure, CoverImage with `ink`) get a halftone dot layer behind an opaque box. Stickers and the nav get nothing.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--text` | `#330036` (eggplant) | primary text/foreground |
-| `--text-inverse` | `#f2f2f2` (white) | text on dark/filled backgrounds |
-| `--text-h` | `#08060d` | heading text (near-black) |
-| `--bg` | `#f2f2f2` | page/card background |
-| `--bg-shaded` | `#e5e5e5` | secondary surface |
-| `--accent` | `#fe019a` (pink) | brand accent, links, primary actions |
-| `--accent-secondary` | `#c9ff00` (lime) | secondary accent, highlights |
-| `--accent-bg` / `--accent-border` | translucent purple | tinted fills/borders on accent surfaces |
-| `--social-bg` | translucent cream | social/contact card fills |
-| `--border` | `#e5e4e7` | default border color |
-| `--code-bg` | `#f4f3ec` | code block background |
-| `--grey` | `#858585` | disabled/muted state |
-| `--shadow` | multi-layer box-shadow value | standard elevation |
-| `--sans` | `var(--font-Fredoka), sans-serif` | body font stack |
-| `--cherry` | `var(--font-cherry), serif` | display/headline font stack |
-| `--breakpoint-xs` | `30rem` | extra-small breakpoint |
+| `paper` / `surface` | `#f3efea` / `#fbf8f4` | page background / cards, fields, nav |
+| `plum` | `#3a1030` | all text and borders, primary button fill |
+| `plum-muted` | `#5e4057` | secondary text |
+| `lime`, `orchid`, `amber` | `#b8d43a`, `#d79ad0`, `#f2a65a` | spot inks: **fills only**, never text |
+| `*-100` | tints | chip and highlight backgrounds |
+| `lime-800`, `orchid-800` (`text-link`), `amber-800` | text-safe inks | success text, links, error text |
+| `font-display` | Shrikhand | headings and stickers only, 24px minimum |
+| `font-sans` | Work Sans | everything else |
 
-Apply via Tailwind arbitrary values on any element: `className="bg-[var(--bg)] text-[var(--text)] border-[var(--border)]"`.
-`Button` and `Headline` also use named CSS classes for variants (`.headline--highlighter`,
-`.headline--display`) — those come from `styles.css` too, don't recreate them
-with utilities.
+**Headings.** Use `Headline` (`display`, `page`, `section`, `card`, `pageDetail`, `feature`). Display, page and section titles carry the "Ghost" (a misregistered orchid and lime text-shadow); never put it on text under 32px.
 
-**Where the truth lives**: read `styles.css` (and what it `@import`s —
-`_ds_bundle.css` has every token and utility class actually shipped) before
-styling anything, and each component's own `.prompt.md` for its real prop
-values and variants.
+**Accessibility floor.** 44px minimum targets (`min-h-tap`), 3px dashed focus ring, text on paper or surface in plum, accent text in its 800, and never text over dots or overprints.
 
-**Build snippet** (a real composed example, adapted from this sync's own
-verified-to-compile `Card` preview):
+**Where the truth lives.** `DESIGN.md` in the repository is the source of truth; `styles.css` has every token and utility class actually shipped; each component's `.prompt.md` lists its real props.
+
+**A composed example.**
 
 ```tsx
-import { Card, Headline, Button, CoverImage } from "<this design system>";
+import { StaticCard, Headline, Tag, Button } from "<this design system>";
 
-<Card cardVariant="tight" className="flex flex-col gap-3">
-  <CoverImage title="Post title" url={coverUrl} slug="post-slug" />
-  <div className="p-4 flex flex-col gap-2">
-    <h3 className="text-xl font-bold">Post title</h3>
-    <p className="text-sm">Short summary text.</p>
-    <Button buttonVariant="primary" buttonSize="xs" text="More Info" />
-  </div>
-</Card>
+<StaticCard ink="orchid" tilt={-0.8}>
+  <Headline variant="card" level="h3">Project title</Headline>
+  <p className="mt-2 text-small text-plum-muted">A short blurb in small muted text.</p>
+  <div className="mt-3 flex gap-2"><Tag tone="lime">Next.js</Tag><Tag tone="amber">Contentful</Tag></div>
+  <Button href="/work/project" className="mt-4">Case study</Button>
+</StaticCard>
 ```
-
-`Card`'s `cardVariant` controls padding (`thick` | `slim` | `tight`); reach
-for `tight` when a component fills the card edge-to-edge (like a cover
-image), `thick`/`slim` otherwise. `Button`'s `buttonVariant` is `primary` |
-`secondary` | `tertiary` | `disabled` | `disabledPill`, `buttonSize` is
-`xs` | `sm` | `md`.
