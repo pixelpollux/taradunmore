@@ -11,10 +11,7 @@ export async function POST(request: NextRequest) {
 			{ status: 401 },
 		);
 	}
-	// TODO: come back to this
-	// The revalidate tag is currently named "blog", but fetchGraphQL() is used for multiple Contentful content types (blog, resume, work, content blocks). Using a more generic tag name (e.g., "contentful") helps avoid confusion and accidental partial invalidation if you later add type-specific tags.
-
-	revalidateTag("blog", { expire: 0 });
+	revalidateTag("contentful", { expire: 0 });
 
 	return NextResponse.json({ revalidated: true, now: Date.now() });
 }
