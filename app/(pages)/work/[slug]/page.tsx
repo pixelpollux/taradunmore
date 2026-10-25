@@ -2,7 +2,8 @@ import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
-import Button from "../../../ui/Button";
+import Button from "@/app/ui/Button";
+import Tag, { toneAt } from "@/app/ui/Tag";
 
 import CoverImage from "@/app/ui/CoverImage";
 import ContentfulImage from "@/lib/contentful-image";
@@ -130,7 +131,6 @@ export default async function WorkItemPage({
 				{workItem.coverImage?.url && (
 					<div className='mb-8 sm:mx-0 md:mb-16'>
 						<CoverImage
-							title={workItem.title}
 							url={workItem.coverImage.url}
 							priority
 						/>
@@ -150,38 +150,24 @@ export default async function WorkItemPage({
 					{workItem.techTags?.length > 0 && (
 						<div className='mb-8 flex flex-wrap gap-2'>
 							<div className='flex flex-wrap gap-2 mt-auto'>
-								{workItem.techTags.map((tag: string) => (
-									<Button
-										key={tag}
-										text={tag}
-										className='tag'
-										buttonVariant='disabledPill'
-										buttonSize='xs'
-									/>
-								))}
+								{workItem.techTags.map((tag: string, index: number) => (
+										<Tag key={tag} tone={toneAt(index)}>
+											{tag}
+										</Tag>
+									))}
 							</div>
 						</div>
 					)}
 					<div className='flex flex-wrap gap-3'>
 						{workItem.liveSiteUrl && (
-							<a
-								href={workItem.liveSiteUrl}
-								target='_blank'
-								rel='noopener noreferrer'
-								className='tag hover:opacity-80'
-							>
-								Visit Site
-							</a>
+							<Button href={workItem.liveSiteUrl} external>
+								Visit live site
+							</Button>
 						)}
 						{workItem.codeRepoUrl && (
-							<a
-								href={workItem.codeRepoUrl}
-								target='_blank'
-								rel='noopener noreferrer'
-								className='tag hover:opacity-80'
-							>
-								View Code
-							</a>
+							<Button variant='secondary' href={workItem.codeRepoUrl} external>
+								View code
+							</Button>
 						)}
 					</div>
 				</div>

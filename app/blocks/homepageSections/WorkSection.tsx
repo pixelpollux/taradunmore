@@ -1,8 +1,43 @@
 import Layout from "./Layout";
 import { getAllWorkItems as getWorkItems } from "@/lib/api";
-import Card from "../../ui/Card";
-import Button from "../../ui/Button";
-import ContentfulImage from "@/lib/contentful-image";
+import { StaticCard } from "@/app/ui/Card";
+import Button from "@/app/ui/Button";
+import Headline from "@/app/ui/Headline";
+import Tag, { toneAt } from "@/app/ui/Tag";
+import CoverImage from "@/app/ui/CoverImage";
+
+// Transitional: moved onto the v2 components in Phase 2. The final project
+// card, featured card and "All work" button land in Phase 3.
+function Actions({ item }: { item: any }) {
+	return (
+		<div className='mt-auto flex flex-wrap items-center gap-x-4 gap-y-2'>
+			<Button href={`/work/${item.slug}`}>Case study</Button>
+			{item.liveSiteUrl && (
+				<Button variant='text' href={item.liveSiteUrl} external>
+					Live site
+				</Button>
+			)}
+			{item.codeRepoUrl && (
+				<Button variant='text' href={item.codeRepoUrl} external>
+					Code
+				</Button>
+			)}
+		</div>
+	);
+}
+
+function Tags({ tags }: { tags?: string[] }) {
+	if (!tags?.length) return null;
+	return (
+		<div className='flex flex-wrap gap-2'>
+			{tags.map((tag, index) => (
+				<Tag key={tag} tone={toneAt(index)}>
+					{tag}
+				</Tag>
+			))}
+		</div>
+	);
+}
 
 export default async function WorkSection() {
 	const workItems = await getWorkItems();
@@ -10,190 +45,63 @@ export default async function WorkSection() {
 	const gridItems = rest.slice(0, 3);
 
 	return (
-		<>
-			<Layout
-				text='work'
-				id='work-section'
-				// headerActions={
-				// 	<Button
-				// 		buttonVariant='secondary'
-				// 		text='See more work →'
-				// 		href='/work'
-				// 	/>
-				// }
-			>
-				<div className='flex flex-col gap-6'>
-					{featured && (
-						<Card
-							cardVariant='tight'
-							className='flex flex-col md:flex-row gap-6 md:items-center'
-						>
-							{featured.coverImage?.url && (
-								<div className='md:w-full lg:w-1/2'>
-									<ContentfulImage
-										src={featured.coverImage.url}
-										alt={
-											featured.coverImage.description ||
-											featured.title
-										}
-										width={640}
-										height={400}
-										// variant='card--hero-post'
-										className='rounded-t-3xl border-b-2 border-b-[var(--text)] md:rounded-l-3xl md:border-b-0 md:rounded-r-none md:border-2 md:border-r-[var(--text)]'
-									/>
-								</div>
-							)}
-							<div className='h-full p-4 md:p-6 md:w-1/2 flex flex-col gap-3'>
-								<span className='eyebrow w-fit'>
-									★ Featured
-								</span>
-								<h3 className='text-2xl font-bold'>
+		<Layout text='work' id='work-section'>
+			<div className='flex flex-col gap-10'>
+				{featured && (
+					<StaticCard ink='lime' offset={16} pad='none' tilt={-0.8}>
+						<div className='flex flex-col md:flex-row'>
+							<div className='md:flex-[3] md:shadow-divider'>
+								<CoverImage
+									url={featured.coverImage?.url}
+									radius='0'
+									className='h-full min-h-[240px] border-0 md:min-h-[360px]'
+									aspect='auto'
+								/>
+							</div>
+							<div className='flex flex-col gap-4 p-6 md:flex-[2] md:p-8'>
+								<Headline variant='card' level='h3' className='md:text-[34px]'>
 									{featured.title}
-								</h3>
-								<p>{featured.shortBlurb}</p>
-								{featured.techTags?.length > 0 && (
-									// TODO: make this a component
-									// TODO: spacing within card on featured work item is off, need to fix
-									<>
-										<div className='flex flex-wrap gap-2 mt-auto'>
-											{featured.techTags.map(
-												(tag: string) => (
-													<Button
-														key={tag}
-														text={tag}
-														className='tag'
-														buttonVariant='disabledPill'
-														buttonSize='xs'
-													/>
-												),
-											)}
-										</div>
-										<div className='flex flex-row flex-wrap gap-2 mt-auto justify-center self-center'>
-											{/* more info */}
-											<div>
-												<Button
-													buttonVariant='primary'
-													buttonSize='xs'
-													text='More Info'
-													href={`/work/${featured.slug}`}
-													className='text-[var(--text-inverse)]'
-												/>
-											</div>
-											{/* live site */}
-											{featured.liveSiteUrl && (
-												<div>
-													<Button
-														buttonVariant='secondary'
-														buttonSize='xs'
-														text='Live Site'
-														href={
-															featured.liveSiteUrl
-														}
-													/>
-												</div>
-											)}
-											{/* code repo */}
-											{featured.codeRepoUrl && (
-												<div>
-													<Button
-														buttonVariant='secondary'
-														buttonSize='xs'
-														text='Code Repo'
-														href={
-															featured.codeRepoUrl
-														}
-													/>
-												</div>
-											)}
-										</div>
-									</>
-								)}
-							</div>{" "}
-						</Card>
-					)}
+								</Headline>
+								<p className='text-small text-plum-muted'>
+									{featured.shortBlurb}
+								</p>
+								<Tags tags={featured.techTags} />
+								<Actions item={featured} />
+							</div>
+						</div>
+					</StaticCard>
+				)}
 
-					<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-						{gridItems.map((item: any, idx: number) => (
-							<Card
-								key={item.slug ?? idx}
-								cardVariant='tight'
-								className='flex flex-col gap-3 h-full'
-								id={`work-item-${idx + 1}`}
-							>
-								{item.coverImage?.url && (
-									<div>
-										<ContentfulImage
-											src={item.coverImage.url}
-											alt={
-												item.coverImage.description ||
-												item.title
-											}
-											width={640}
-											height={400}
-											className='rounded-t-3xl border-b-2 border-b-[var(--text)]'
-										/>
-									</div>
-								)}
-								<div className='p-4 flex flex-col gap-2 h-full'>
-									<h3 className='text-xl font-bold'>
+				<div className='grid grid-cols-1 gap-10 md:grid-cols-3'>
+					{gridItems.map((item: any, index: number) => (
+						<StaticCard
+							key={item.slug ?? index}
+							ink={toneAt(index + 1)}
+							pad='none'
+							tilt={index % 2 ? 0.8 : -0.8}
+							className='h-full'
+						>
+							<div className='flex h-full flex-col'>
+								<CoverImage
+									url={item.coverImage?.url}
+									radius='0'
+									className='border-0 border-b'
+								/>
+								<div className='flex flex-1 flex-col gap-3 p-5'>
+									<Headline variant='card' level='h3'>
 										{item.title}
-									</h3>
-									<p className='text-sm'>{item.shortBlurb}</p>
-									{item.techTags?.length > 0 && (
-										<div className='flex flex-wrap gap-2 mt-auto'>
-											{item.techTags.map(
-												(tag: string) => (
-													<Button
-														key={tag}
-														text={tag}
-														className='tag'
-														buttonVariant='disabled'
-														buttonSize='xs'
-													/>
-												),
-											)}
-										</div>
-									)}
-									<div className='flex flex-row flex-wrap gap-2 mt-auto justify-center self-center'>
-										{/* more info */}
-										<div>
-											<Button
-												buttonVariant='primary'
-												buttonSize='xs'
-												text='More Info'
-												href={`/work/${item.slug}`}
-												className='text-[var(--text-inverse)]'
-											/>
-										</div>
-										{/* live site */}
-										{item.liveSiteUrl && (
-											<div>
-												<Button
-													buttonVariant='secondary'
-													buttonSize='xs'
-													text='Live Site'
-													href={item.liveSiteUrl}
-												/>
-											</div>
-										)}
-										{/* code repo */}
-										{item.codeRepoUrl && (
-											<div>
-												<Button
-													buttonVariant='secondary'
-													buttonSize='xs'
-													text='Code Repo'
-													href={item.codeRepoUrl}
-												/>
-											</div>
-										)}
-									</div>
+									</Headline>
+									<p className='text-small text-plum-muted'>
+										{item.shortBlurb}
+									</p>
+									<Tags tags={item.techTags} />
+									<Actions item={item} />
 								</div>
-							</Card>
-						))}
-					</div>
+							</div>
+						</StaticCard>
+					))}
 				</div>
-			</Layout>
-		</>
+			</div>
+		</Layout>
 	);
 }

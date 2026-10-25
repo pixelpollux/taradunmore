@@ -222,8 +222,15 @@ export async function sendContact(_prev: unknown, formData: FormData) {
 
 The v2 branch starts from `main`, so the earlier v1 fix PRs are not part of it. Re-applied in Phase 1: the 393 KB `headshot-4x5.jpg` (and loader passthrough for `/public` paths), `https://` normalization for Contentful URLs and JSON-escaped slugs in `lib/api.ts`, real site metadata, and a skip link. To re-apply as each piece is rebuilt:
 
-- [ ] **Phase 2:** empty `alt` on decorative `CoverImage` and `Avatar`; `Button` `external` prop (new tab plus "opens in new tab" text); `Headline` has no decorative-heading problem once "hi!" is gone.
+- [x] **Phase 2:** empty `alt` on decorative `CoverImage` and `Avatar`; `Button` `external` prop (new tab plus "opens in new tab" text); `Headline` `level="decorative"` for purely visual text.
 - [ ] **Phase 3:** nav: Escape closes the mobile menu and returns focus, `aria-label`s on the primary and footer navs, `aria-current`; hero `h1` is the name, not "hi!"; contact links say when they open a new tab; resume uses native `<details>`.
 - [ ] **Phase 4:** blog list guards zero posts (`extractPostEntries` already returns `[]`).
 - [ ] **Phase 5:** no nested links in post cards (a `LinkCard` must not contain another `<a>`).
 - [ ] **Temporary:** delete the "TEMPORARY v1 compatibility aliases" block at the bottom of `app/globals.css` once no component reads the v1 token names.
+
+## Phase 2 notes
+
+- Dev-only scratch page at `/styleguide` (404s in production) shows every variant and state. Remove it in Phase 6, or keep it as a living styleguide.
+- Existing homepage, blog and work pages were moved onto the new components with minimal edits so the build stays green; Phases 3 and 5 replace them.
+- **Deferred:** `.design-sync/` (previews, build-src shims, docs stubs, `dtsPropsFor`) and `.impeccable/design.json` still describe the v1 components. Both need their own tooling to regenerate and verify.
+- `Disclosure` keeps its dot layer in state (not CSS) because content inside a closed `<details>` is hidden by the browser, so a dot layer inside it would vanish.
