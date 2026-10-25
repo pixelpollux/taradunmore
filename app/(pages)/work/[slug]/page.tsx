@@ -31,7 +31,7 @@ function getRichTextOptions(links: any) {
 				<ol className='list-decimal pl-5 mt-2 space-y-1'>{children}</ol>
 			),
 			[BLOCKS.LIST_ITEM]: (node: any, children: any) => (
-				<li className='marker:text-[var(--accent)]'>{children}</li>
+				<li className='marker:text-orchid-800'>{children}</li>
 			),
 			// TODO: paragraph and list item spacing is off, need to fix
 			[BLOCKS.PARAGRAPH]: (node: any, children: any) => (
@@ -52,7 +52,7 @@ function getRichTextOptions(links: any) {
 				if (!href) {
 					return (
 						<a
-							className='underline decoration-[2px] underline-offset-2 font-semibold tracking-wide cursor-pointer hover:text-[var(--accent)] hover:cursor-pointer'
+							className='underline decoration-[2px] underline-offset-2 font-semibold tracking-wide cursor-pointer hover:text-link hover:cursor-pointer'
 							href=''
 						>
 							{children?.length ? children : fallbackText}
@@ -85,14 +85,14 @@ function getRichTextOptions(links: any) {
 						alt={asset.description || ""}
 						width={640}
 						height={400}
-						className='rounded-t-3xl border-b-2 border-b-[var(--text)]'
+						className='rounded-t-3xl border-b-2 border-b-plum'
 					/>
 				);
 			},
 		},
 		renderMark: {
 			[MARKS.CODE]: (text: any) => (
-				<code className='p-1 bg-[color-mix(in_oklch,var(--accent)_15%,var(--white))] font-semibold leading-9 rounded-md m-1 outline-1 outline-[var(--accent)] outline '>
+				<code className='p-1 bg-lime-100 font-semibold leading-9 rounded-md m-1 outline-1 outline-plum outline '>
 					{text}
 				</code>
 			),

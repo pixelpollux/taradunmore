@@ -1,47 +1,9 @@
-"use client";
-
-import { useState } from "react";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS } from "@contentful/rich-text-types";
-import { StaticCard } from "@/app/ui/Card";
-import Button from "@/app/ui/Button";
+import { renderRichText } from "@/lib/richText";
+import Disclosure from "@/app/ui/Disclosure";
 import Headline from "@/app/ui/Headline";
-
-const richTextOptions = {
-	renderNode: {
-		[BLOCKS.UL_LIST]: (node: any, children: any) => (
-			<ul className='list-disc pl-5 mt-2 space-y-1'>{children}</ul>
-		),
-		[BLOCKS.LIST_ITEM]: (node: any, children: any) => (
-			<li className='marker:text-link'>{children}</li>
-		),
-		[BLOCKS.TABLE]: (node: any, children: any) => (
-			<table className='table table-auto m-4 sm:mx-6 sm:mr-10 border-collapse'>
-				<tbody>{children}</tbody>
-			</table>
-		),
-		[BLOCKS.TABLE_ROW]: (node: any, children: any) => (
-			<tr className='flex flex-col sm:table-row border-b text-center border-[var(--accent)] '>
-				{children}
-			</tr>
-		),
-		[BLOCKS.TABLE_HEADER_CELL]: (node: any, children: any) => (
-			<th className='border-b border-b-[var(--accent)] p-2 first-of-type:text-left hidden sm:table-cell bg-[color-mix(in_oklch,var(--accent)_10%,transparent)]'>
-				{children}
-			</th>
-		),
-		[BLOCKS.TABLE_CELL]: (node: any, children: any) => (
-			<td className='sm:border-b border-b-[var(--accent)]  p-1 sm:p-2 sm:first-of-type:text-left'>
-				{children}
-			</td>
-		),
-		[BLOCKS.PARAGRAPH]: (node: any, children: any) => <>{children}</>,
-		// Some versions of @contentful/rich-text-types include BLOCKS.BREAK_LINE in TS
-		// types but don't define it at runtime, so it never matches. Use the literal
-		// node type string instead.
-		"break-line": () => <br />,
-	},
-};
+import StickerButton from "@/app/ui/StickerButton";
+import { toneAt } from "@/app/ui/Tag";
+import Layout from "../Layout";
 
 function formatDate(dateString: string | null) {
 	if (!dateString) return "Present";
@@ -91,82 +53,61 @@ function groupAndSortByCategory(items: any[]) {
 }
 
 export default function ResumeList({ items }: { items: any[] }) {
-	const [isOpen, setIsOpen] = useState(false);
 	const groupedItems = groupAndSortByCategory(items);
+	let rowIndex = 0;
 
 	return (
-		<section className='container--outer bg-[color-mix(in_oklch,var(--accent-secondary)_70%,transparent)] py-10 lg:py-20'>
-			<div className='container--inner container lg:max-w-7xl mx-auto px-8 lg:px-12'>
-				<StaticCard id='resume-section' ink='lime'>
-					<div className='flex flex-col gap-4'>
-						<div className='flex items-center justify-center sm:justify-between flex-wrap gap-x-12 gap-4'>
-							<Headline
-								id='resume-section-title'
-								className='scroll-mt-[var(--nav-height)] text-center sm:text-left'
-							>
-								resume
-							</Headline>
-							<div className='flex flex-col sm:flex-row lg:flex-row gap-1 md:gap-2'>
-								<Button
-									variant={isOpen ? "secondary" : "primary"}
-									onClick={() => setIsOpen((open) => !open)}
-								>
-									{isOpen ? "Hide Resume" : "View Resume"}
-								</Button>
-								{/* <Button
-									buttonVariant='secondary'
-									text='Download Resume'
-									href='/resume.pdf'
-								/> */}
-							</div>
-						</div>
-					</div>
-					{isOpen && (
-						<div className='flex flex-col gap-10 pt-6 lg:pt-8'>
-							{groupedItems.map(({ category, items }) => (
-								<div key={category}>
-									<h3 className='font-bold text-2xl mb-6 border-b-2 border-[var(--accent)]'>
-										{category}
-									</h3>
+		<Layout id='resume'>
+			<div className='flex flex-wrap items-start gap-x-16 gap-y-14'>
+				<div className='min-w-0 flex-[1_1_560px]'>
+					<Headline id='resume-title' variant='section' level='h2'>
+						Where I&apos;ve been
+					</Headline>
 
-									<ol className='flex flex-col gap-8'>
-										{items.map((item: any) => (
-											<li
-												className='flex flex-col'
-												key={`${item.companyName}-${item.roleStartDate}`}
-											>
-												<div className='flex justify-between flex-wrap gap-2'>
-													<h4 className='font-bold text-xl'>
-														{item.role} ·{" "}
-														<span className='text-[var(--accent)]'>
+					{groupedItems.map(({ category, items: groupItems }) => (
+						<div key={category} className='mt-12'>
+							<h3 className='mb-6 text-label uppercase'>{category}</h3>
+							<ol className='flex flex-col gap-8 pr-[10px]'>
+								{groupItems.map((item: any) => {
+									const index = rowIndex++;
+									return (
+										<li key={`${item.companyName}-${item.roleStartDate}`}>
+											<Disclosure
+												ink={toneAt(index)}
+												defaultOpen={index === 0}
+												summary={
+													<span className='flex flex-col gap-1 md:flex-row md:flex-wrap md:items-baseline md:gap-x-4'>
+														<span className='text-label uppercase'>
+															{formatDate(item.roleStartDate)} to{" "}
+															{formatDate(item.roleEndDate)}
+														</span>
+														<span className='font-display text-[22px] leading-tight'>
+															{item.role}
+														</span>
+														<span className='text-small text-plum-muted'>
 															{item.companyName}
 														</span>
-													</h4>
-													<span>
-														{formatDate(
-															item.roleStartDate,
-														)}{" "}
-														—{" "}
-														{formatDate(
-															item.roleEndDate,
-														)}
 													</span>
-												</div>
-												{item.roleDescription?.json &&
-													documentToReactComponents(
-														item.roleDescription
-															.json,
-														richTextOptions,
-													)}
-											</li>
-										))}
-									</ol>
-								</div>
-							))}
+												}
+											>
+												{renderRichText(item.roleDescription, {
+													variant: "compact",
+												})}
+											</Disclosure>
+										</li>
+									);
+								})}
+							</ol>
 						</div>
-					)}
-				</StaticCard>
+					))}
+				</div>
+
+				<div className='mx-auto flex-[0_0_240px] md:mt-28'>
+					<StickerButton href='/resume.pdf' download>
+						Download PDF
+					</StickerButton>
+				</div>
 			</div>
-		</section>
+		</Layout>
 	);
 }

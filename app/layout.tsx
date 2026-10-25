@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Shrikhand, Work_Sans } from "next/font/google";
 import HeaderNav from "@/app/blocks/HeaderNav";
+import SiteFooter from "@/app/blocks/SiteFooter";
 import Grain from "@/app/ui/Grain";
 
 const SITE_DESCRIPTION =
@@ -67,7 +68,7 @@ export default function RootLayout({
 					>
 						{children}
 					</main>
-					{/* SiteFooter lands in Phase 3 */}
+					<SiteFooter />
 				</div>
 				<Grain />
 			</body>

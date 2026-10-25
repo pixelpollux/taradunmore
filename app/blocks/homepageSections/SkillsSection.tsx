@@ -1,4 +1,6 @@
 import Layout from "./Layout";
+import { StaticCard } from "@/app/ui/Card";
+import Tag, { toneAt } from "@/app/ui/Tag";
 
 interface SkillCategory {
 	label: string;
@@ -40,44 +42,42 @@ const skillCategories: SkillCategory[] = [
 	{ label: "AI Tools", skills: ["Claude Code", "Copilot", "Vercel V0"] },
 ];
 
-export default async function SkillsSection() {
-	const trailingBorderlessCount = skillCategories.length % 2 === 0 ? 2 : 1;
-	const borderlessStartIndex =
-		skillCategories.length - trailingBorderlessCount;
+const dotFill = {
+	lime: "bg-lime",
+	orchid: "bg-orchid",
+	amber: "bg-amber",
+} as const;
 
+export default async function SkillsSection() {
 	return (
-		<>
-			<Layout text='skills' id='skills-section'>
-				<div className='grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-x-12 '>
-					{skillCategories.map((skillCategory, index) => (
-						<div
-							key={skillCategory.label}
-							className={`pb-4 border-b-[1px] border-b-[color-mix(in_oklch,var(--accent)_50%,transparent)] last:border-b-0 ${index >= borderlessStartIndex ? "md:border-b-0" : ""}`}
-						>
-							<h3 className='text-lg font-bold tracking-[1] break-normal wrap-anywhere mb-2 italic'>
-								{skillCategory.label}
-							</h3>
-							<ul className='flex flex-row flex-wrap gap-2'>
-								{[...skillCategory.skills]
-									.sort((firstSkill, secondSkill) =>
-										firstSkill.localeCompare(secondSkill),
-									)
-									.map((skill, index) => (
-										<li key={skill}>
-											<span>
-												{skill}
-												{index <
-												skillCategory.skills.length - 1
-													? ","
-													: ""}
-											</span>
-										</li>
-									))}
-							</ul>
-						</div>
-					))}
+		<Layout id='skills' title='Skills'>
+			<StaticCard ink='lime' offset={14} shape='panel' pad='lg'>
+				<div className='grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-x-10 gap-y-10'>
+					{skillCategories.map((category, index) => {
+						const tone = toneAt(index);
+						return (
+							<div key={category.label}>
+								<h3 className='mb-4 flex items-center gap-2 text-label uppercase'>
+									<span
+										aria-hidden='true'
+										className={`size-3 flex-none rounded-full border-2 border-plum ${dotFill[tone]}`}
+									/>
+									{category.label}
+								</h3>
+								<ul className='flex flex-wrap gap-2'>
+									{[...category.skills]
+										.sort((a, b) => a.localeCompare(b))
+										.map((skill) => (
+											<li key={skill}>
+												<Tag tone={tone}>{skill}</Tag>
+											</li>
+										))}
+								</ul>
+							</div>
+						);
+					})}
 				</div>
-			</Layout>
-		</>
+			</StaticCard>
+		</Layout>
 	);
 }

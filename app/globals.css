@@ -83,26 +83,3 @@
 	outline-color: var(--plum);
 }
 
-/* ------------------------------------------------------------------
-   TEMPORARY v1 compatibility aliases. v1 components (Button, Card,
-   Headline, HeaderNav, the homepage sections) still read these names
-   until they are rebuilt in Phases 2 and 3. Delete this whole block
-   once `grep -rn "var(--accent\|var(--text)\|var(--bg\|var(--grey" app`
-   comes back empty.
-   ------------------------------------------------------------------ */
-:root {
-	--text: var(--plum);
-	--text-inverse: var(--paper);
-	--bg: var(--paper);
-	--bg-shaded: var(--surface);
-	--white: var(--paper);
-	--grey: var(--plum-muted);
-	--accent: var(--orchid-800);
-	--accent-secondary: var(--lime);
-	--sans: var(--font-text), system-ui, sans-serif;
-	--cherry: var(--font-display), Georgia, serif;
-}
-p {
-	margin-bottom: 1rem;
-	line-height: 1.5;
-}

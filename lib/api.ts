@@ -193,17 +193,25 @@ const WORK_ITEM_FIELDS = `
 `;
 
 export async function getAllWorkItems(preview: boolean = false) {
-	const entries = await fetchGraphQL(
-		// TODO: removing the limit breaks things, i don't know why. return later.
-		`query {
-			workItemCollection(preview: ${preview}, limit: 10) {
-				items {
-					${WORK_ITEM_FIELDS}
+	// Lowest `order` first (that item is featured on the homepage). If the
+	// `order` field is not on the content type yet, Contentful rejects the query,
+	// so retry without it and keep Contentful's default order.
+	const run = (withOrder: boolean) =>
+		fetchGraphQL(
+			// TODO: removing the limit breaks things, i don't know why. return later.
+			`query {
+				workItemCollection(${withOrder ? "order: order_ASC, " : ""}preview: ${preview}, limit: 10) {
+					items {
+						${WORK_ITEM_FIELDS}
+						${withOrder ? "order" : ""}
+					}
 				}
-			}
-		}`,
-		preview,
-	);
+			}`,
+			preview,
+		);
+
+	let entries = await run(true);
+	if (entries?.errors) entries = await run(false);
 
 	return (entries?.data?.workItemCollection?.items ?? []).map(
 		normalizeWorkItem,
