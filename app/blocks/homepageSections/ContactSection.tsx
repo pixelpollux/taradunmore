@@ -1,8 +1,11 @@
+import { Mail } from "lucide-react";
 import Headline from "@/app/ui/Headline";
+import DotShadow from "@/app/ui/DotShadow";
 import { StaticCard } from "@/app/ui/Card";
 import ContactLink from "@/app/ui/ContactLink";
-import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/app/ui/BrandIcons";
+import ContactForm from "@/app/blocks/ContactForm";
+import Layout from "./Layout";
 
 const socials = [
 	{
@@ -28,32 +31,52 @@ const socials = [
 	},
 ] as const;
 
-// Transitional: the gradient tile and the contact form arrive in Phase 3.
 export default async function ContactSection() {
 	return (
-		<section className='container--outer py-10 lg:py-20'>
-			<div className='container--inner container lg:max-w-7xl mx-auto px-8 lg:px-12'>
-				<StaticCard id='contact-section' ink='amber' shape='panel' offset={14}>
-					<div className='flex flex-col gap-6'>
-						<Headline
-							id='contact-section-title'
-							className='scroll-mt-[var(--nav-height)]'
-						>
-							let's connect!
+		<Layout id='contact'>
+			<div className='flex flex-wrap items-start gap-x-12 gap-y-14'>
+				<DotShadow
+					ink='lime'
+					offset={14}
+					radius='var(--radius-panel)'
+					tilt={-0.8}
+					className='flex-[1_1_380px]'
+				>
+					<div className='relative flex flex-col gap-6 overflow-hidden rounded-panel border border-plum bg-grad-amber-orchid p-7 md:p-10'>
+						<div
+							aria-hidden='true'
+							className='multiply absolute -bottom-10 -right-10 size-40 rounded-full bg-lime'
+						/>
+						<Headline id='contact-title' variant='section' level='h2'>
+							Let&apos;s connect!
 						</Headline>
-						<p>
-							I'd love to hear from you. Whether you have a project
-							in mind, want to collaborate, or just want to say hi,
-							feel free to reach out.
+						<p className='relative text-lead'>
+							I&apos;d love to hear from you. Whether you have a project in
+							mind, want to collaborate, or just want to say hi, feel free
+							to reach out.
 						</p>
-						<div className='flex flex-wrap gap-4'>
+						<ul className='relative mt-4 flex flex-wrap gap-4'>
 							{socials.map((social) => (
-								<ContactLink key={social.label} {...social} />
+								<li key={social.label}>
+									<ContactLink {...social} />
+								</li>
 							))}
-						</div>
+						</ul>
 					</div>
-				</StaticCard>
+				</DotShadow>
+
+				<div className='flex-[1_1_340px]'>
+					<StaticCard
+						ink='orchid'
+						shape='form'
+						offset={14}
+						tilt={0.6}
+						pad='lg'
+					>
+						<ContactForm />
+					</StaticCard>
+				</div>
 			</div>
-		</section>
+		</Layout>
 	);
 }

@@ -105,8 +105,8 @@ export default async function Page() {
 					<div>
 						<div>
 							<div className='relative'>
-								<div className='absolute -inset-3 -rotate-3 rounded-[2rem] border-2 border-[var(--text)] z-[5]'></div>
-								<div className='absolute -inset-3 rotate-2 rounded-[2rem] border-2 border-[var(--accent-secondary)] z-0'></div>
+								<div className='absolute -inset-3 -rotate-3 rounded-[2rem] border-2 border-plum z-[5]'></div>
+								<div className='absolute -inset-3 rotate-2 rounded-[2rem] border-2 border-lime z-0'></div>
 							</div>
 						</div>
 					</div>
