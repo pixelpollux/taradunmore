@@ -79,6 +79,9 @@
 .skip-link:focus {
 	transform: none;
 }
+.skip-link:focus-visible {
+	outline-color: var(--plum);
+}
 
 /* ------------------------------------------------------------------
    TEMPORARY v1 compatibility aliases. v1 components (Button, Card,

@@ -47,7 +47,6 @@ export default async function PostPage({
 				{post.coverImage?.url && (
 					<div className='mb-8 sm:mx-0 md:mb-16'>
 						<CoverImage
-							title={post.title}
 							url={post.coverImage.url}
 							priority
 						/>
