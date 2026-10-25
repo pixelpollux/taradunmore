@@ -1,3 +1,3 @@
 ---
-category: Primitives
+category: Actions
 ---

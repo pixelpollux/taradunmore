@@ -9,7 +9,7 @@ export default async function AboutSection() {
 	const about = await getContentBlock("About");
 
 	return (
-		<Layout id='about'>
+		<Layout id='about' labelledBy='about-title'>
 			<div className='flex flex-wrap items-start gap-x-12 gap-y-14'>
 				<DotShadow
 					ink='amber'

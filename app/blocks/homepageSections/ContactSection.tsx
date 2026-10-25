@@ -33,7 +33,7 @@ const socials = [
 
 export default async function ContactSection() {
 	return (
-		<Layout id='contact'>
+		<Layout id='contact' labelledBy='contact-title'>
 			<div className='flex flex-wrap items-start gap-x-12 gap-y-14'>
 				<DotShadow
 					ink='lime'

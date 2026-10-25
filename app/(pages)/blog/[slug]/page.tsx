@@ -121,7 +121,7 @@ export default async function PostPage({
 							All posts
 						</Button>
 					</div>
-					<ul className='grid gap-10 md:grid-cols-2'>
+					<ul className='grid grid-cols-1 gap-10 md:grid-cols-2'>
 						{morePosts.map((more: any, index: number) => (
 							<li key={more.slug}>
 								<PostCard

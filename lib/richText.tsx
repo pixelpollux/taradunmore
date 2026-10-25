@@ -145,11 +145,16 @@ export function renderRichText(
 			[BLOCKS.TABLE_ROW]: (_node, children) => (
 				<tr className='border-b border-rule last:border-b-0'>{children}</tr>
 			),
-			[BLOCKS.TABLE_HEADER_CELL]: (_node, children) => (
-				<th className='bg-lime-100 px-4 py-3 text-left font-bold [&_p]:mb-0'>
-					{children}
-				</th>
-			),
+			// An empty header cell (a corner cell, say) is not a valid <th>: keep the
+			// lime fill but make it a plain cell.
+			[BLOCKS.TABLE_HEADER_CELL]: (node, children) =>
+				nodeText(node).trim() ? (
+					<th className='bg-lime-100 px-4 py-3 text-left font-bold [&_p]:mb-0'>
+						{children}
+					</th>
+				) : (
+					<td className='bg-lime-100 px-4 py-3' />
+				),
 			[BLOCKS.TABLE_CELL]: (_node, children) => (
 				<td className='px-4 py-3 align-top [&_p]:mb-0'>{children}</td>
 			),

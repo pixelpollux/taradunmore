@@ -71,7 +71,7 @@ export default function HeaderNav() {
 						</span>
 					</Link>
 
-					<ul className='hidden items-center gap-1 md:flex'>
+					<ul className='hidden items-center gap-1 lg:flex'>
 						{LINKS.map((link) => (
 							<li key={link.href}>
 								<Link href={link.href} className={linkClass}>
@@ -88,7 +88,7 @@ export default function HeaderNav() {
 						aria-expanded={isOpen}
 						aria-controls='primary-nav-list'
 						onClick={() => setIsOpen((open) => !open)}
-						className='lift inline-flex min-h-tap items-center gap-2 rounded-full border border-plum bg-plum px-4 font-bold text-paper shadow-pop-lime focus-visible:outline-plum md:hidden'
+						className='lift inline-flex min-h-tap items-center gap-2 rounded-full border border-plum bg-plum px-4 font-bold text-paper shadow-pop-lime focus-visible:outline-plum lg:hidden'
 					>
 						{isOpen ? (
 							<X aria-hidden='true' className='size-5' strokeWidth={3} />
@@ -102,7 +102,7 @@ export default function HeaderNav() {
 				<ul
 					id='primary-nav-list'
 					className={cn(
-						"absolute left-0 right-0 top-[calc(100%+12px)] flex-col gap-1 rounded-card border border-plum bg-surface p-4 md:hidden",
+						"absolute left-0 right-0 top-[calc(100%+12px)] flex-col gap-1 rounded-card border border-plum bg-surface p-4 lg:hidden",
 						isOpen ? "flex" : "hidden",
 					)}
 				>
