@@ -6,7 +6,7 @@ import Avatar from "@/app/ui/Avatar";
 import DateDisplay from "@/app/ui/DateDisplay";
 import CoverImage from "@/app/ui/CoverImage";
 
-import { Markdown } from "@/lib/markdown";
+import { renderRichText } from "@/lib/richText";
 import { getAllPosts, getPostAndMorePosts } from "@/lib/api";
 
 export async function generateStaticParams() {
@@ -67,9 +67,10 @@ export default async function PostPage({
 				</div>
 
 				<div className='mx-auto max-w-2xl'>
-					<div className='prose'>
-						<Markdown content={post.content} />
-					</div>
+					{renderRichText(post.content, {
+							variant: "prose",
+							dropCap: true,
+						})}
 				</div>
 			</article>
 			<hr className='border-accent-2 mt-28 mb-24' />

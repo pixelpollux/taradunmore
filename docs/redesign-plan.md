@@ -224,7 +224,7 @@ The v2 branch starts from `main`, so the earlier v1 fix PRs are not part of it. 
 
 - [x] **Phase 2:** empty `alt` on decorative `CoverImage` and `Avatar`; `Button` `external` prop (new tab plus "opens in new tab" text); `Headline` `level="decorative"` for purely visual text.
 - [x] **Phase 3:** nav: Escape closes the mobile menu and returns focus, `aria-label`s on the primary and footer navs, `aria-current`; hero `h1` is the name, not "hi!"; contact links say when they open a new tab; resume uses native `<details>`.
-- [ ] **Phase 4:** blog list guards zero posts (`extractPostEntries` already returns `[]`).
+- [x] **Phase 4:** blog list guards zero posts (`extractPostEntries` already returns `[]`).
 - [ ] **Phase 5:** no nested links in post cards (a `LinkCard` must not contain another `<a>`).
 - [x] **Temporary:** delete the "TEMPORARY v1 compatibility aliases" block at the bottom of `app/globals.css` once no component reads the v1 token names.
 
@@ -242,3 +242,13 @@ The v2 branch starts from `main`, so the earlier v1 fix PRs are not part of it. 
 - The contact form uses `useActionState`. The installed React is 18.3 (the Contentful renderer's peer range stops at 18), but the App Router runs its own React 19, so it works at runtime; types come from `react-canary.d.ts`.
 - Not tested end to end: sending a real email (no `RESEND_API_KEY` in `.env.local`). Validation, the honeypot path, the "not configured" error, and value retention were exercised.
 - v1 compatibility aliases are gone from `globals.css`.
+
+## Phase 4 notes
+
+- `fetchGraphQL` now throws on a bad status or a real GraphQL error (the message carries Contentful's reason: it answers invalid queries with HTTP 400 and the detail in the body). `UNRESOLVABLE_LINK` errors only warn, since a link to an unpublished entry is data, not a bug. A thrown error fails the build, so a broken query can no longer ship an empty page.
+- Cache tag is `"contentful"` (revalidate route updated). Check the Contentful webhook does not depend on the old `"blog"` tag name (it posts to `/api/revalidate`, so it should not).
+- New: `getWorkItemList` (light, limit 50, no rich text; this clears the old "removing the limit breaks things" TODO), `getAdjacentWorkItems` (previous/next, no wraparound), `readingMinutes` on every post, `getHeadings`, `lib/readingTime.ts`. `getAllWorkItems` is gone.
+- Post lists fetch `content.json` only to count words, then drop it. The single-post query keeps `links` for embedded assets.
+- `order` is still not exposed by the Delivery API. Until it is, `getWorkItemList` falls back to Contentful's default order (one warning per build).
+- Blog post and case study bodies already render through `renderRichText`; `lib/markdown.tsx` is deleted. Phase 5 restyles the page chrome around them.
+- Untested: embedded images inside rich text (no entry has one yet).
