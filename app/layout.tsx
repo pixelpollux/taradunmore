@@ -19,7 +19,9 @@ export const metadata: Metadata = {
 		siteName: "TaraDunmore.com",
 		title: "Tara Dunmore | Front-End Developer",
 		description: SITE_DESCRIPTION,
-		url: "/",
+		// No `url` here: this object is inherited by every route that does not
+		// set its own openGraph, and a fixed "/" would label them all as the
+		// homepage. Pages with their own metadata supply their URL.
 	},
 	twitter: {
 		card: "summary",
@@ -56,7 +58,13 @@ export default function RootLayout({
 				</a>
 				<div className='flex min-h-screen flex-col'>
 					<HeaderNav />
-					<main id='main' tabIndex={-1} className='flex-1 focus:outline-none'>
+					{/* scroll-mt: the skip link lands below the sticky nav, not under it.
+					    --nav-height is set by the v1 nav; 110px matches the v2 floating nav. */}
+					<main
+						id='main'
+						tabIndex={-1}
+						className='flex-1 scroll-mt-[var(--nav-height,110px)] focus:outline-none'
+					>
 						{children}
 					</main>
 					{/* SiteFooter lands in Phase 3 */}
