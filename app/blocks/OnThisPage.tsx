@@ -46,7 +46,7 @@ export default function OnThisPage({
 	}, [headings]);
 
 	return (
-		<nav aria-label='On this page' className='md:sticky md:top-[120px]'>
+		<nav aria-label='On this page' className='lg:sticky lg:top-[120px]'>
 			<StaticCard ink='amber' offset={12} pad='md'>
 				<p className='mb-4 text-label uppercase'>On this page</p>
 				<ol className='flex flex-col gap-1'>

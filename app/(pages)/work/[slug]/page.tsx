@@ -27,7 +27,10 @@ export async function generateMetadata({
 	params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
 	const { slug } = await params;
-	const item = await getWorkItemBySlug(slug, false);
+	// Same draft-mode flag as the page, so previews get their own title and
+	// unpublished projects get metadata instead of the site default.
+	const { isEnabled } = await draftMode();
+	const item = await getWorkItemBySlug(slug, isEnabled);
 	if (!item) return {};
 	const image = item.coverImage?.url
 		? [{ url: `${item.coverImage.url}?w=1200` }]
@@ -36,6 +39,8 @@ export async function generateMetadata({
 		title: item.title,
 		description: item.shortBlurb,
 		openGraph: {
+			type: "article",
+			siteName: "TaraDunmore.com",
 			title: item.title,
 			description: item.shortBlurb,
 			url: `/work/${slug}`,
@@ -148,12 +153,12 @@ export default async function WorkItemPage({
 
 			<div className='mx-auto mt-template flex max-w-page flex-wrap items-start gap-x-14 gap-y-10 px-5'>
 				{headings.length > 1 && (
-					<div className='w-full md:order-2 md:w-[260px] md:flex-none md:self-stretch'>
+					<div className='w-full lg:order-2 lg:w-[260px] lg:flex-none lg:self-stretch'>
 						<OnThisPage headings={headings} />
 					</div>
 				)}
 				<div
-					className={`min-w-0 max-w-[740px] flex-[1_1_480px] md:order-1 ${headings.length > 1 ? "" : "mx-auto"}`}
+					className={`min-w-0 max-w-[740px] flex-[1_1_480px] lg:order-1 ${headings.length > 1 ? "" : "mx-auto"}`}
 				>
 					{renderRichText(workItem.fullDescription, { variant: "prose" })}
 				</div>

@@ -5,10 +5,21 @@ import CtaBanner from "@/app/blocks/CtaBanner";
 import WorkGrid from "@/app/blocks/WorkGrid";
 import { getWorkItemList } from "@/lib/api";
 
+const DESCRIPTION =
+	"Case studies and side projects from Tara Dunmore: design systems, front-end builds and a few things made just because.";
+
+// A route's openGraph replaces the root layout's wholesale (nothing is merged
+// field by field), so each route restates everything it wants shared.
 export const metadata: Metadata = {
 	title: "Work",
-	description:
-		"Case studies and side projects from Tara Dunmore: design systems, front-end builds and a few things made just because.",
+	description: DESCRIPTION,
+	openGraph: {
+		type: "website",
+		siteName: "TaraDunmore.com",
+		title: "Work",
+		description: DESCRIPTION,
+		url: "/work",
+	},
 	alternates: { canonical: "/work" },
 };
 

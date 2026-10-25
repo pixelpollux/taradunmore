@@ -7,10 +7,21 @@ import type { Ink } from "@/app/ui/DotShadow";
 import { LatestPost, PostRow } from "@/app/blocks/PostCards";
 import { getAllPosts } from "@/lib/api";
 
+const DESCRIPTION =
+	"Notes from Tara Dunmore on design systems, front-end craft and a career that took the long way around.";
+
+// A route's openGraph replaces the root layout's wholesale (nothing is merged
+// field by field), so each route restates everything it wants shared.
 export const metadata: Metadata = {
 	title: "Blog",
-	description:
-		"Notes from Tara Dunmore on design systems, front-end craft and a career that took the long way around.",
+	description: DESCRIPTION,
+	openGraph: {
+		type: "website",
+		siteName: "TaraDunmore.com",
+		title: "Blog",
+		description: DESCRIPTION,
+		url: "/blog",
+	},
 	alternates: { canonical: "/blog" },
 };
 

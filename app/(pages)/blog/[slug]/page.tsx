@@ -23,7 +23,10 @@ export async function generateMetadata({
 	params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
 	const { slug } = await params;
-	const { post } = await getPostAndMorePosts(slug, false);
+	// Same draft-mode flag as the page, so previews get their own title and
+	// unpublished posts get metadata instead of the site default.
+	const { isEnabled } = await draftMode();
+	const { post } = await getPostAndMorePosts(slug, isEnabled);
 	if (!post) return {};
 	const image = post.coverImage?.url
 		? [{ url: `${post.coverImage.url}?w=1200` }]
@@ -33,6 +36,7 @@ export async function generateMetadata({
 		description: post.excerpt,
 		openGraph: {
 			type: "article",
+			siteName: "TaraDunmore.com",
 			title: post.title,
 			description: post.excerpt,
 			url: `/blog/${slug}`,
