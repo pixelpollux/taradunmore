@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
-import Card from "@/app/ui/Card";
+import { StaticCard } from "@/app/ui/Card";
 import Button from "@/app/ui/Button";
 import Headline from "@/app/ui/Headline";
 
@@ -13,7 +13,7 @@ const richTextOptions = {
 			<ul className='list-disc pl-5 mt-2 space-y-1'>{children}</ul>
 		),
 		[BLOCKS.LIST_ITEM]: (node: any, children: any) => (
-			<li className='marker:text-[var(--accent)]'>{children}</li>
+			<li className='marker:text-link'>{children}</li>
 		),
 		[BLOCKS.TABLE]: (node: any, children: any) => (
 			<table className='table table-auto m-4 sm:mx-6 sm:mr-10 border-collapse'>
@@ -97,25 +97,22 @@ export default function ResumeList({ items }: { items: any[] }) {
 	return (
 		<section className='container--outer bg-[color-mix(in_oklch,var(--accent-secondary)_70%,transparent)] py-10 lg:py-20'>
 			<div className='container--inner container lg:max-w-7xl mx-auto px-8 lg:px-12'>
-				<Card id='resume-section'>
+				<StaticCard id='resume-section' ink='lime'>
 					<div className='flex flex-col gap-4'>
 						<div className='flex items-center justify-center sm:justify-between flex-wrap gap-x-12 gap-4'>
 							<Headline
-								text='resume'
-								headlineVariant='highlighter'
-								className='scroll-mt-[var(--nav-height)] text-center sm:text-left'
 								id='resume-section-title'
-							/>
+								className='scroll-mt-[var(--nav-height)] text-center sm:text-left'
+							>
+								resume
+							</Headline>
 							<div className='flex flex-col sm:flex-row lg:flex-row gap-1 md:gap-2'>
 								<Button
-									text={
-										isOpen ? "Hide Resume" : "View Resume"
-									}
+									variant={isOpen ? "secondary" : "primary"}
 									onClick={() => setIsOpen((open) => !open)}
-									buttonVariant={
-										isOpen ? "secondary" : "primary"
-									}
-								/>
+								>
+									{isOpen ? "Hide Resume" : "View Resume"}
+								</Button>
 								{/* <Button
 									buttonVariant='secondary'
 									text='Download Resume'
@@ -168,7 +165,7 @@ export default function ResumeList({ items }: { items: any[] }) {
 							))}
 						</div>
 					)}
-				</Card>
+				</StaticCard>
 			</div>
 		</section>
 	);

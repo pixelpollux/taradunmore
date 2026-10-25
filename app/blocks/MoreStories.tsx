@@ -21,7 +21,9 @@ function PostPreview({
   return (
     <div>
       <div className="mb-5">
-        <CoverImage title={title} slug={slug} url={coverImage.url} />
+        <Link href={`/blog/${slug}`} aria-label={title}>
+          <CoverImage url={coverImage?.url} />
+        </Link>
       </div>
       <h3 className="text-3xl mb-3 leading-snug">
         <Link href={`/blog/${slug}`} className="hover:underline">

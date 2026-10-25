@@ -32,19 +32,16 @@ export default async function Page() {
 											className='flex flex-col text-center lg:text-left gap-2 lg:gap-[1rem] lg:w-[75%]'
 										>
 											<Headline
-												headlineVariant='display'
-												headlineLevel='h1'
+												variant='display'
+												level='decorative'
 												className={`text-center leading-[.85] mb-8 lg:mb-0 lg:-mt-[6rem] lg:leading-1 lg:text-left text-[12rem] lg:text-6xl lg:text-[14rem] -rotate-[4deg] font-display`}
-												text='hi!'
-											/>
+												>
+													hi!
+												</Headline>
 											<div className='text-center lg:text-left font-bold'>
-												<h2 className='headline'>
-													I'm{" "}
-													<span className='headline--highlighter'>
-														Tara
-													</span>
-													!
-												</h2>
+												<Headline variant='section' level='h1'>
+													I'm Tara!
+												</Headline>
 											</div>{" "}
 											<div>
 												<span className='font-[500] lg:text-[1.2rem]'>
@@ -62,15 +59,10 @@ export default async function Page() {
 												id='hero__buttons'
 												className='hidden lg:flex gap-4 lg:gap-[1rem] flex-col lg:flex-row justify-center lg:justify-start items-center'
 											>
-												<Button
-													text='see my work'
-													href='/#work-section'
-												></Button>
-												<Button
-													buttonVariant='secondary'
-													text='get in touch'
-													href='/#contact-section'
-												></Button>
+												<Button href='/#work-section'>see my work</Button>
+												<Button variant='secondary' href='/#contact-section'>
+														get in touch
+													</Button>
 											</div>
 										</div>
 									</div>

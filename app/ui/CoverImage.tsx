@@ -1,43 +1,67 @@
-import ContentfulImage from "../../lib/contentful-image";
-import Link from "next/link";
+import ContentfulImage from "@/lib/contentful-image";
+import { cn } from "@/lib/cn";
+import DotShadow, { type Ink } from "./DotShadow";
 
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
+/**
+ * Project and post cover. Natural-color photo in a plum-outlined frame.
+ * Pass `ink` to give it its own dot shadow (standalone covers); leave it out
+ * when the cover sits inside a card that already has one. Alt text is empty
+ * by default: the title is always next to it.
+ */
 export default function CoverImage({
-  title,
-  url,
-  slug,
-  priority = false,
+	url,
+	alt = "",
+	aspect = "16 / 10",
+	radius = "var(--radius-figure)",
+	ink,
+	offset = 16,
+	tilt = 0,
+	width = 1600,
+	height = 1000,
+	sizes,
+	priority = false,
+	className,
 }: {
-  title: string;
-  url: string;
-  slug?: string;
-  priority?: boolean;
+	url?: string | null;
+	alt?: string;
+	aspect?: string;
+	radius?: string;
+	ink?: Ink;
+	offset?: number;
+	tilt?: number;
+	width?: number;
+	height?: number;
+	sizes?: string;
+	priority?: boolean;
+	className?: string;
 }) {
-  const image = (
-    <ContentfulImage
-      alt={`Cover Image for ${title}`}
-      priority={priority}
-      width={2000}
-      height={1000}
-      className={cn("shadow-small", {
-        "hover:shadow-medium transition-shadow duration-200": slug,
-      })}
-      src={url}
-    />
-  );
+	const frame = (
+		<div
+			className={cn(
+				"overflow-hidden border border-plum bg-orchid-100",
+				className,
+			)}
+			style={{ aspectRatio: aspect, borderRadius: radius }}
+		>
+			{url && (
+				<ContentfulImage
+					src={url}
+					alt={alt}
+					width={width}
+					height={height}
+					sizes={sizes}
+					priority={priority}
+					className='h-full w-full object-cover'
+				/>
+			)}
+		</div>
+	);
 
-  return (
-    <div className="sm:mx-0">
-      {slug ? (
-        <Link href={`/blog/${slug}`} aria-label={title}>
-          {image}
-        </Link>
-      ) : (
-        image
-      )}
-    </div>
-  );
+	return ink ? (
+		<DotShadow ink={ink} offset={offset} radius={radius} tilt={tilt}>
+			{frame}
+		</DotShadow>
+	) : (
+		frame
+	);
 }

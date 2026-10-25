@@ -1,4 +1,3 @@
-import Link from "next/link";
 // import HeroPost from "@/components/hero-post";
 
 import { draftMode } from "next/headers";
@@ -7,7 +6,9 @@ import { getAllPosts } from "@/lib/api";
 import CoverImage from "@/app/ui/CoverImage";
 import MoreStories from "../../blocks/MoreStories";
 import Avatar from "@/app/ui/Avatar";
-import Card from "@/app/ui/Card";
+import { LinkCard } from "@/app/ui/Card";
+import Headline from "@/app/ui/Headline";
+import DateDisplay from "@/app/ui/DateDisplay";
 
 // import MoreStories from "@/components/blog/MoreStories";
 function HeroPost({
@@ -25,51 +26,33 @@ function HeroPost({
 	author: any;
 	slug: string;
 }) {
+	// Transitional: the v2 blog index (latest card, earlier-posts list, empty state) lands in Phase 5.
 	return (
 		<section>
-			{" "}
-			<Card
-				cardVariant='tight'
-				className='flex flex-col md:flex-row gap-6 md:items-center'
-				isClickable={true}
+			<LinkCard
+				href={`/blog/${slug}`}
+				accent='lime'
+				className='flex flex-col md:flex-row'
 			>
-				{" "}
-				<Link href={`/blog/${slug}`} className='hover:underline'>
-					<div className=''>
-						<CoverImage
-							title={title}
-							slug={slug}
-							url={coverImage?.url}
-							priority
-						/>
-					</div>
-					<div className='md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8  p-6 md:p-10'>
-						<div>
-							<h3 className='mb-4 text-4xl lg:text-6xl leading-tight'>
-								{" "}
-								{title}
-							</h3>
-							<div className='mb-4 md:mb-0 text-lg'>
-								<time dateTime={date}>
-									{new Date(date).toLocaleDateString()}
-								</time>
-							</div>
-						</div>
-
-						<div>
-							<p className='text-lg leading-relaxed mb-4'>
-								{excerpt}
-							</p>
-							{author && (
-								<Avatar
-									name={author.name}
-									picture={author.picture}
-								/>
-							)}
-						</div>
-					</div>{" "}
-				</Link>
-			</Card>
+				<div className='md:flex-[3]'>
+					<CoverImage
+						url={coverImage?.url}
+						radius='0'
+						className='h-full border-0'
+						priority
+					/>
+				</div>
+				<div className='flex flex-col gap-3 p-6 md:flex-[2] md:p-8'>
+					<DateDisplay dateString={date} className='text-label uppercase' />
+					<Headline variant='card' level='h2'>
+						{title}
+					</Headline>
+					<p className='text-lead'>{excerpt}</p>
+					{author && (
+						<Avatar name={author.name} picture={author.picture} />
+					)}
+				</div>
+			</LinkCard>
 		</section>
 	);
 }
