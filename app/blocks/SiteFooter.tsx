@@ -22,7 +22,7 @@ export default function SiteFooter() {
 					className='pointer-events-none absolute -right-24 -top-32 size-[460px] rounded-full bg-[radial-gradient(circle,var(--lime)_0%,transparent_65%)] opacity-25'
 				/>
 				<div className='relative flex flex-wrap items-start justify-between gap-x-12 gap-y-8'>
-					<p className='font-display text-[32px] leading-none'>
+					<p className='font-display text-title-lg leading-none'>
 						Tara Dunmore
 					</p>
 					<nav aria-label='Footer'>

@@ -3,7 +3,7 @@ import { draftMode } from "next/headers";
 import Button from "@/app/ui/Button";
 import Headline from "@/app/ui/Headline";
 import Shapes from "@/app/ui/Shapes";
-import type { Ink } from "@/app/ui/DotShadow";
+import { INKS_FROM_ORCHID, inkAt } from "@/app/ui/ink";
 import { LatestPost, PostRow } from "@/app/blocks/PostCards";
 import { getAllPosts } from "@/lib/api";
 
@@ -24,8 +24,6 @@ export const metadata: Metadata = {
 	},
 	alternates: { canonical: "/blog" },
 };
-
-const rowInks: Ink[] = ["orchid", "amber", "lime"];
 
 export default async function BlogPage() {
 	const { isEnabled } = await draftMode();
@@ -72,7 +70,7 @@ export default async function BlogPage() {
 									<li key={post.slug}>
 										<PostRow
 											post={post}
-											accent={rowInks[index % rowInks.length]}
+											accent={inkAt(index, INKS_FROM_ORCHID)}
 										/>
 									</li>
 								))}

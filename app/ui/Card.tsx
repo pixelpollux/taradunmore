@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import DotShadow, { type Ink } from "./DotShadow";
+import DotShadow from "./DotShadow";
+import { inkClass, type Ink } from "./ink";
 import { tiltProps } from "./tilt";
 
 const padding = {
@@ -15,13 +16,6 @@ const radius = {
 	panel: { css: "var(--radius-panel)", cls: "rounded-panel" },
 	form: { css: "28px", cls: "rounded-[28px]" },
 } as const;
-
-/** Solid link-card shadows: 5px, one step bolder than a button's 3px. */
-const linkShadow: Record<Ink, string> = {
-	lime: "shadow-[5px_5px_0_var(--lime)]",
-	orchid: "shadow-[5px_5px_0_var(--orchid)]",
-	amber: "shadow-[5px_5px_0_var(--amber)]",
-};
 
 /**
  * Static container: an opaque surface box over a halftone dot layer.
@@ -93,7 +87,7 @@ export function LinkCard({
 }) {
 	const classes = cn(
 		"lift block overflow-hidden rounded-card border border-plum bg-surface text-plum no-underline",
-		linkShadow[accent],
+		inkClass[accent].shadow,
 		padding[pad],
 		className,
 	);

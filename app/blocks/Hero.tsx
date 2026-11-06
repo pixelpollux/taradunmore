@@ -34,7 +34,7 @@ function NameBlock({
 
 export default function Hero() {
 	return (
-		<section id='top' className='relative scroll-mt-[110px] overflow-x-clip'>
+		<section id='top' className='relative scroll-mt-nav overflow-x-clip'>
 			<div
 				aria-hidden='true'
 				className='pointer-events-none absolute -right-32 -top-40 size-[640px] rounded-full bg-[radial-gradient(circle,var(--amber)_0%,transparent_65%)] opacity-30'
@@ -82,7 +82,7 @@ export default function Hero() {
 									className='aspect-[4/5] w-full object-cover object-[50%_30%]'
 								/>
 							</div>
-							<p className='absolute inset-x-0 bottom-3 text-center font-display text-[26px] leading-none'>
+							<p className='absolute inset-x-0 bottom-3 text-center font-display text-title-sm leading-none'>
 								that&apos;s me!
 							</p>
 						</div>

@@ -4,13 +4,12 @@ import { StaticCard } from "@/app/ui/Card";
 import Button from "@/app/ui/Button";
 import Headline from "@/app/ui/Headline";
 import CoverImage from "@/app/ui/CoverImage";
-import type { Ink } from "@/app/ui/DotShadow";
+import { INKS_FROM_ORCHID, inkAt } from "@/app/ui/ink";
 import ProjectCard, {
 	ProjectActions,
 	ProjectTags,
 } from "@/app/blocks/ProjectCard";
 
-const dots: Ink[] = ["orchid", "amber", "lime"];
 
 export default async function WorkSection() {
 	const workItems = await getWorkItemList();
@@ -63,7 +62,7 @@ export default async function WorkSection() {
 							<li key={item.slug ?? index}>
 								<ProjectCard
 									item={item}
-									ink={dots[index % dots.length]}
+									ink={inkAt(index, INKS_FROM_ORCHID)}
 									tilt={index % 2 ? 0.8 : -0.8}
 								/>
 							</li>

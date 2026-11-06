@@ -68,12 +68,11 @@ export default function RootLayout({
 				</a>
 				<div className='flex min-h-screen flex-col'>
 					<HeaderNav />
-					{/* scroll-mt: the skip link lands below the sticky nav, not under it.
-					    --nav-height is set by the v1 nav; 110px matches the v2 floating nav. */}
+					{/* scroll-mt: the skip link lands below the sticky nav, not under it. */}
 					<main
 						id='main'
 						tabIndex={-1}
-						className='flex-1 scroll-mt-[var(--nav-height,110px)] focus:outline-none'
+						className='flex-1 scroll-mt-nav focus:outline-none'
 					>
 						{children}
 					</main>

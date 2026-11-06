@@ -1,14 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { inkClass, type Ink } from "./ink";
 import { tiltProps } from "./tilt";
-
-export type Ink = "lime" | "orchid" | "amber";
-
-export const dotInk: Record<Ink, string> = {
-	lime: "bg-dot-lime",
-	orchid: "bg-dot-orchid",
-	amber: "bg-dot-amber",
-};
 
 /**
  * Halftone dot shadow for STATIC containers (DESIGN.md "Shadow Rule").
@@ -60,7 +53,7 @@ export default function DotShadow({
 				className={cn(
 					"pointer-events-none absolute inset-0 bg-dot multiply",
 					As === "span" && "block",
-					dotInk[ink],
+					inkClass[ink].dot,
 					shapeClassName,
 				)}
 				style={{

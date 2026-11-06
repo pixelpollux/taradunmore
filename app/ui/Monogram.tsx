@@ -17,7 +17,7 @@ export default function Monogram({ className }: { className?: string }) {
 				className='multiply absolute bottom-0 right-0 size-[44px] rounded-full bg-amber'
 			/>
 			<span className='multiply absolute left-0 top-0 size-[44px] rounded-full bg-orchid' />
-			<span className='absolute inset-0 flex items-center justify-center pb-[2px] font-display text-[24px] leading-none text-paper'>
+			<span className='absolute inset-0 flex items-center justify-center pb-[2px] font-display text-card-title leading-none text-paper'>
 				td
 			</span>
 		</span>

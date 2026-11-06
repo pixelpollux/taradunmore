@@ -52,7 +52,7 @@ export function renderRichText(
 
 	const paragraph =
 		variant === "prose"
-			? "mb-[1.1em] text-prose max-md:text-[18px]"
+			? "mb-[1.1em] text-prose max-md:text-prose-sm"
 			: "mb-[1em] text-body";
 
 	const renderNode: RenderNode = {
@@ -77,13 +77,13 @@ export function renderRichText(
 			[BLOCKS.HEADING_2]: (node, children) => (
 				<h2
 					id={slug(nodeText(node))}
-					className='ghost mb-4 mt-12 scroll-mt-[120px] font-display text-[32px] font-normal leading-[1.1] md:text-[40px]'
+					className='ghost mb-4 mt-12 scroll-mt-nav font-display text-title-lg font-normal md:text-title-2xl'
 				>
 					{children}
 				</h2>
 			),
 			[BLOCKS.HEADING_3]: (_node, children) => (
-				<h3 className='mb-3 mt-8 text-[24px] font-bold leading-[1.3]'>
+				<h3 className='mb-3 mt-8 text-card-title font-bold leading-[1.3]'>
 					{children}
 				</h3>
 			),
@@ -99,7 +99,7 @@ export function renderRichText(
 			),
 			[BLOCKS.LIST_ITEM]: (_node, children) => <li>{children}</li>,
 			[BLOCKS.QUOTE]: (_node, children) => (
-				<blockquote className='my-8 rounded-figure border border-plum bg-orchid-100 px-6 py-5 text-[22px] font-medium leading-[1.4] [&_p]:mb-0 [&_p]:text-[22px]'>
+				<blockquote className='my-8 rounded-figure border border-plum bg-orchid-100 px-6 py-5 text-lead font-medium leading-[1.4] [&_p]:mb-0 [&_p]:text-lead'>
 					{children}
 				</blockquote>
 			),

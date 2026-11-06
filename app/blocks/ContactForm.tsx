@@ -24,7 +24,7 @@ export default function ContactForm() {
 			<div role='status'>
 				{state.ok && (
 					<div className='rounded-field border border-plum bg-lime-100 p-6 text-lime-800'>
-						<p className='mb-2 font-display text-[26px] leading-tight text-plum'>
+						<p className='mb-2 font-display text-title-sm leading-tight text-plum'>
 							Message sent!
 						</p>
 						<p className='font-bold'>
@@ -100,7 +100,7 @@ export default function ContactForm() {
 							type='submit'
 							disabled={pending}
 							aria-busy={pending}
-							className='lift min-h-tap rounded-full border border-plum bg-grad-lime-amber px-9 py-2 font-display text-[26px] leading-tight text-plum shadow-pop-orchid disabled:opacity-70'
+							className='lift min-h-tap rounded-full border border-plum bg-grad-lime-amber px-9 py-2 font-display text-title-sm leading-tight text-plum shadow-pop-orchid disabled:opacity-70'
 						>
 							{pending ? "Sending..." : "Send!"}
 						</button>

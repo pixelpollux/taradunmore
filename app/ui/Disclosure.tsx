@@ -3,7 +3,8 @@
 import { useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
-import DotShadow, { type Ink } from "./DotShadow";
+import DotShadow from "./DotShadow";
+import type { Ink } from "./ink";
 
 /**
  * Native <details> row with a separate chevron circle. Static container, so

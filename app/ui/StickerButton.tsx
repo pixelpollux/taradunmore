@@ -34,7 +34,7 @@ export default function StickerButton({
 					aria-hidden='true'
 					className='absolute inset-0 rounded-full border border-plum'
 				/>
-				<span className='relative z-10 flex h-full flex-col items-center justify-center gap-2 px-6 text-center font-display text-[30px] leading-[1.05] text-plum'>
+				<span className='relative z-10 flex h-full flex-col items-center justify-center gap-2 px-6 text-center font-display text-title-md text-plum'>
 					{children}
 					<Download aria-hidden='true' className='size-7' strokeWidth={3} />
 				</span>

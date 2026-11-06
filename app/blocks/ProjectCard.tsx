@@ -1,9 +1,9 @@
 import { StaticCard } from "@/app/ui/Card";
 import Button from "@/app/ui/Button";
 import Headline from "@/app/ui/Headline";
-import Tag, { toneAt } from "@/app/ui/Tag";
+import Tag from "@/app/ui/Tag";
 import CoverImage from "@/app/ui/CoverImage";
-import type { Ink } from "@/app/ui/DotShadow";
+import { inkAt, type Ink } from "@/app/ui/ink";
 
 /** Tint chips (featured card, case study) or a plain "tag · tag · tag" line (grid cards). */
 export function ProjectTags({
@@ -21,7 +21,7 @@ export function ProjectTags({
 		<ul className='flex flex-wrap gap-2'>
 			{tags.map((tag, index) => (
 				<li key={tag}>
-					<Tag tone={toneAt(index)}>{tag}</Tag>
+					<Tag tone={inkAt(index)}>{tag}</Tag>
 				</li>
 			))}
 		</ul>

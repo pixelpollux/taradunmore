@@ -66,7 +66,7 @@ export default function HeaderNav() {
 						onClick={() => setIsOpen(false)}
 					>
 						<Monogram />
-						<span className='whitespace-nowrap font-display text-[20px] leading-none md:text-[22px]'>
+						<span className='whitespace-nowrap font-display text-title-2xs leading-none md:text-title-xs'>
 							Tara Dunmore
 						</span>
 					</Link>

@@ -5,7 +5,7 @@ import CoverImage from "@/app/ui/CoverImage";
 import DateDisplay from "@/app/ui/DateDisplay";
 import Headline from "@/app/ui/Headline";
 import MetaLine from "@/app/ui/MetaLine";
-import type { Ink } from "@/app/ui/DotShadow";
+import type { Ink } from "@/app/ui/ink";
 
 export const BYLINE_SUBTITLE = "Front end developer";
 
