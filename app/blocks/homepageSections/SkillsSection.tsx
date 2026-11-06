@@ -2,6 +2,11 @@ import Layout from "./Layout";
 import { StaticCard } from "@/app/ui/Card";
 import Tag, { toneAt } from "@/app/ui/Tag";
 
+/**
+ * Both lists are in priority order: the first categories and the first skills
+ * in each are what shows up first, so put what you most want to be hired for
+ * at the top. (They used to be sorted A to Z, which buried that.)
+ */
 interface SkillCategory {
 	label: string;
 	skills: string[];
@@ -65,13 +70,11 @@ export default async function SkillsSection() {
 									{category.label}
 								</h3>
 								<ul className='flex flex-wrap gap-2'>
-									{[...category.skills]
-										.sort((a, b) => a.localeCompare(b))
-										.map((skill) => (
-											<li key={skill}>
-												<Tag tone={tone}>{skill}</Tag>
-											</li>
-										))}
+									{category.skills.map((skill) => (
+										<li key={skill}>
+											<Tag tone={tone}>{skill}</Tag>
+										</li>
+									))}
 								</ul>
 							</div>
 						);

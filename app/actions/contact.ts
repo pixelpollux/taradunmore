@@ -1,15 +1,14 @@
 "use server";
 
 import { Resend } from "resend";
+import { validateContact, type ContactErrors } from "@/lib/contactForm";
 
 export type ContactState = {
 	ok: boolean;
-	errors?: { name?: string; email?: string; subject?: string; message?: string };
+	errors?: ContactErrors;
 	formError?: string;
 	values?: { name: string; email: string; subject: string; message: string };
 };
-
-const MAX = { name: 100, email: 200, subject: 200, message: 5000 };
 
 export async function sendContact(
 	_prev: ContactState,
@@ -24,15 +23,7 @@ export async function sendContact(
 	// Bots get a fake success so they do not retry.
 	if (honeypot) return { ok: true };
 
-	const errors: NonNullable<ContactState["errors"]> = {};
-	if (!name || name.length > MAX.name)
-		errors.name = "Add your name so I know who's saying hi.";
-	if (!/^\S+@\S+\.\S+$/.test(email) || email.length > MAX.email)
-		errors.email = "That email doesn't look quite right.";
-	if (!subject || subject.length > MAX.subject)
-		errors.subject = "Add a subject so I know what it's about.";
-	if (message.length < 10 || message.length > MAX.message)
-		errors.message = "Add a quick message so I know what's up.";
+	const errors = validateContact({ name, email, subject, message });
 	if (Object.keys(errors).length) {
 		return { ok: false, errors, values: { name, email, subject, message } };
 	}

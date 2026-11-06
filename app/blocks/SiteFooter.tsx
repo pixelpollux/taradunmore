@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
+import CurrentYear from "@/app/ui/CurrentYear";
 
 const LINKS = [
 	{ href: "/#work", label: "Work" },
@@ -47,7 +48,7 @@ export default function SiteFooter() {
 					</nav>
 				</div>
 				<p className='relative mt-10 text-small'>
-					© {new Date().getFullYear()} Tara Dunmore
+					© <CurrentYear buildYear={new Date().getFullYear()} /> Tara Dunmore
 				</p>
 			</div>
 		</footer>

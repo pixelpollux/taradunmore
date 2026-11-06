@@ -4,7 +4,7 @@ import { Mail } from "lucide-react";
 import Button from "@/app/ui/Button";
 import StickerButton from "@/app/ui/StickerButton";
 import Tag from "@/app/ui/Tag";
-import { StaticCard, LinkCard } from "@/app/ui/Card";
+import { StaticCard, LinkCard, CardLink } from "@/app/ui/Card";
 import Headline from "@/app/ui/Headline";
 import Field from "@/app/ui/Field";
 import Monogram from "@/app/ui/Monogram";
@@ -118,16 +118,22 @@ export default function Styleguide() {
 						<Headline variant='card' level='h3'>Panel, amber</Headline>
 						<p className='text-small text-plum-muted'>36px radius.</p>
 					</StaticCard>
-					<LinkCard href='#main' accent='lime' pad='md'>
-						<Headline variant='card' level='h3'>Link card</Headline>
+					<LinkCard accent='lime' pad='md'>
+						<Headline variant='card' level='h3'>
+							<CardLink href='#main'>Link card</CardLink>
+						</Headline>
 						<p className='text-small text-plum-muted'>Solid ink moves.</p>
 					</LinkCard>
-					<LinkCard href='#main' accent='orchid' pad='md' tilt={0.6}>
-						<Headline variant='card' level='h3'>Tilted link</Headline>
+					<LinkCard accent='orchid' pad='md' tilt={0.6}>
+						<Headline variant='card' level='h3'>
+							<CardLink href='#main'>Tilted link</CardLink>
+						</Headline>
 						<p className='text-small text-plum-muted'>Lift keeps the tilt.</p>
 					</LinkCard>
-					<LinkCard href='https://example.com' accent='amber' pad='md' external>
-						<Headline variant='card' level='h3'>External</Headline>
+					<LinkCard accent='amber' pad='md'>
+						<Headline variant='card' level='h3'>
+							<CardLink href='https://example.com' external>External</CardLink>
+						</Headline>
 						<p className='text-small text-plum-muted'>Opens in a new tab.</p>
 					</LinkCard>
 				</div>

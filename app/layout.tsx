@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Shrikhand, Work_Sans } from "next/font/google";
 import HeaderNav from "@/app/blocks/HeaderNav";
 import SiteFooter from "@/app/blocks/SiteFooter";
+import DraftBanner from "@/app/ui/DraftBanner";
 import Grain from "@/app/ui/Grain";
 
 const SITE_DESCRIPTION =
@@ -70,6 +71,7 @@ export default function RootLayout({
 					</main>
 					<SiteFooter />
 				</div>
+				<DraftBanner />
 				<Grain />
 			</body>
 		</html>
