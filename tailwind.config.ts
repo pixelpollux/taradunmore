@@ -29,6 +29,7 @@ export default {
 			fontFamily: {
 				display: ["var(--font-display)", "Georgia", "serif"],
 				sans: ["var(--font-text)", "system-ui", "sans-serif"],
+				"sans-italic": ["var(--font-text-italic)", "var(--font-text)", "system-ui", "sans-serif"],
 			},
 			fontSize: {
 				label: ["13px", { lineHeight: "1.3", letterSpacing: "0.08em", fontWeight: "700" }],

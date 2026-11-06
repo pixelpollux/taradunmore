@@ -109,6 +109,8 @@ const POST_FIELDS = `
           }
           url
           description
+          width
+          height
         }
       }
     }
@@ -277,6 +279,8 @@ const WORK_DETAIL_FIELDS = `
 					sys { id }
 					url
 					description
+					width
+					height
 				}
 			}
 		}
@@ -377,6 +381,8 @@ export async function getContentBlock(title: string, preview: boolean = false) {
 									sys { id }
 									url
 									description
+									width
+									height
 								}
 							}
 						}

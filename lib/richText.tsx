@@ -121,8 +121,9 @@ export function renderRichText(
 								<ContentfulImage
 									src={asset.url}
 									alt={asset.description || ""}
-									width={1200}
-									height={800}
+									width={asset.width || 1200}
+									height={asset.height || 800}
+									sizes='(min-width: 800px) 740px, 100vw'
 									className='h-auto w-full'
 								/>
 							</div>
@@ -203,7 +204,7 @@ export function renderRichText(
 		renderNode,
 		renderMark: {
 			[MARKS.BOLD]: (text) => <strong className='font-bold'>{text}</strong>,
-			[MARKS.ITALIC]: (text) => <em className='italic'>{text}</em>,
+			[MARKS.ITALIC]: (text) => <em className='italic font-sans-italic'>{text}</em>,
 			[MARKS.CODE]: (text) => (
 				<code className='whitespace-nowrap rounded-lg border-2 border-plum bg-lime-100 px-[0.35em] py-[0.05em] text-[0.86em]'>
 					{text}

@@ -13,7 +13,8 @@ const contentfulLoader = ({ src, width, quality }: ContentfulImageProps) => {
   // Files served from /public ignore resize params, so pass them through as-is
   // and keep the source file itself web-sized.
   if (src.startsWith("/")) return src;
-  return `${src}?w=${width}&q=${quality || 75}`;
+  // fm=webp: Contentful serves the uploaded format (often PNG/JPEG) otherwise.
+  return `${src}?w=${width}&q=${quality || 75}&fm=webp`;
 };
 
 export default function ContentfulImage(props: ContentfulImageProps) {

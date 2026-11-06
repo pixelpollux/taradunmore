@@ -38,12 +38,21 @@ const display = Shrikhand({
 	display: "swap",
 });
 
-// Variable font: covers 400 / 500 / 700 plus italic in two files.
+// Variable font: covers 400 / 500 / 700 in one file.
 const text = Work_Sans({
 	variable: "--font-text",
-	style: ["normal", "italic"],
 	subsets: ["latin"],
 	display: "swap",
+});
+
+// Italic only appears when an editor italicizes rich text (`font-sans-italic`),
+// so it loads on demand instead of being preloaded on every page.
+const textItalic = Work_Sans({
+	variable: "--font-text-italic",
+	style: "italic",
+	subsets: ["latin"],
+	display: "swap",
+	preload: false,
 });
 
 export default function RootLayout({
@@ -52,7 +61,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang='en' className={`${display.variable} ${text.variable}`}>
+		<html lang='en' className={`${display.variable} ${text.variable} ${textItalic.variable}`}>
 			<body className='bg-paper text-plum font-sans text-body'>
 				<a href='#main' className='skip-link'>
 					Skip to content

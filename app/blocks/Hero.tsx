@@ -73,7 +73,7 @@ export default function Hero() {
 						<div className='relative rounded-[20px] border border-plum bg-surface p-4 pb-[60px]'>
 							<div className='overflow-hidden rounded-[12px] border border-plum'>
 								<ContentfulImage
-									src='/assets/imgs/headshot-4x5.jpg'
+									src='/assets/imgs/headshot-4x5.webp'
 									alt='Tara Dunmore'
 									width={800}
 									height={1000}
