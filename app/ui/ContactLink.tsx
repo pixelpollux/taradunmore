@@ -1,12 +1,6 @@
 import type { ComponentType } from "react";
 import { cn } from "@/lib/cn";
-import type { Ink } from "./DotShadow";
-
-const badge: Record<Ink, string> = {
-	lime: "bg-lime",
-	orchid: "bg-orchid",
-	amber: "bg-amber",
-};
+import { inkClass, type Ink } from "./ink";
 
 /**
  * Contact pill: icon badge + label + handle. Below 768px it collapses to an
@@ -49,7 +43,7 @@ export default function ContactLink({
 				aria-hidden='true'
 				className={cn(
 					"flex size-10 flex-none items-center justify-center rounded-full border-chip border-plum",
-					badge[tone],
+					inkClass[tone].solid,
 				)}
 			>
 				<Icon className='size-5' />

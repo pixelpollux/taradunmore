@@ -76,7 +76,7 @@ borders:
   chip: "3px"
 spacing:
   page-max: "1200px"
-  page-x: "20px"
+  nav-offset: "120px"
   section-gap: "140px"
   section-gap-mobile: "96px"
   template-gap: "96px"

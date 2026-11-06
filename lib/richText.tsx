@@ -6,6 +6,7 @@ import {
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
 import ContentfulImage from "@/lib/contentful-image";
 import DotShadow from "@/app/ui/DotShadow";
+import TextLink from "@/app/ui/TextLink";
 import { makeSlugger } from "@/lib/slugify";
 
 type RichContent = { json: any; links?: any } | null | undefined;
@@ -18,9 +19,6 @@ type Options = {
 	/** Open the first paragraph with a Shrikhand drop cap (blog posts). */
 	dropCap?: boolean;
 };
-
-const LINK =
-	"font-bold text-link underline decoration-2 underline-offset-4 hover:decoration-4";
 
 function nodeText(node: any): string {
 	if (!node) return "";
@@ -54,7 +52,7 @@ export function renderRichText(
 
 	const paragraph =
 		variant === "prose"
-			? "mb-[1.1em] text-prose max-md:text-[18px]"
+			? "mb-[1.1em] text-prose max-md:text-prose-sm"
 			: "mb-[1em] text-body";
 
 	const renderNode: RenderNode = {
@@ -79,13 +77,13 @@ export function renderRichText(
 			[BLOCKS.HEADING_2]: (node, children) => (
 				<h2
 					id={slug(nodeText(node))}
-					className='ghost mb-4 mt-12 scroll-mt-[120px] font-display text-[32px] font-normal leading-[1.1] md:text-[40px]'
+					className='ghost mb-4 mt-12 scroll-mt-nav font-display text-title-lg font-normal md:text-title-2xl'
 				>
 					{children}
 				</h2>
 			),
 			[BLOCKS.HEADING_3]: (_node, children) => (
-				<h3 className='mb-3 mt-8 text-[24px] font-bold leading-[1.3]'>
+				<h3 className='mb-3 mt-8 text-card-title font-bold leading-[1.3]'>
 					{children}
 				</h3>
 			),
@@ -101,7 +99,7 @@ export function renderRichText(
 			),
 			[BLOCKS.LIST_ITEM]: (_node, children) => <li>{children}</li>,
 			[BLOCKS.QUOTE]: (_node, children) => (
-				<blockquote className='my-8 rounded-figure border border-plum bg-orchid-100 px-6 py-5 text-[22px] font-medium leading-[1.4] [&_p]:mb-0 [&_p]:text-[22px]'>
+				<blockquote className='my-8 rounded-figure border border-plum bg-orchid-100 px-6 py-5 text-lead font-medium leading-[1.4] [&_p]:mb-0 [&_p]:text-lead'>
 					{children}
 				</blockquote>
 			),
@@ -121,8 +119,9 @@ export function renderRichText(
 								<ContentfulImage
 									src={asset.url}
 									alt={asset.description || ""}
-									width={1200}
-									height={800}
+									width={asset.width || 1200}
+									height={asset.height || 800}
+									sizes='(min-width: 800px) 740px, 100vw'
 									className='h-auto w-full'
 								/>
 							</div>
@@ -158,41 +157,14 @@ export function renderRichText(
 			[BLOCKS.TABLE_CELL]: (_node, children) => (
 				<td className='px-4 py-3 align-top [&_p]:mb-0'>{children}</td>
 			),
-			[INLINES.HYPERLINK]: (node, children) => {
-				const href: string = node.data.uri;
-				const external = /^https?:\/\//i.test(href);
-				return (
-					<a
-						href={href}
-						className={LINK}
-						{...(external && {
-							target: "_blank",
-							rel: "noopener noreferrer",
-						})}
-					>
-						{children}
-						{external && <span className='sr-only'> (opens in new tab)</span>}
-					</a>
-				);
-			},
+			[INLINES.HYPERLINK]: (node, children) => (
+				<TextLink href={node.data.uri}>{children}</TextLink>
+			),
 			[INLINES.ENTRY_HYPERLINK]: (node, children) => {
 				const target = entries.get(node?.data?.target?.sys?.id);
 				const href = target?.url ?? node?.data?.target?.fields?.url;
 				if (!href) return <>{children}</>;
-				const external = /^https?:\/\//i.test(href);
-				return (
-					<a
-						href={href}
-						className={LINK}
-						{...(external && {
-							target: "_blank",
-							rel: "noopener noreferrer",
-						})}
-					>
-						{children}
-						{external && <span className='sr-only'> (opens in new tab)</span>}
-					</a>
-				);
+				return <TextLink href={href}>{children}</TextLink>;
 			},
 			// BLOCKS.BREAK_LINE is in the types but not defined at runtime in this
 			// version, so match the literal node type.
@@ -203,7 +175,7 @@ export function renderRichText(
 		renderNode,
 		renderMark: {
 			[MARKS.BOLD]: (text) => <strong className='font-bold'>{text}</strong>,
-			[MARKS.ITALIC]: (text) => <em className='italic'>{text}</em>,
+			[MARKS.ITALIC]: (text) => <em className='italic font-sans-italic'>{text}</em>,
 			[MARKS.CODE]: (text) => (
 				<code className='whitespace-nowrap max-md:whitespace-normal max-md:[overflow-wrap:anywhere] rounded-lg border-2 border-plum bg-lime-100 px-[0.35em] py-[0.05em] text-[0.86em]'>
 					{text}

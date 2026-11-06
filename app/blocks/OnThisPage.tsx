@@ -102,7 +102,7 @@ export default function OnThisPage({ headings }: { headings: Heading[] }) {
 	const active = useActiveHeading(headings);
 
 	return (
-		<nav aria-label='On this page' className='lg:sticky lg:top-[120px]'>
+		<nav aria-label='On this page' className='lg:sticky lg:top-nav'>
 			<div className='lg:hidden'>
 				<Disclosure
 					ink='amber'

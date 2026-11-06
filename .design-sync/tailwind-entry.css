@@ -8,4 +8,5 @@
 :root {
 	--font-display: "Shrikhand", Georgia, serif;
 	--font-text: "Work Sans", system-ui, sans-serif;
+	--font-text-italic: "Work Sans", system-ui, sans-serif;
 }

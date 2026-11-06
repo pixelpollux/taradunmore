@@ -7,7 +7,7 @@ import Button from "@/app/ui/Button";
 import CoverImage from "@/app/ui/CoverImage";
 import Headline from "@/app/ui/Headline";
 import MetaLine from "@/app/ui/MetaLine";
-import type { Ink } from "@/app/ui/DotShadow";
+import { INKS_FROM_ORCHID, inkAt } from "@/app/ui/ink";
 import { BYLINE_SUBTITLE, PostCard } from "@/app/blocks/PostCards";
 import { renderRichText } from "@/lib/richText";
 import { getAllPosts, getPostAndMorePosts } from "@/lib/api";
@@ -46,8 +46,6 @@ export async function generateMetadata({
 		alternates: { canonical: `/blog/${slug}` },
 	};
 }
-
-const cardInks: Ink[] = ["orchid", "amber"];
 
 export default async function PostPage({
 	params,
@@ -117,7 +115,7 @@ export default async function PostPage({
 							id='more-posts-title'
 							variant='section'
 							level='h2'
-							className='md:text-[48px] md:leading-[1.05]'
+							className='md:text-title-3xl'
 						>
 							More posts
 						</Headline>
@@ -130,7 +128,7 @@ export default async function PostPage({
 							<li key={more.slug}>
 								<PostCard
 									post={more}
-									accent={cardInks[index % cardInks.length]}
+									accent={inkAt(index, INKS_FROM_ORCHID.slice(0, 2))}
 								/>
 							</li>
 						))}

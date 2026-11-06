@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import { navLink } from "@/app/ui/link";
 import Monogram from "@/app/ui/Monogram";
 import { cn } from "@/lib/cn";
 
@@ -15,8 +16,10 @@ const LINKS = [
 	{ href: "/#contact", label: "Contact" },
 ];
 
-const linkClass =
-	"inline-flex min-h-tap items-center rounded-full px-4 font-bold underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-orchid aria-[current=location]:decoration-orchid";
+const linkClass = cn(
+	navLink,
+	"rounded-full px-4 hover:decoration-orchid aria-[current=location]:decoration-orchid",
+);
 
 const SECTION_IDS = LINKS.map((link) => link.href.split("#")[1]);
 
@@ -103,7 +106,7 @@ export default function HeaderNav() {
 						onClick={() => setIsOpen(false)}
 					>
 						<Monogram />
-						<span className='whitespace-nowrap font-display text-[20px] leading-none md:text-[22px]'>
+						<span className='whitespace-nowrap font-display text-title-2xs leading-none md:text-title-xs'>
 							Tara Dunmore
 						</span>
 					</Link>

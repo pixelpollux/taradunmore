@@ -3,7 +3,8 @@
 import { useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { dotInk, type Ink } from "./DotShadow";
+import DotShadow from "./DotShadow";
+import type { Ink } from "./ink";
 
 /**
  * Native <details> row with a separate chevron circle. Static container, so
@@ -43,19 +44,13 @@ export default function Disclosure({
 	const shape = isOpen ? "rounded-[32px] max-md:rounded-[28px]" : "rounded-full";
 
 	return (
-		<div
-			className={cn("relative", tilt !== 0 && "tilt", className)}
-			style={tilt ? { transform: `rotate(${tilt}deg)` } : undefined}
+		<DotShadow
+			ink={ink}
+			offset={offset}
+			tilt={tilt}
+			shapeClassName={shape}
+			className={className}
 		>
-			<div
-				aria-hidden='true'
-				className={cn(
-					"pointer-events-none absolute inset-0 bg-dot multiply",
-					dotInk[ink],
-					shape,
-				)}
-				style={{ transform: `translate(${offset}px, ${offset}px)` }}
-			/>
 			<details
 				open={isOpen}
 				onToggle={(event) => {
@@ -88,6 +83,6 @@ export default function Disclosure({
 					{children}
 				</div>
 			</details>
-		</div>
+		</DotShadow>
 	);
 }

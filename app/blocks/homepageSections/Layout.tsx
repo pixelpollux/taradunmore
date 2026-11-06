@@ -5,7 +5,7 @@ import Headline from "@/app/ui/Headline";
  * Homepage section shell: a plain <section> inside the 1200px container.
  * Pass `title` for the standard section header (Headline + optional actions);
  * sections with their own title tile (About, Resume, Contact) omit it.
- * Anchors land 110px below the top so the floating nav never covers them.
+ * Anchors land --nav-offset below the top so the floating nav never covers them.
  */
 export default function Layout({
 	id,
@@ -25,7 +25,7 @@ export default function Layout({
 		<section
 			id={id}
 			aria-labelledby={labelledBy ?? (title ? `${id}-title` : undefined)}
-			className='scroll-mt-[110px]'
+			className='scroll-mt-nav'
 		>
 			<div className='mx-auto max-w-page px-5'>
 				{title && (

@@ -2,7 +2,7 @@ import { renderRichText } from "@/lib/richText";
 import Disclosure from "@/app/ui/Disclosure";
 import Headline from "@/app/ui/Headline";
 import StickerButton from "@/app/ui/StickerButton";
-import { toneAt } from "@/app/ui/Tag";
+import { inkAt } from "@/app/ui/ink";
 import Layout from "../Layout";
 
 function formatDate(dateString: string | null) {
@@ -73,7 +73,7 @@ export default function ResumeList({ items }: { items: any[] }) {
 									return (
 										<li key={`${item.companyName}-${item.roleStartDate}`}>
 											<Disclosure
-												ink={toneAt(index)}
+												ink={inkAt(index)}
 												defaultOpen={index === 0}
 												summary={
 													<span className='flex flex-col gap-1 md:flex-row md:flex-wrap md:items-baseline md:gap-x-4'>
@@ -81,7 +81,7 @@ export default function ResumeList({ items }: { items: any[] }) {
 															{formatDate(item.roleStartDate)} to{" "}
 															{formatDate(item.roleEndDate)}
 														</span>
-														<span className='font-display text-[22px] leading-tight'>
+														<span className='font-display text-title-xs leading-tight'>
 															{item.role}
 														</span>
 														<span className='text-small text-plum-muted'>

@@ -6,11 +6,10 @@ import Button from "@/app/ui/Button";
 import Disclosure from "@/app/ui/Disclosure";
 import FilterChip from "@/app/ui/FilterChip";
 import Headline from "@/app/ui/Headline";
-import type { Ink } from "@/app/ui/DotShadow";
+import { inkAt } from "@/app/ui/ink";
 import ProjectCard from "./ProjectCard";
 
 const ALL = "All";
-const dots: Ink[] = ["lime", "orchid", "amber"];
 
 type Props = { items: any[]; tags: string[] };
 
@@ -136,7 +135,7 @@ function WorkGridView({
 							<ProjectCard
 								item={item}
 								titleLevel='h2'
-								ink={dots[index % dots.length]}
+								ink={inkAt(index)}
 								tilt={index % 2 ? 0.8 : -0.8}
 							/>
 						</li>

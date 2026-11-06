@@ -201,7 +201,7 @@ export default function Styleguide() {
 			<Block title='Cover image'>
 				<div className='grid max-w-3xl gap-12 md:grid-cols-2'>
 					<CoverImage
-						url='/assets/imgs/headshot-4x5.jpg'
+						url='/assets/imgs/headshot-4x5.webp'
 						aspect='16 / 10'
 						ink='orchid'
 						tilt={-0.6}
