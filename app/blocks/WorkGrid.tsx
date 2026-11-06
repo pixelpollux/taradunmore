@@ -1,29 +1,61 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Button from "@/app/ui/Button";
 import Disclosure from "@/app/ui/Disclosure";
 import FilterChip from "@/app/ui/FilterChip";
 import Headline from "@/app/ui/Headline";
-import type { Ink } from "@/app/ui/DotShadow";
+import { inkAt } from "@/app/ui/ink";
 import ProjectCard from "./ProjectCard";
 
 const ALL = "All";
-const dots: Ink[] = ["lime", "orchid", "amber"];
+
+type Props = { items: any[]; tags: string[] };
 
 /**
  * Work index: filter chips (md and up) or a drawer (below md) over a grid of
- * project cards. Both controls drive one `active` tag; a live status line
+ * project cards. The active tag lives in the URL (`/work?tag=React`), so
+ * Back, refresh and shared links keep the filter. A live status line
  * announces the count.
+ *
+ * useSearchParams needs a Suspense boundary on a static page; the fallback
+ * is the unfiltered grid, which is what the prerendered HTML shows.
  */
-export default function WorkGrid({
+export default function WorkGrid(props: Props) {
+	return (
+		<Suspense fallback={<WorkGridView {...props} active={ALL} onChoose={() => {}} />}>
+			<UrlFilteredWorkGrid {...props} />
+		</Suspense>
+	);
+}
+
+function UrlFilteredWorkGrid({ items, tags }: Props) {
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+
+	// An unknown ?tag= (a stale link) falls back to showing everything.
+	const requested = searchParams.get("tag");
+	const active = requested && tags.includes(requested) ? requested : ALL;
+
+	const onChoose = (tag: string) => {
+		const next = new URLSearchParams(searchParams.toString());
+		if (tag === ALL) next.delete("tag");
+		else next.set("tag", tag);
+		const query = next.toString();
+		router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+	};
+
+	return <WorkGridView items={items} tags={tags} active={active} onChoose={onChoose} />;
+}
+
+function WorkGridView({
 	items,
 	tags,
-}: {
-	items: any[];
-	tags: string[];
-}) {
-	const [active, setActive] = useState(ALL);
+	active,
+	onChoose,
+}: Props & { active: string; onChoose: (tag: string) => void }) {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const options = [ALL, ...tags];
 
@@ -33,7 +65,7 @@ export default function WorkGrid({
 			: items.filter((item) => item.techTags?.includes(active));
 
 	const choose = (tag: string) => {
-		setActive(tag);
+		onChoose(tag);
 		setDrawerOpen(false);
 	};
 
@@ -103,7 +135,7 @@ export default function WorkGrid({
 							<ProjectCard
 								item={item}
 								titleLevel='h2'
-								ink={dots[index % dots.length]}
+								ink={inkAt(index)}
 								tilt={index % 2 ? 0.8 : -0.8}
 							/>
 						</li>

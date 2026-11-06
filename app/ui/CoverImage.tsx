@@ -1,6 +1,7 @@
 import ContentfulImage from "@/lib/contentful-image";
 import { cn } from "@/lib/cn";
-import DotShadow, { type Ink } from "./DotShadow";
+import DotShadow from "./DotShadow";
+import type { Ink } from "./ink";
 
 /**
  * Project and post cover. Natural-color photo in a plum-outlined frame.

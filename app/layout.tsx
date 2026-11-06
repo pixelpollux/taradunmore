@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Shrikhand, Work_Sans } from "next/font/google";
 import HeaderNav from "@/app/blocks/HeaderNav";
 import SiteFooter from "@/app/blocks/SiteFooter";
+import DraftBanner from "@/app/ui/DraftBanner";
 import Grain from "@/app/ui/Grain";
 
 const SITE_DESCRIPTION =
@@ -38,12 +39,21 @@ const display = Shrikhand({
 	display: "swap",
 });
 
-// Variable font: covers 400 / 500 / 700 plus italic in two files.
+// Variable font: covers 400 / 500 / 700 in one file.
 const text = Work_Sans({
 	variable: "--font-text",
-	style: ["normal", "italic"],
 	subsets: ["latin"],
 	display: "swap",
+});
+
+// Italic only appears when an editor italicizes rich text (`font-sans-italic`),
+// so it loads on demand instead of being preloaded on every page.
+const textItalic = Work_Sans({
+	variable: "--font-text-italic",
+	style: "italic",
+	subsets: ["latin"],
+	display: "swap",
+	preload: false,
 });
 
 export default function RootLayout({
@@ -52,24 +62,24 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang='en' className={`${display.variable} ${text.variable}`}>
+		<html lang='en' className={`${display.variable} ${text.variable} ${textItalic.variable}`}>
 			<body className='bg-paper text-plum font-sans text-body'>
 				<a href='#main' className='skip-link'>
 					Skip to content
 				</a>
 				<div className='flex min-h-screen flex-col'>
 					<HeaderNav />
-					{/* scroll-mt: the skip link lands below the sticky nav, not under it.
-					    --nav-height is set by the v1 nav; 110px matches the v2 floating nav. */}
+					{/* scroll-mt: the skip link lands below the sticky nav, not under it. */}
 					<main
 						id='main'
 						tabIndex={-1}
-						className='flex-1 scroll-mt-[var(--nav-height,110px)] focus:outline-none'
+						className='flex-1 scroll-mt-nav focus:outline-none'
 					>
 						{children}
 					</main>
 					<SiteFooter />
 				</div>
+				<DraftBanner />
 				<Grain />
 			</body>
 		</html>

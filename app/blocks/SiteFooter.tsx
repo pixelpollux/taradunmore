@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
+import CurrentYear from "@/app/ui/CurrentYear";
+import { navLink } from "@/app/ui/link";
+import { cn } from "@/lib/cn";
 
 const LINKS = [
 	{ href: "/#work", label: "Work" },
@@ -8,8 +11,7 @@ const LINKS = [
 	{ href: "/#contact", label: "Contact" },
 ];
 
-const linkClass =
-	"inline-flex min-h-tap items-center py-[10px] font-bold underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-lime";
+const linkClass = cn(navLink, "py-[10px] hover:decoration-lime");
 
 /** Plum panel, 16px in from the page edges, with a faint lime glow. */
 export default function SiteFooter() {
@@ -21,7 +23,7 @@ export default function SiteFooter() {
 					className='pointer-events-none absolute -right-24 -top-32 size-[460px] rounded-full bg-[radial-gradient(circle,var(--lime)_0%,transparent_65%)] opacity-25'
 				/>
 				<div className='relative flex flex-wrap items-start justify-between gap-x-12 gap-y-8'>
-					<p className='font-display text-[32px] leading-none'>
+					<p className='font-display text-title-lg leading-none'>
 						Tara Dunmore
 					</p>
 					<nav aria-label='Footer'>
@@ -47,7 +49,7 @@ export default function SiteFooter() {
 					</nav>
 				</div>
 				<p className='relative mt-10 text-small'>
-					© {new Date().getFullYear()} Tara Dunmore
+					© <CurrentYear buildYear={new Date().getFullYear()} /> Tara Dunmore
 				</p>
 			</div>
 		</footer>

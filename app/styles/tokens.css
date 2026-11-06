@@ -1,6 +1,6 @@
 /*
  * TaraDunmore.com design tokens (DESIGN.md v2, Plum + Lime)
- * Proposed location: app/styles/tokens.css, imported at the top of app/globals.css.
+ * Imported at the top of app/globals.css.
  * Components read the SEMANTIC tier only. Primitives exist so the semantic tier has names to point at.
  */
 
@@ -54,10 +54,11 @@
 
 	/* ---------- Space ---------- */
 	--page-max: 1200px;
-	--page-x: 20px;
 	--space-section: 140px;
 	--space-template: 96px;
 	--tap-min: 44px;
+	/* Clearance under the floating nav: anchors, headings and the sticky rail. */
+	--nav-offset: 120px;
 
 	/* ---------- Riso dials ---------- */
 	--riso-offset: 3px;

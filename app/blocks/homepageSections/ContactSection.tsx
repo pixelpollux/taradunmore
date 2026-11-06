@@ -28,6 +28,7 @@ const socials = [
 		href: "mailto:me@taradunmore.com",
 		icon: Mail,
 		tone: "amber",
+		showHandleOnMobile: true,
 	},
 ] as const;
 

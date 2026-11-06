@@ -2,8 +2,7 @@ import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
 /**
- * Proposed replacement for the repo's tailwind.config.ts (DESIGN.md v2).
- * Every value reads a CSS custom property from app/styles/tokens.css,
+ * Tailwind theme for DESIGN.md v2. Every value reads a CSS custom property from app/styles/tokens.css,
  * so tokens stay the single source of truth and utilities stay readable:
  *   bg-paper, text-plum, border-plum, shadow-pop-lime, rounded-card, font-display, bg-grad-orchid-lime
  * Raw hex values and Tailwind's stock palette should not appear in components.
@@ -11,7 +10,6 @@ import typography from "@tailwindcss/typography";
 export default {
 	content: [
 		"./app/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
 		"./lib/**/*.{ts,tsx}",
 	],
 	theme: {
@@ -29,6 +27,7 @@ export default {
 			fontFamily: {
 				display: ["var(--font-display)", "Georgia", "serif"],
 				sans: ["var(--font-text)", "system-ui", "sans-serif"],
+				"sans-italic": ["var(--font-text-italic)", "var(--font-text)", "system-ui", "sans-serif"],
 			},
 			fontSize: {
 				label: ["13px", { lineHeight: "1.3", letterSpacing: "0.08em", fontWeight: "700" }],
@@ -37,6 +36,17 @@ export default {
 				prose: ["19px", { lineHeight: "1.7" }],
 				lead: ["22px", { lineHeight: "1.45", fontWeight: "500" }],
 				"card-title": ["24px", { lineHeight: "1.15" }],
+				// Display-font steps between card-title and the page headlines.
+				"title-2xs": ["20px", { lineHeight: "1" }],
+				"title-xs": ["22px", { lineHeight: "1.2" }],
+				"title-sm": ["26px", { lineHeight: "1.15" }],
+				"title-md": ["30px", { lineHeight: "1.05" }],
+				"title-lg": ["32px", { lineHeight: "1.1" }],
+				"title-xl": ["34px", { lineHeight: "1.1" }],
+				"title-2xl": ["40px", { lineHeight: "1.1" }],
+				"title-3xl": ["48px", { lineHeight: "1.05" }],
+				"page-detail": ["clamp(46px, 7vw, 84px)", { lineHeight: "1.04" }],
+				"prose-sm": ["18px", { lineHeight: "1.7" }],
 				"section-title": ["clamp(44px, 6vw, 64px)", { lineHeight: "1.05" }],
 				"page-title": ["clamp(46px, 8vw, 96px)", { lineHeight: "1.04" }],
 				display: ["clamp(56px, 9vw, 108px)", { lineHeight: "1.02" }],
@@ -77,6 +87,8 @@ export default {
 				section: "var(--space-section)",
 				template: "var(--space-template)",
 				tap: "var(--tap-min)",
+				// Clearance under the floating nav: scroll-mt-nav, top-nav.
+				nav: "var(--nav-offset)",
 			},
 			minHeight: {
 				tap: "var(--tap-min)",

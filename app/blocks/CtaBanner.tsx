@@ -17,7 +17,7 @@ export default function CtaBanner() {
 						<Headline
 							variant='section'
 							level='h2'
-							className='md:text-[48px] md:leading-[1.05]'
+							className='md:text-title-3xl'
 						>
 							Like what you see?
 						</Headline>

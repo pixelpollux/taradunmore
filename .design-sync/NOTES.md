@@ -15,7 +15,7 @@ A personal Next.js site, not a publishable package: no Storybook, no `dist/`. Th
 1. **Thin redirects** (Button, Headline, Tag, FilterChip, Disclosure, DotShadow, Monogram, StickerButton, ContactLink, Field, DateDisplay, MetaLine, BrandIcons): `export { default as X } from "../../app/ui/X"`. Relative path (the converter's discovery has no `@/` alias) and a **named** re-export (an `export *` barrel never forwards `default`, which silently drops the component).
 2. **Generated shims** (Avatar, CoverImage, BackLink, Card): copies of the real component with `next/image` and `next/link` replaced by a plain `<img>` and `<a>`. Neither Next module runs in a standalone browser bundle (they read `process.env` at module init, which throws and takes the **whole bundle** down with it). Regenerate with `bash .design-sync/make-shims.sh` after editing any of those four files in `app/ui/`. `contentful-image.tsx` is the hand-kept `<img>` stand-in for `lib/contentful-image.tsx`.
 
-`Card.tsx` exports two components, `StaticCard` and `LinkCard`; each has its own docs stub and `dtsPropsFor` entry. `cfg.componentSrcMap: { "ContentfulImage": null }` stops the shim being counted as a component.
+`Card.tsx` exports three components, `StaticCard`, `LinkCard` and `CardLink` (the one link inside a LinkCard); each has its own docs stub and `dtsPropsFor` entry. `cfg.componentSrcMap: { "ContentfulImage": null }` stops the shim being counted as a component.
 
 ## CSS and fonts
 

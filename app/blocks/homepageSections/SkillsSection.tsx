@@ -1,7 +1,13 @@
 import Layout from "./Layout";
 import { StaticCard } from "@/app/ui/Card";
-import Tag, { toneAt } from "@/app/ui/Tag";
+import Tag from "@/app/ui/Tag";
+import { inkAt, inkClass } from "@/app/ui/ink";
 
+/**
+ * Both lists are in priority order: the first categories and the first skills
+ * in each are what shows up first, so put what you most want to be hired for
+ * at the top. (They used to be sorted A to Z, which buried that.)
+ */
 interface SkillCategory {
 	label: string;
 	skills: string[];
@@ -42,36 +48,28 @@ const skillCategories: SkillCategory[] = [
 	{ label: "AI Tools", skills: ["Claude Code", "Copilot", "Vercel V0"] },
 ];
 
-const dotFill = {
-	lime: "bg-lime",
-	orchid: "bg-orchid",
-	amber: "bg-amber",
-} as const;
-
 export default async function SkillsSection() {
 	return (
 		<Layout id='skills' title='Skills'>
 			<StaticCard ink='lime' offset={14} shape='panel' pad='lg'>
 				<div className='grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-x-10 gap-y-10'>
 					{skillCategories.map((category, index) => {
-						const tone = toneAt(index);
+						const tone = inkAt(index);
 						return (
 							<div key={category.label}>
 								<h3 className='mb-4 flex items-center gap-2 text-label uppercase'>
 									<span
 										aria-hidden='true'
-										className={`size-3 flex-none rounded-full border-2 border-plum ${dotFill[tone]}`}
+										className={`size-3 flex-none rounded-full border-2 border-plum ${inkClass[tone].solid}`}
 									/>
 									{category.label}
 								</h3>
 								<ul className='flex flex-wrap gap-2'>
-									{[...category.skills]
-										.sort((a, b) => a.localeCompare(b))
-										.map((skill) => (
-											<li key={skill}>
-												<Tag tone={tone}>{skill}</Tag>
-											</li>
-										))}
+									{category.skills.map((skill) => (
+										<li key={skill}>
+											<Tag tone={tone}>{skill}</Tag>
+										</li>
+									))}
 								</ul>
 							</div>
 						);

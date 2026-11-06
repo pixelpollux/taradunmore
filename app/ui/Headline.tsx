@@ -7,9 +7,9 @@ const variants = {
 	section: "text-section-title ghost",
 	card: "text-card-title",
 	// Detail pages (case study, post): one step smaller than the index titles.
-	pageDetail: "text-[clamp(46px,7vw,84px)] leading-[1.04] ghost",
-	// Featured project and latest post titles: 34px.
-	feature: "text-[34px] leading-[1.1]",
+	pageDetail: "text-page-detail ghost",
+	// Featured project and latest post titles.
+	feature: "text-title-xl",
 } as const;
 
 const defaultLevel = {

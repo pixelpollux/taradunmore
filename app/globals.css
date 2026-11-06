@@ -44,9 +44,11 @@
 	.lift:hover {
 		transform: var(--lift);
 	}
+	/* Reduced motion drops the animation, not the hover state: the lift still
+	   lands, instantly. */
 	@media (prefers-reduced-motion: reduce) {
-		.lift:hover {
-			transform: none;
+		.lift {
+			transition: none;
 		}
 	}
 	/* static containers lose their tilt on mobile */

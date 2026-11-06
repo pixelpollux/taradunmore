@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import { navLink } from "@/app/ui/link";
 import Monogram from "@/app/ui/Monogram";
 import { cn } from "@/lib/cn";
 
@@ -15,8 +16,12 @@ const LINKS = [
 	{ href: "/#contact", label: "Contact" },
 ];
 
-const linkClass =
-	"inline-flex min-h-tap items-center rounded-full px-4 font-bold underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-orchid";
+const linkClass = cn(
+	navLink,
+	"rounded-full px-4 hover:decoration-orchid aria-[current=location]:decoration-orchid",
+);
+
+const SECTION_IDS = LINKS.map((link) => link.href.split("#")[1]);
 
 /**
  * Floating pill nav: sticky, surface fill, 4px plum border, no shadow (it
@@ -25,11 +30,46 @@ const linkClass =
 export default function HeaderNav() {
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
+	const [activeId, setActiveId] = useState<string | null>(null);
 	const menuButtonRef = useRef<HTMLButtonElement>(null);
+	const navRef = useRef<HTMLElement>(null);
 	const onBlog = pathname.startsWith("/blog");
 
 	// Close the menu after navigating.
 	useEffect(() => setIsOpen(false), [pathname]);
+
+	// On the homepage, mark the section crossing the middle of the viewport as
+	// the current location in the nav.
+	useEffect(() => {
+		if (pathname !== "/") {
+			setActiveId(null);
+			return;
+		}
+		const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+			(section): section is HTMLElement => section !== null,
+		);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) setActiveId(entry.target.id);
+					else setActiveId((current) => (current === entry.target.id ? null : current));
+				}
+			},
+			{ rootMargin: "-45% 0px -50% 0px" },
+		);
+		sections.forEach((section) => observer.observe(section));
+		return () => observer.disconnect();
+	}, [pathname]);
+
+	// A click or tap outside the nav closes the open menu.
+	useEffect(() => {
+		if (!isOpen) return;
+		function onPointerDown(event: PointerEvent) {
+			if (!navRef.current?.contains(event.target as Node)) setIsOpen(false);
+		}
+		document.addEventListener("pointerdown", onPointerDown);
+		return () => document.removeEventListener("pointerdown", onPointerDown);
+	}, [isOpen]);
 
 	// Escape closes the menu and hands focus back to its button.
 	useEffect(() => {
@@ -58,7 +98,7 @@ export default function HeaderNav() {
 
 	return (
 		<header className='sticky top-4 z-50 px-4'>
-			<nav aria-label='Main' className='relative mx-auto max-w-page'>
+			<nav ref={navRef} aria-label='Main' className='relative mx-auto max-w-page'>
 				<div className='flex min-h-[64px] items-center justify-between gap-4 rounded-full border border-plum bg-surface py-2 pl-4 pr-3 md:pr-4'>
 					<Link
 						href='/'
@@ -66,7 +106,7 @@ export default function HeaderNav() {
 						onClick={() => setIsOpen(false)}
 					>
 						<Monogram />
-						<span className='whitespace-nowrap font-display text-[20px] leading-none md:text-[22px]'>
+						<span className='whitespace-nowrap font-display text-title-2xs leading-none md:text-title-xs'>
 							Tara Dunmore
 						</span>
 					</Link>
@@ -74,7 +114,13 @@ export default function HeaderNav() {
 					<ul className='hidden items-center gap-1 lg:flex'>
 						{LINKS.map((link) => (
 							<li key={link.href}>
-								<Link href={link.href} className={linkClass}>
+								<Link
+									href={link.href}
+									aria-current={
+										activeId === link.href.split("#")[1] ? "location" : undefined
+									}
+									className={linkClass}
+								>
 									{link.label}
 								</Link>
 							</li>
@@ -110,6 +156,9 @@ export default function HeaderNav() {
 						<li key={link.href}>
 							<Link
 								href={link.href}
+								aria-current={
+									activeId === link.href.split("#")[1] ? "location" : undefined
+								}
 								className={cn(linkClass, "w-full")}
 								onClick={() => setIsOpen(false)}
 							>
