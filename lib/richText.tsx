@@ -205,7 +205,7 @@ export function renderRichText(
 			[MARKS.BOLD]: (text) => <strong className='font-bold'>{text}</strong>,
 			[MARKS.ITALIC]: (text) => <em className='italic'>{text}</em>,
 			[MARKS.CODE]: (text) => (
-				<code className='whitespace-nowrap rounded-lg border-2 border-plum bg-lime-100 px-[0.35em] py-[0.05em] text-[0.86em]'>
+				<code className='whitespace-nowrap max-md:whitespace-normal max-md:[overflow-wrap:anywhere] rounded-lg border-2 border-plum bg-lime-100 px-[0.35em] py-[0.05em] text-[0.86em]'>
 					{text}
 				</code>
 			),

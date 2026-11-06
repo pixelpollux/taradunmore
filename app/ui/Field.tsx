@@ -8,6 +8,8 @@ import { cn } from "@/lib/cn";
 export default function Field({
 	label,
 	name,
+	id: idProp,
+	maxLength,
 	type = "text",
 	multiline = false,
 	rows = 6,
@@ -19,6 +21,9 @@ export default function Field({
 }: {
 	label: string;
 	name: string;
+	/** Stable id, so an error summary can link to the field. */
+	id?: string;
+	maxLength?: number;
 	type?: string;
 	multiline?: boolean;
 	rows?: number;
@@ -28,11 +33,13 @@ export default function Field({
 	error?: string;
 	className?: string;
 }) {
-	const id = useId();
+	const generatedId = useId();
+	const id = idProp ?? generatedId;
 	const errorId = `${id}-error`;
 	const shared = {
 		id,
 		name,
+		maxLength,
 		required,
 		autoComplete,
 		defaultValue,
