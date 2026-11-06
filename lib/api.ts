@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { readingTime } from "@/lib/readingTime";
 
 // --- Fetching ---------------------------------------------------------------
@@ -7,8 +8,13 @@ import { readingTime } from "@/lib/readingTime";
  * revalidation call refreshes everything. Fails fast: a bad status or a real
  * GraphQL error throws with the cause in the message, instead of returning
  * half a response that crashes a page later.
+ *
+ * Wrapped in React `cache`, because Next does not memoize POST requests: the
+ * same query asked twice in one render (generateMetadata and the page, the
+ * work list and its prev/next lookup) hits Contentful once. Callers get the
+ * same response object, so treat it as read-only.
  */
-async function fetchGraphQL(query: string, preview = false): Promise<any> {
+const request = cache(async (query: string, preview: boolean): Promise<any> => {
 	const res = await fetch(
 		`https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
 		{
@@ -62,6 +68,32 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
 		);
 	}
 	return json;
+});
+
+// `cache` keys on the argument list, so always pass `preview` explicitly.
+function fetchGraphQL(query: string, preview = false): Promise<any> {
+	return request(query, preview);
+}
+
+/**
+ * The list queries cap their results. Ask Contentful for `total` too and
+ * warn when entries are being left out, so a growing blog or portfolio does
+ * not silently drop its oldest items.
+ */
+const LIMITS = { posts: 20, work: 50, resume: 20 } as const;
+
+function warnIfCapped(
+	name: string,
+	collection: { total?: number; items?: unknown[] } | null | undefined,
+	limit: number,
+) {
+	const total = collection?.total ?? 0;
+	const shown = collection?.items?.length ?? 0;
+	if (total > shown) {
+		console.warn(
+			`Contentful: ${name} has ${total} entries but only ${shown} are fetched (limit ${limit}). Raise the limit or add pagination.`,
+		);
+	}
 }
 
 // --- Posts ------------------------------------------------------------------
@@ -164,7 +196,8 @@ export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
 		`query {
       postCollection(where: { slug_exists: true }, order: date_DESC, preview: ${
 			isDraftMode ? "true" : "false"
-		}, limit: 20) {
+		}, limit: ${LIMITS.posts}) {
+        total
         items {
           ${POST_LIST_FIELDS}
         }
@@ -172,6 +205,7 @@ export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
     }`,
 		isDraftMode,
 	);
+	warnIfCapped("posts", entries?.data?.postCollection, LIMITS.posts);
 	return extractPostEntries(entries);
 }
 
@@ -216,7 +250,8 @@ export async function getPostAndMorePosts(
 export async function getResumeItems(preview: boolean = false) {
 	const entries = await fetchGraphQL(
 		`query {
-			resumeItemCollection(order: roleEndDate_DESC, preview: ${preview}, limit: 20) {
+			resumeItemCollection(order: roleEndDate_DESC, preview: ${preview}, limit: ${LIMITS.resume}) {
+				total
 				items {
 					companyName
 					role
@@ -232,6 +267,11 @@ export async function getResumeItems(preview: boolean = false) {
 		preview,
 	);
 
+	warnIfCapped(
+		"resume items",
+		entries?.data?.resumeItemCollection,
+		LIMITS.resume,
+	);
 	return entries?.data?.resumeItemCollection?.items ?? [];
 }
 
@@ -302,7 +342,8 @@ export async function getWorkItemList(preview: boolean = false) {
 	const run = (withOrder: boolean) =>
 		fetchGraphQL(
 			`query {
-				workItemCollection(${withOrder ? "order: order_ASC, " : ""}preview: ${preview}, limit: 50) {
+				workItemCollection(${withOrder ? "order: order_ASC, " : ""}preview: ${preview}, limit: ${LIMITS.work}) {
+					total
 					items {
 						${WORK_LIST_FIELDS}
 						${withOrder ? "order" : ""}
@@ -326,6 +367,7 @@ export async function getWorkItemList(preview: boolean = false) {
 		entries = await run(false);
 	}
 
+	warnIfCapped("work items", entries?.data?.workItemCollection, LIMITS.work);
 	return (entries?.data?.workItemCollection?.items ?? []).map(
 		normalizeWorkItem,
 	);
