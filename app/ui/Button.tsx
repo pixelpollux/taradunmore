@@ -4,6 +4,7 @@ import type {
 	ReactNode,
 } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { textLink } from "./link";
 
 const button = cva(
 	"inline-flex min-h-tap items-center justify-center gap-2 font-bold leading-tight",
@@ -14,7 +15,7 @@ const button = cva(
 					"lift no-underline rounded-full border border-plum bg-plum px-6 py-2 text-paper shadow-pop-lime focus-visible:outline-plum",
 				secondary:
 					"lift no-underline rounded-full border border-plum bg-surface px-6 py-2 text-plum shadow-pop-orchid",
-				text: "text-link underline decoration-2 underline-offset-4 hover:decoration-4",
+				text: textLink,
 				disabled:
 					"cursor-not-allowed no-underline rounded-full border border-dashed border-plum-muted bg-surface px-6 py-2 text-plum-muted",
 			},

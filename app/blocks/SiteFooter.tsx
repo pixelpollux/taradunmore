@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
+import { navLink } from "@/app/ui/link";
+import { cn } from "@/lib/cn";
 
 const LINKS = [
 	{ href: "/#work", label: "Work" },
@@ -8,8 +10,7 @@ const LINKS = [
 	{ href: "/#contact", label: "Contact" },
 ];
 
-const linkClass =
-	"inline-flex min-h-tap items-center py-[10px] font-bold underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-lime";
+const linkClass = cn(navLink, "py-[10px] hover:decoration-lime");
 
 /** Plum panel, 16px in from the page edges, with a faint lime glow. */
 export default function SiteFooter() {

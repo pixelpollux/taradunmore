@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import { navLink } from "@/app/ui/link";
 import Monogram from "@/app/ui/Monogram";
 import { cn } from "@/lib/cn";
 
@@ -15,8 +16,7 @@ const LINKS = [
 	{ href: "/#contact", label: "Contact" },
 ];
 
-const linkClass =
-	"inline-flex min-h-tap items-center rounded-full px-4 font-bold underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-orchid";
+const linkClass = cn(navLink, "rounded-full px-4 hover:decoration-orchid");
 
 /**
  * Floating pill nav: sticky, surface fill, 4px plum border, no shadow (it

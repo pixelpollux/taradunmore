@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import DotShadow, { type Ink } from "./DotShadow";
+import { tiltProps } from "./tilt";
 
 const padding = {
 	none: "",
@@ -112,12 +113,5 @@ export function LinkCard({
 		</Link>
 	);
 
-	return (
-		<div
-			className={tilt !== 0 ? "tilt" : undefined}
-			style={tilt ? { transform: `rotate(${tilt}deg)` } : undefined}
-		>
-			{body}
-		</div>
-	);
+	return <div {...tiltProps(tilt)}>{body}</div>;
 }

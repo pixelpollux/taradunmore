@@ -6,6 +6,7 @@ import {
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
 import ContentfulImage from "@/lib/contentful-image";
 import DotShadow from "@/app/ui/DotShadow";
+import TextLink from "@/app/ui/TextLink";
 import { makeSlugger } from "@/lib/slugify";
 
 type RichContent = { json: any; links?: any } | null | undefined;
@@ -18,9 +19,6 @@ type Options = {
 	/** Open the first paragraph with a Shrikhand drop cap (blog posts). */
 	dropCap?: boolean;
 };
-
-const LINK =
-	"font-bold text-link underline decoration-2 underline-offset-4 hover:decoration-4";
 
 function nodeText(node: any): string {
 	if (!node) return "";
@@ -159,41 +157,14 @@ export function renderRichText(
 			[BLOCKS.TABLE_CELL]: (_node, children) => (
 				<td className='px-4 py-3 align-top [&_p]:mb-0'>{children}</td>
 			),
-			[INLINES.HYPERLINK]: (node, children) => {
-				const href: string = node.data.uri;
-				const external = /^https?:\/\//i.test(href);
-				return (
-					<a
-						href={href}
-						className={LINK}
-						{...(external && {
-							target: "_blank",
-							rel: "noopener noreferrer",
-						})}
-					>
-						{children}
-						{external && <span className='sr-only'> (opens in new tab)</span>}
-					</a>
-				);
-			},
+			[INLINES.HYPERLINK]: (node, children) => (
+				<TextLink href={node.data.uri}>{children}</TextLink>
+			),
 			[INLINES.ENTRY_HYPERLINK]: (node, children) => {
 				const target = entries.get(node?.data?.target?.sys?.id);
 				const href = target?.url ?? node?.data?.target?.fields?.url;
 				if (!href) return <>{children}</>;
-				const external = /^https?:\/\//i.test(href);
-				return (
-					<a
-						href={href}
-						className={LINK}
-						{...(external && {
-							target: "_blank",
-							rel: "noopener noreferrer",
-						})}
-					>
-						{children}
-						{external && <span className='sr-only'> (opens in new tab)</span>}
-					</a>
-				);
+				return <TextLink href={href}>{children}</TextLink>;
 			},
 			// BLOCKS.BREAK_LINE is in the types but not defined at runtime in this
 			// version, so match the literal node type.
