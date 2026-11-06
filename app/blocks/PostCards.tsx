@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { LinkCard } from "@/app/ui/Card";
+import { CardLink, LinkCard } from "@/app/ui/Card";
 import Avatar from "@/app/ui/Avatar";
 import CoverImage from "@/app/ui/CoverImage";
 import DateDisplay from "@/app/ui/DateDisplay";
@@ -12,7 +12,7 @@ export const BYLINE_SUBTITLE = "Front end developer";
 /** The newest post, wide: cover left, text right (stacks on mobile). */
 export function LatestPost({ post }: { post: any }) {
 	return (
-		<LinkCard href={`/blog/${post.slug}`} accent='lime'>
+		<LinkCard accent='lime'>
 			<div className='flex flex-col md:flex-row'>
 				<div className='md:flex-[3] md:shadow-divider'>
 					<CoverImage
@@ -27,7 +27,7 @@ export function LatestPost({ post }: { post: any }) {
 				<div className='flex flex-col gap-4 p-6 max-md:border-t-4 max-md:border-plum md:flex-[2] md:p-8'>
 					<MetaLine date={post.date} minutes={post.readingMinutes} />
 					<Headline variant='feature' level='h3'>
-						{post.title}
+						<CardLink href={`/blog/${post.slug}`}>{post.title}</CardLink>
 					</Headline>
 					<p className='text-lead'>{post.excerpt}</p>
 					{post.author && (
@@ -48,7 +48,7 @@ export function LatestPost({ post }: { post: any }) {
 /** One of the "More posts" cards: cover, date and read time, title, excerpt. */
 export function PostCard({ post, accent }: { post: any; accent: Ink }) {
 	return (
-		<LinkCard href={`/blog/${post.slug}`} accent={accent} className='h-full'>
+		<LinkCard accent={accent} className='h-full'>
 			<div className='flex h-full flex-col'>
 				<div className='shadow-divider'>
 					<CoverImage
@@ -61,7 +61,7 @@ export function PostCard({ post, accent }: { post: any; accent: Ink }) {
 				<div className='flex flex-1 flex-col gap-3 p-5'>
 					<MetaLine date={post.date} minutes={post.readingMinutes} />
 					<Headline variant='card' level='h3'>
-						{post.title}
+						<CardLink href={`/blog/${post.slug}`}>{post.title}</CardLink>
 					</Headline>
 					<p className='text-small text-plum-muted'>{post.excerpt}</p>
 				</div>
@@ -73,14 +73,14 @@ export function PostCard({ post, accent }: { post: any; accent: Ink }) {
 /** A row in "Earlier posts": date | title and excerpt | read time | arrow. */
 export function PostRow({ post, accent }: { post: any; accent: Ink }) {
 	return (
-		<LinkCard href={`/blog/${post.slug}`} accent={accent}>
+		<LinkCard accent={accent}>
 			<div className='flex flex-col gap-3 p-5 md:grid md:grid-cols-[130px_1fr_auto_44px] md:items-center md:gap-6 md:px-6'>
 				<p className='text-label uppercase'>
 					<DateDisplay dateString={post.date} />
 				</p>
 				<div>
 					<Headline variant='card' level='h3'>
-						{post.title}
+						<CardLink href={`/blog/${post.slug}`}>{post.title}</CardLink>
 					</Headline>
 					<p className='mt-1 text-small text-plum-muted'>{post.excerpt}</p>
 				</div>

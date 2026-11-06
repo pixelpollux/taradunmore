@@ -5,7 +5,7 @@ import Button from "@/app/ui/Button";
 import BackLink from "@/app/ui/BackLink";
 import CoverImage from "@/app/ui/CoverImage";
 import Headline from "@/app/ui/Headline";
-import { LinkCard } from "@/app/ui/Card";
+import { CardLink, LinkCard } from "@/app/ui/Card";
 import CtaBanner from "@/app/blocks/CtaBanner";
 import OnThisPage from "@/app/blocks/OnThisPage";
 import { ProjectTags } from "@/app/blocks/ProjectCard";
@@ -61,7 +61,7 @@ function AdjacentCard({
 	accent: "lime" | "orchid";
 }) {
 	return (
-		<LinkCard href={`/work/${item.slug}`} accent={accent} pad='md'>
+		<LinkCard accent={accent} pad='md'>
 			<div className='flex items-center gap-5'>
 				<div className='w-24 flex-none'>
 					<CoverImage
@@ -76,7 +76,10 @@ function AdjacentCard({
 				<div>
 					<p className='mb-1 text-label uppercase'>{label}</p>
 					<Headline variant='card' level='h3'>
-						{item.title}
+						<CardLink href={`/work/${item.slug}`}>
+							<span className='sr-only'>{label}: </span>
+							{item.title}
+						</CardLink>
 					</Headline>
 				</div>
 			</div>
